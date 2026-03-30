@@ -31,29 +31,135 @@
  * }
  */
 const NOTES_DATA = [
-  /* ── EXAMPLE (remove or replace with real data) ──
+
+  // ── GS1 · Physical Geography ──
   {
-    id:        'physical_geography_glaciation_revision_001',
+    id:        'gs1_physical_geography_glaciation_revision_001',
     type:      'note',
     gs:        'gs1',
-    title:     'Glaciation',
-    subtopic:  'GS1 → Physical Geography → Glaciation',
-    pyqYears:  [2019, 2021, 2023],
+    title:     'Glaciation & Glacial Landforms',
+    subtopic:  'GS1 → Physical Geography → Geomorphology → Glaciation',
+    pyqYears:  [2014, 2019, 2021],
     gapStatus: 'complete',
-    source:    'NCERT_Geog_Ch6.pdf',
-    createdAt: '2026-03-30',
-    file:      'notes/glaciation.html',
-    summary:   'Hanging valleys, drumlins, eskers, cirques, and glacial erosion processes.'
+    source:    'NCERT_Class11_Geog_Ch3.pdf',
+    createdAt: '2026-03-31',
+    file:      'notes/template.html',
+    summary:   'Cirques, arêtes, U-shaped valleys, hanging valleys, drumlins, eskers, and the difference between erosional vs depositional glacial landforms.'
   },
-  ── END EXAMPLE ── */
+
+  // ── GS2 · Polity & Governance ──
+  {
+    id:        'gs2_polity_federalism_revision_001',
+    type:      'note',
+    gs:        'gs2',
+    title:     'Federalism in India',
+    subtopic:  'GS2 → Indian Polity → Federalism → Centre-State Relations',
+    pyqYears:  [2016, 2018, 2022],
+    gapStatus: 'complete',
+    source:    'Laxmikanth_Ch7_Federalism.pdf',
+    createdAt: '2026-03-31',
+    file:      'notes/template.html',
+    summary:   'Unitary bias in Indian federalism, 7th Schedule (Union/State/Concurrent lists), Governor\'s role, Article 356, Sarkaria Commission recommendations.'
+  },
+
+  // ── GS3 · Economy ──
+  {
+    id:        'gs3_economy_monetary_policy_revision_001',
+    type:      'note',
+    gs:        'gs3',
+    title:     'Monetary Policy & RBI',
+    subtopic:  'GS3 → Indian Economy → Money & Banking → Monetary Policy',
+    pyqYears:  [2017, 2020, 2023],
+    gapStatus: 'partial',
+    source:    'RBI_Annual_Report_2024.pdf',
+    createdAt: '2026-03-31',
+    file:      'notes/template.html',
+    summary:   'Repo rate, reverse repo, CRR, SLR, OMO, MPC composition, inflation targeting framework (4±2%), transmission mechanism and recent rate cycle.'
+  },
+
+  // ── GS4 · Ethics ──
+  {
+    id:        'gs4_ethics_emotional_intelligence_revision_001',
+    type:      'note',
+    gs:        'gs4',
+    title:     'Emotional Intelligence in Administration',
+    subtopic:  'GS4 → Ethics → Aptitude & Foundational Values → Emotional Intelligence',
+    pyqYears:  [2015, 2019, 2021, 2024],
+    gapStatus: 'complete',
+    source:    'Lexicon_Ethics_Ch4.pdf',
+    createdAt: '2026-03-31',
+    file:      'notes/template.html',
+    summary:   'Goleman\'s 5 components (self-awareness, self-regulation, motivation, empathy, social skills), EI vs IQ in governance, case studies for civil servants.'
+  },
+
 ];
 
 const PRELIMS_DATA = [
-  /* Prelims fact bank entries — same schema, type: 'prelims' */
+
+  // ── GS1 Prelims ──
+  {
+    id:        'gs1_geography_rivers_prelims_001',
+    type:      'prelims',
+    gs:        'gs1',
+    title:     'Indian Rivers — Fact Bank',
+    subtopic:  'GS1 → Indian Geography → Drainage Systems → Peninsular Rivers',
+    pyqYears:  [2013, 2016, 2018, 2022],
+    gapStatus: 'complete',
+    source:    'NCERT_Class11_India_Physical_Ch3.pdf',
+    createdAt: '2026-03-31',
+    file:      'prelims/rivers.html',
+    summary:   '32 TRUE/FALSE statements + 8 MCQs on river origins, tributaries, interlinking projects, and river-town pairs.'
+  },
+
+  // ── GS3 Prelims ──
+  {
+    id:        'gs3_environment_biodiversity_prelims_001',
+    type:      'prelims',
+    gs:        'gs3',
+    title:     'Biodiversity & Conservation',
+    subtopic:  'GS3 → Environment → Biodiversity → Protected Areas & International Conventions',
+    pyqYears:  [2014, 2019, 2021, 2023],
+    gapStatus: 'partial',
+    source:    'Shankar_Environment_Ch5.pdf',
+    createdAt: '2026-03-31',
+    file:      'prelims/biodiversity.html',
+    summary:   'IUCN categories, Ramsar sites, biosphere reserves, Project Tiger stats, CBD/COP15 Kunming targets, and endemic species trap questions.'
+  },
+
 ];
 
 const MAINS_DATA = [
-  /* Mains frameworks — same schema, type: 'mains' */
+
+  // ── GS2 Mains ──
+  {
+    id:        'gs2_governance_RTI_mains_001',
+    type:      'mains',
+    gs:        'gs2',
+    title:     'RTI & Transparency in Governance',
+    subtopic:  'GS2 → Governance → Transparency & Accountability → Right to Information',
+    pyqYears:  [2015, 2018, 2020],
+    gapStatus: 'complete',
+    source:    'ARC2_Report_RTI.pdf',
+    createdAt: '2026-03-31',
+    file:      'mains/rti.html',
+    summary:   'Intro paragraph + 3 body skeletons (social audit, exemptions debate, 2019 amendment critique) + conclusion bank for 150-word answers.'
+  },
+
+  // ── GS4 Mains ──
+  {
+    id:        'gs4_ethics_case_study_probity_mains_001',
+    type:      'mains',
+    gs:        'gs4',
+    title:     'Probity in Public Life',
+    subtopic:  'GS4 → Ethics → Public/Civil Service Values → Probity & Integrity',
+    pyqYears:  [2016, 2019, 2022, 2024],
+    gapStatus: 'complete',
+    source:    'Lexicon_Ethics_Ch6.pdf',
+    createdAt: '2026-03-31',
+    file:      'mains/probity.html',
+    summary:   'Intro para on "probity as the foundation of democracy" + answer skeleton for conflict-of-interest, whistle-blower protection, and asset disclosure.'
+  },
+
 ];
 
 
