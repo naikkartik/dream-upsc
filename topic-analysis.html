@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic Wise Analysis — Dream UPSC</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOPIC ANALYSIS PAGE STYLES ── */
+    .ta-hero {
+      padding: 48px 32px 36px;
+      text-align: center;
+      background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(79,142,247,0.06) 0%, transparent 70%);
+      border-bottom: 1px solid var(--border);
+    }
+    .ta-hero-inner { max-width: 800px; margin: 0 auto; }
+    .ta-subtitle {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .ta-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-pri);
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .ta-desc {
+      font-size: 14px;
+      color: var(--text-sec);
+      margin-bottom: 24px;
+    }
+
+    /* ── SUBJECT TABS ── */
+    .subject-tabs {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 0;
+      flex-wrap: wrap;
+    }
+    .subject-tab {
+      padding: 8px 20px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-sec);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .subject-tab:hover {
+      border-color: var(--border-hov);
+      color: var(--text-pri);
+    }
+    .subject-tab.active {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .subject-tab.coming-soon {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* ── STATS BAR ── */
+    .ta-stats {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .ta-stat {
+      flex: 1;
+      padding: 12px 24px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .ta-stat:last-child { border-right: none; }
+    .ta-stat-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--accent);
+      font-family: var(--font-mono);
+    }
+    .ta-stat-label {
+      font-size: 11px;
+      color: var(--text-mute);
+      margin-top: 2px;
+    }
+
+    /* ── CONTENT AREA ── */
+    .ta-content { max-width: 960px; margin: 0 auto; padding: 32px 24px; }
+
+    /* ── SEARCH & TABS ── */
+    .ta-toolbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .ta-search-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 200px;
+    }
+    .ta-search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: var(--text-mute);
+    }
+    .ta-search {
+      width: 100%;
+      padding: 10px 12px 10px 38px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-pri);
+      font-size: 13px;
+      font-family: var(--font-sans);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .ta-search:focus { border-color: var(--accent); }
+    .ta-search::placeholder { color: var(--text-mute); }
+
+    .view-tabs {
+      display: flex;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .view-tab {
+      padding: 8px 16px;
+      border: none;
+      background: transparent;
+      color: var(--text-sec);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: var(--font-sans);
+    }
+    .view-tab.active {
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+
+    /* ── PART HEADER ── */
+    .part-block { margin-bottom: 32px; }
+    .part-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+    }
+    .part-badge {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--gold);
+      background: var(--gold-dim);
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(240,180,41,0.2);
+    }
+    .part-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-pri);
+    }
+
+    /* ── SECTION CARD ── */
+    .section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+    .section-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--font-sans);
+      transition: background 0.1s;
+    }
+    .section-toggle:hover { background: var(--bg-card-hov); }
+    .section-card.open > .section-toggle { background: var(--bg-card-hov); }
+    .toggle-arrow {
+      font-size: 10px;
+      color: var(--text-mute);
+      transition: transform 0.15s;
+      flex-shrink: 0;
+    }
+    .section-card.open > .section-toggle .toggle-arrow { transform: rotate(90deg); }
+    .section-num {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--text-mute);
+      flex-shrink: 0;
+    }
+    .section-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-pri);
+      flex: 1;
+    }
+    .tag-badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .tag-p { background: rgba(79,142,247,0.15); color: #7fb3f5; }
+    .tag-m { background: rgba(248,113,113,0.12); color: #f87171; }
+    .tag-pm { background: rgba(45,212,191,0.12); color: #2dd4bf; }
+    .freq-badge {
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+    .recent-badge {
+      font-size: 10px;
+      color: var(--gold);
+      background: var(--gold-dim);
+      padding: 1px 6px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .count-badge {
+      font-size: 11px;
+      color: var(--text-mute);
+      background: rgba(255,255,255,0.04);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      flex-shrink: 0;
+    }
+    .pyq-badge {
+      font-size: 11px;
+      color: var(--purple);
+      background: var(--purple-dim);
+      padding: 2px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .section-body {
+      display: none;
+      padding: 8px 16px 16px;
+      border-top: 1px solid var(--border);
+    }
+    .section-card.open > .section-body { display: block; }
+
+    /* ── SUB-SECTION ── */
+    .sub-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 6px;
+      overflow: hidden;
+    }
+    .sub-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--font-sans);
+      transition: background 0.1s;
+    }
+    .sub-toggle:hover { background: rgba(255,255,255,0.03); }
+    .sub-card.open > .sub-toggle { background: rgba(255,255,255,0.03); }
+    .sub-card.open > .sub-toggle .toggle-arrow { transform: rotate(90deg); }
+    .sub-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-sec);
+      flex: 1;
+    }
+    .sub-body {
+      display: none;
+      border-top: 1px solid var(--border);
+    }
+    .sub-card.open > .sub-body { display: block; }
+
+    /* ── TOPIC ROW ── */
+    .topic-row {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .topic-row:last-child { border-bottom: none; }
+    .topic-main {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 14px;
+    }
+    .topic-n {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-mute);
+      min-width: 44px;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .topic-info { flex: 1; }
+    .topic-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 2px;
+    }
+    .topic-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-pri);
+    }
+    .topic-desc {
+      font-size: 12px;
+      color: var(--text-mute);
+      line-height: 1.4;
+    }
+    .q-toggle-btn {
+      font-size: 10px;
+      font-weight: 600;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid rgba(79,142,247,0.2);
+      padding: 2px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      white-space: nowrap;
+      transition: all 0.1s;
+    }
+    .q-toggle-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* ── QUESTIONS BOX ── */
+    .questions-box {
+      display: none;
+      margin: 0 14px 10px 58px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .questions-box.open { display: block; }
+    .q-item {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .q-item:last-child { border-bottom: none; }
+    .q-item:nth-child(even) { background: rgba(255,255,255,0.015); }
+    .q-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+    .q-type-badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .q-type-p { background: var(--accent-dim); color: var(--accent); }
+    .q-type-m { background: var(--red-dim); color: var(--red); }
+    .q-year { font-size: 11px; color: var(--text-mute); font-family: var(--font-mono); }
+    .q-marks { font-size: 11px; color: var(--purple); font-weight: 600; }
+    .q-text {
+      font-size: 12px;
+      color: var(--text-sec);
+      line-height: 1.5;
+      font-weight: 500;
+    }
+    .q-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px 16px;
+      margin-top: 6px;
+      padding-left: 4px;
+    }
+    .q-option {
+      font-size: 11px;
+      color: var(--text-mute);
+      line-height: 1.5;
+    }
+
+    /* ── QUESTION BANK TAB ── */
+    .qb-toolbar {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .qb-filter-group label {
+      font-size: 11px;
+      color: var(--text-mute);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .qb-filter-btns {
+      display: flex;
+      gap: 6px;
+    }
+    .qb-btn {
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-sec);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      transition: all 0.15s;
+    }
+    .qb-btn:hover { border-color: var(--border-hov); color: var(--text-pri); }
+    .qb-btn.active {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .qb-count {
+      font-size: 12px;
+      color: var(--text-mute);
+      margin-bottom: 16px;
+    }
+    .qb-year-group { margin-bottom: 28px; }
+    .qb-year-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-sec);
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .qb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+    }
+    .qb-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+    }
+    .qb-card-meta {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .qb-id {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-mute);
+      background: rgba(255,255,255,0.04);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .qb-card-q {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-sec);
+      line-height: 1.5;
+      margin: 0 0 4px;
+    }
+    .qb-topic {
+      font-size: 11px;
+      color: var(--text-mute);
+    }
+
+    /* ── EMPTY STATE ── */
+    .ta-empty {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--text-mute);
+      font-size: 14px;
+    }
+
+    /* hidden */
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- ── TOP NAV ── -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="brand-icon">⚡</span>
+      <span class="brand-name">Dream UPSC</span>
+      <span class="brand-tag">CSE 2026</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html#notes" class="nav-link">Revision Notes</a>
+      <a href="index.html#prelims" class="nav-link">Prelims Bank</a>
+      <a href="index.html#mains" class="nav-link">Mains Framework</a>
+      <a href="topic-analysis.html" class="nav-link active">Topic Wise Analysis</a>
+    </div>
+    <div class="nav-meta">
+      <span class="meta-item">Kartik</span>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <header class="ta-hero">
+    <div class="ta-hero-inner">
+      <p class="ta-subtitle">UPSC CSE 2026 · Syllabus Intelligence</p>
+      <h1 class="ta-title">Topic Wise Analysis</h1>
+      <p class="ta-desc">Complete micro-topic breakdown · PYQ-mapped · Prelims + Mains coverage</p>
+      <!-- Subject Tabs -->
+      <div class="subject-tabs">
+        <button class="subject-tab active" data-subject="geography">GS1 — Geography</button>
+        <button class="subject-tab coming-soon" disabled title="Coming soon">GS1 — History &amp; Culture</button>
+        <button class="subject-tab coming-soon" disabled title="Coming soon">GS2 — Polity</button>
+        <button class="subject-tab coming-soon" disabled title="Coming soon">GS3 — Economy</button>
+        <button class="subject-tab coming-soon" disabled title="Coming soon">GS3 — Environment</button>
+        <button class="subject-tab coming-soon" disabled title="Coming soon">GS4 — Ethics</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── STATS BAR ── -->
+  <div class="ta-stats">
+    <div class="ta-stat">
+      <div class="ta-stat-num" id="statTopics">0</div>
+      <div class="ta-stat-label">Total Topics</div>
+    </div>
+    <div class="ta-stat">
+      <div class="ta-stat-num" id="statPyq">0</div>
+      <div class="ta-stat-label">PYQ Mapped</div>
+    </div>
+    <div class="ta-stat">
+      <div class="ta-stat-num" id="statQuestions">0</div>
+      <div class="ta-stat-label">Questions</div>
+    </div>
+    <div class="ta-stat">
+      <div class="ta-stat-num" id="statSections">0</div>
+      <div class="ta-stat-label">Sections</div>
+    </div>
+  </div>
+
+  <!-- ── MAIN CONTENT ── -->
+  <main class="ta-content">
+
+    <!-- Toolbar: search + view tabs -->
+    <div class="ta-toolbar">
+      <div class="ta-search-wrap">
+        <span class="ta-search-icon">🔍</span>
+        <input type="text" class="ta-search" id="taSearch" placeholder="Search topics — e.g. Glaciation, Monsoon, Coral Reefs…" autocomplete="off" />
+      </div>
+      <div class="view-tabs">
+        <button class="view-tab active" data-view="syllabus">📚 Syllabus</button>
+        <button class="view-tab" data-view="questions">📖 Question Bank</button>
+      </div>
+    </div>
+
+    <!-- ── SYLLABUS VIEW ── -->
+    <div id="syllabusView"></div>
+
+    <!-- ── QUESTION BANK VIEW ── -->
+    <div id="questionsView" class="hidden">
+      <div class="qb-toolbar">
+        <div class="qb-filter-group">
+          <label>Filter</label>
+          <div class="qb-filter-btns">
+            <button class="qb-btn active" data-qfilter="all">All</button>
+            <button class="qb-btn" data-qfilter="prelims">Prelims Only</button>
+            <button class="qb-btn" data-qfilter="mains">Mains Only</button>
+          </div>
+        </div>
+        <div class="qb-filter-group">
+          <label>Sort</label>
+          <div class="qb-filter-btns">
+            <button class="qb-btn active" data-qsort="default">Default</button>
+            <button class="qb-btn" data-qsort="year">By Year</button>
+            <button class="qb-btn" data-qsort="topic">By Topic</button>
+          </div>
+        </div>
+      </div>
+      <div class="qb-count" id="qbCount"></div>
+      <div id="qbContent"></div>
+    </div>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <p>Dream UPSC · UPSC_HOLISTICS_PREPARATIONS v1.0 · Target: CSE 2026</p>
+    <p class="footer-sub">Built by Kartik · Hosted on GitHub Pages</p>
+  </footer>
+
+  <script src="assets/js/geography-data.js"></script>
+  <script>
+    // ── Build question index ──
+    const allQuestions = [];
+    DATA.forEach(part => {
+      part.sections.forEach(section => {
+        (section.topics || []).forEach(topic => {
+          (topic.questions || []).forEach(q =>
+            allQuestions.push({...q, topicCode: topic.n, topicTitle: topic.t})
+          );
+        });
+        (section.subs || []).forEach(sub => {
+          (sub.topics || []).forEach(topic => {
+            (topic.questions || []).forEach(q =>
+              allQuestions.push({...q, topicCode: topic.n, topicTitle: topic.t})
+            );
+          });
+        });
+      });
+    });
+
+    // ── Stats ──
+    let totalTopics = 0, pyqTopics = 0, totalSections = 0;
+    DATA.forEach(p => p.sections.forEach(s => {
+      totalSections++;
+      totalTopics += (s.topics || []).length;
+      pyqTopics += (s.topics || []).reduce((a, t) => a + (t.questions?.length || 0), 0);
+      (s.subs || []).forEach(sub => {
+        totalTopics += sub.topics.length;
+        pyqTopics += sub.topics.reduce((a, t) => a + (t.questions?.length || 0), 0);
+      });
+    }));
+    document.getElementById('statTopics').textContent = totalTopics;
+    document.getElementById('statPyq').textContent = pyqTopics;
+    document.getElementById('statQuestions').textContent = allQuestions.length;
+    document.getElementById('statSections').textContent = totalSections;
+
+    // ── Helpers ──
+    function tagBadge(tag) {
+      if (!tag) return '';
+      const cls = tag === 'P' ? 'tag-p' : tag === 'M' ? 'tag-m' : 'tag-pm';
+      const label = tag === 'P' ? 'Prelims' : tag === 'M' ? 'Mains' : 'P+M';
+      return `<span class="tag-badge ${cls}">${label}</span>`;
+    }
+    function freqBadge(f) {
+      if (!f) return '';
+      return `<span class="freq-badge">${f >= 3 ? '🔥🔥' : '🔥'}</span>`;
+    }
+    function escHtml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // ── Render question rows ──
+    function renderQItems(questions) {
+      return questions.map(q => {
+        const optMatch = q.type === 'P' ? q.q.match(/^([\s\S]*?)\s*(\(a\)[\s\S]*)$/) : null;
+        const stem = optMatch ? optMatch[1] : q.q;
+        const opts = optMatch ? optMatch[2].split(/(?=\([a-d]\))/).map(o => o.trim()).filter(Boolean) : [];
+        const typeClass = q.type === 'M' ? 'q-type-m' : 'q-type-p';
+        const typeLabel = q.type === 'M' ? 'Mains' : 'Prelims';
+        const yearStr = q.year ? ` ${q.year}` : '';
+        const marksStr = q.marks > 0 ? `<span class="q-marks">${q.marks}m</span>` : '';
+        const optsHtml = opts.length > 0
+          ? `<div class="q-options">${opts.map(o => `<span class="q-option">${escHtml(o)}</span>`).join('')}</div>`
+          : '';
+        return `<div class="q-item">
+          <div class="q-meta">
+            <span class="q-type-badge ${typeClass}">${typeLabel}${yearStr}</span>
+            ${marksStr}
+          </div>
+          <p class="q-text">${escHtml(stem)}</p>
+          ${optsHtml}
+        </div>`;
+      }).join('');
+    }
+
+    // ── Render topic row ──
+    function renderTopicRow(topic, idx) {
+      const qCount = (topic.questions || []).length;
+      const qBtnHtml = qCount > 0
+        ? `<button class="q-toggle-btn" data-qidx="${idx}">📚 ${qCount} Q ▸</button>`
+        : '';
+      const recentHtml = topic.recent ? `<span class="recent-badge">⚡ Recent</span>` : '';
+      const qBoxHtml = qCount > 0
+        ? `<div class="questions-box" id="qbox-${idx}">${renderQItems(topic.questions)}</div>`
+        : '';
+      return `<div class="topic-row">
+        <div class="topic-main">
+          <span class="topic-n">${escHtml(topic.n)}</span>
+          <div class="topic-info">
+            <div class="topic-title-row">
+              <span class="topic-title">${escHtml(topic.t)}</span>
+              ${recentHtml}
+              ${qBtnHtml}
+            </div>
+            <p class="topic-desc">${escHtml(topic.d)}</p>
+          </div>
+        </div>
+        ${qBoxHtml}
+      </div>`;
+    }
+
+    // ── Render sub-section ──
+    let subIdx = 0;
+    function renderSub(sub) {
+      const id = 'sub-' + (subIdx++);
+      const qCount = sub.topics.reduce((a, t) => a + (t.questions?.length || 0), 0);
+      const qBadge = qCount > 0 ? `<span class="pyq-badge">${qCount} PYQs</span>` : '';
+      let topicIdx = subIdx * 1000;
+      const topicsHtml = sub.topics.map(t => renderTopicRow(t, topicIdx++)).join('');
+      return `<div class="sub-card" id="${id}">
+        <button class="sub-toggle" onclick="toggleSub('${id}')">
+          <span class="toggle-arrow">▶</span>
+          <span class="sub-name">${escHtml(sub.id)} ${escHtml(sub.title)}</span>
+          ${sub.freq >= 2 ? freqBadge(sub.freq) : ''}
+          ${sub.recent ? '<span class="recent-badge">⚡</span>' : ''}
+          ${tagBadge(sub.tag)}
+          <span class="count-badge">${sub.topics.length} topics</span>
+          ${qBadge}
+        </button>
+        <div class="sub-body">${topicsHtml}</div>
+      </div>`;
+    }
+
+    // ── Render section ──
+    let secIdx = 0;
+    function renderSection(section) {
+      const id = 'sec-' + (secIdx++);
+      let allTopics = [...(section.topics || [])];
+      (section.subs || []).forEach(s => allTopics = allTopics.concat(s.topics));
+      const pyqCount = allTopics.reduce((a, t) => a + (t.questions?.length || 0), 0);
+      const pyqBadge = pyqCount > 0 ? `<span class="pyq-badge">${pyqCount} PYQs</span>` : '';
+      const freqHtml = section.freq >= 2 ? freqBadge(section.freq) : '';
+      const recentHtml = section.recent ? '<span class="recent-badge">⚡ Recent</span>' : '';
+
+      let bodyHtml = '';
+      // Direct topics first
+      if ((section.topics || []).length > 0) {
+        let tIdx = secIdx * 500;
+        bodyHtml += `<div>${section.topics.map(t => renderTopicRow(t, tIdx++)).join('')}</div>`;
+      }
+      // Sub-sections
+      if ((section.subs || []).length > 0) {
+        bodyHtml += section.subs.map(s => renderSub(s)).join('');
+      }
+
+      return `<div class="section-card" id="${id}">
+        <button class="section-toggle" onclick="toggleSection('${id}')">
+          <span class="toggle-arrow">▶</span>
+          <span class="section-num">${section.id}.</span>
+          <span class="section-name">${escHtml(section.title)}</span>
+          ${freqHtml}
+          ${recentHtml}
+          ${tagBadge(section.tag)}
+          <span class="count-badge">${allTopics.length} topics</span>
+          ${pyqBadge}
+        </button>
+        <div class="section-body">${bodyHtml}</div>
+      </div>`;
+    }
+
+    // ── Render full syllabus ──
+    function renderSyllabus(searchTerm) {
+      const q = (searchTerm || '').toLowerCase().trim();
+      const container = document.getElementById('syllabusView');
+
+      if (!q) {
+        // Normal render
+        secIdx = 0; subIdx = 0;
+        container.innerHTML = DATA.map(part => {
+          const sectionsHtml = part.sections.map(s => renderSection(s)).join('');
+          return `<div class="part-block">
+            <div class="part-header">
+              <span class="part-badge">Part ${part.part}</span>
+              <span class="part-title">${escHtml(part.partTitle)}</span>
+            </div>
+            ${sectionsHtml}
+          </div>`;
+        }).join('');
+        bindQToggleEvents();
+        return;
+      }
+
+      // Search: show matching topics only
+      let results = [];
+      DATA.forEach(part => {
+        part.sections.forEach(section => {
+          let allTopics = [...(section.topics || [])];
+          (section.subs || []).forEach(s => allTopics = allTopics.concat(s.topics));
+          const matched = allTopics.filter(t =>
+            t.t.toLowerCase().includes(q) || t.d.toLowerCase().includes(q)
+          );
+          if (matched.length > 0) {
+            results.push({ part: part.part, partTitle: part.partTitle, section, matched });
+          }
+        });
+      });
+
+      if (results.length === 0) {
+        container.innerHTML = '<div class="ta-empty">No topics found for "' + escHtml(searchTerm) + '"</div>';
+        return;
+      }
+
+      let tidx = 9000;
+      container.innerHTML = results.map(r => {
+        const topicsHtml = r.matched.map(t => renderTopicRow(t, tidx++)).join('');
+        return `<div class="section-card open" style="margin-bottom:8px">
+          <div style="padding:10px 16px; background:var(--bg-card-hov); border-bottom:1px solid var(--border); display:flex; align-items:center; gap:8px;">
+            <span class="part-badge">Part ${r.part}</span>
+            <span style="font-size:13px; font-weight:600; color:var(--text-sec)">${r.section.id}. ${escHtml(r.section.title)}</span>
+            <span class="count-badge">${r.matched.length} match${r.matched.length > 1 ? 'es' : ''}</span>
+          </div>
+          <div class="section-body" style="display:block">${topicsHtml}</div>
+        </div>`;
+      }).join('');
+      bindQToggleEvents();
+    }
+
+    // ── Toggle functions ──
+    function toggleSection(id) {
+      document.getElementById(id).classList.toggle('open');
+    }
+    function toggleSub(id) {
+      document.getElementById(id).classList.toggle('open');
+    }
+    function bindQToggleEvents() {
+      document.querySelectorAll('.q-toggle-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const idx = this.dataset.qidx;
+          const box = document.getElementById('qbox-' + idx);
+          if (!box) return;
+          const open = box.classList.toggle('open');
+          this.classList.toggle('active', open);
+          this.textContent = open ? `📚 ${this.textContent.match(/\d+/)[0]} Q ▾` : `📚 ${this.textContent.match(/\d+/)[0]} Q ▸`;
+        });
+      });
+    }
+
+    // ── Render question bank ──
+    function renderQBank(filter, sort) {
+      let qs = [...allQuestions];
+      if (filter === 'prelims') qs = qs.filter(q => q.type === 'P');
+      if (filter === 'mains') qs = qs.filter(q => q.type === 'M');
+      if (sort === 'year') qs.sort((a, b) => (b.year || 0) - (a.year || 0));
+      else if (sort === 'topic') qs.sort((a, b) => a.topicCode.localeCompare(b.topicCode));
+
+      document.getElementById('qbCount').textContent = `Showing ${qs.length} of ${allQuestions.length} questions`;
+
+      // Group by year
+      const grouped = {};
+      qs.forEach(q => {
+        const yr = q.year || 'Mains';
+        if (!grouped[yr]) grouped[yr] = [];
+        grouped[yr].push(q);
+      });
+
+      const sorted = Object.entries(grouped).sort(([a], [b]) => {
+        if (a === 'Mains') return 1;
+        if (b === 'Mains') return -1;
+        return b - a;
+      });
+
+      document.getElementById('qbContent').innerHTML = sorted.map(([yr, qlist]) => {
+        const label = yr === 'Mains' ? 'Mains Questions' : `Prelims ${yr}`;
+        const cards = qlist.map(q => {
+          const typeClass = q.type === 'M' ? 'q-type-m' : 'q-type-p';
+          const typeLabel = q.type === 'M' ? 'Mains' : 'Prelims';
+          return `<div class="qb-card">
+            <div class="qb-card-meta">
+              <span class="qb-id">${escHtml(q.id)}</span>
+              <span class="q-type-badge ${typeClass}">${typeLabel}</span>
+              ${q.year ? `<span class="q-year">${q.year}</span>` : ''}
+              ${q.marks > 0 ? `<span class="q-marks">${q.marks}m</span>` : ''}
+            </div>
+            <p class="qb-card-q">${escHtml(q.q)}</p>
+            <p class="qb-topic">Topic: ${escHtml(q.topicCode)} — ${escHtml(q.topicTitle)}</p>
+          </div>`;
+        }).join('');
+        return `<div class="qb-year-group">
+          <div class="qb-year-label">${label} (${qlist.length})</div>
+          <div class="qb-grid">${cards}</div>
+        </div>`;
+      }).join('');
+    }
+
+    // ── State ──
+    let activeView = 'syllabus';
+    let qFilter = 'all';
+    let qSort = 'default';
+
+    // ── Initial render ──
+    renderSyllabus('');
+    renderQBank('all', 'default');
+
+    // ── Search ──
+    let searchTimer;
+    document.getElementById('taSearch').addEventListener('input', function() {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => renderSyllabus(this.value), 250);
+    });
+    document.getElementById('taSearch').addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { this.value = ''; renderSyllabus(''); }
+    });
+
+    // ── View tabs ──
+    document.querySelectorAll('.view-tab').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.view-tab').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        activeView = this.dataset.view;
+        document.getElementById('syllabusView').classList.toggle('hidden', activeView !== 'syllabus');
+        document.getElementById('questionsView').classList.toggle('hidden', activeView !== 'questions');
+        document.getElementById('taSearch').style.display = activeView === 'syllabus' ? '' : 'none';
+      });
+    });
+
+    // ── QBank filter buttons ──
+    document.querySelectorAll('[data-qfilter]').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('[data-qfilter]').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        qFilter = this.dataset.qfilter;
+        renderQBank(qFilter, qSort);
+      });
+    });
+    document.querySelectorAll('[data-qsort]').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('[data-qsort]').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        qSort = this.dataset.qsort;
+        renderQBank(qFilter, qSort);
+      });
+    });
+  </script>
+</body>
+</html>
