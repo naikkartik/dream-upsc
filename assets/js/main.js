@@ -110,6 +110,20 @@ const POLITY_DATA = [
     summary:   'Election (Art.66), Electoral College comparison with President, Qualifications, Oath, Removal (RS only, 14-day notice), Powers as RS Chairman & Acting President. 6 visual pages.'
   },
 
+  {
+    id:        'gs2_polity_president_001',
+    type:      'note',
+    gs:        'gs2',
+    title:     'President of India',
+    subtopic:  'GS2 → Indian Polity → Constitutional Posts → President (Art. 52–78, Part V)',
+    pyqYears:  [2008, 2012, 2015, 2018, 2021, 2023],
+    gapStatus: 'complete',
+    source:    'Laxmikanth_Ch18_President.pdf',
+    createdAt: '2026-04-29',
+    file:      'notes/polity/president.html',
+    summary:   'Election (Art.54,55), Vote Value/STV, Qualifications, Impeachment, Vacancy/Succession, Powers (Executive/Legislative/Financial/Judicial/Military), Veto, Ordinance, Pardoning. 10 visual pages.'
+  },
+
 ];
 
 const PRELIMS_DATA = [
