@@ -94,6 +94,24 @@ const NOTES_DATA = [
 
 ];
 
+const POLITY_DATA = [
+
+  {
+    id:        'gs2_polity_vice_president_001',
+    type:      'note',
+    gs:        'gs2',
+    title:     'Vice-President of India',
+    subtopic:  'GS2 → Indian Polity → Constitutional Posts → Vice-President (Art. 63–71)',
+    pyqYears:  [2006, 2010, 2014, 2017, 2022],
+    gapStatus: 'complete',
+    source:    'Laxmikanth_Ch19_VP.pdf',
+    createdAt: '2026-04-29',
+    file:      'notes/polity/vice-president.html',
+    summary:   'Election (Art.66), Electoral College comparison with President, Qualifications, Oath, Removal (RS only, 14-day notice), Powers as RS Chairman & Acting President. 6 visual pages.'
+  },
+
+];
+
 const PRELIMS_DATA = [
 
   // ── GS1 Prelims ──
@@ -177,9 +195,11 @@ const state = {
    ═══════════════════════════════════════════════ */
 const searchInput   = document.getElementById('searchInput');
 const notesGrid     = document.getElementById('notesGrid');
+const polityGrid    = document.getElementById('polityGrid');
 const prelimsGrid   = document.getElementById('prelimsGrid');
 const mainsGrid     = document.getElementById('mainsGrid');
 const notesCount    = document.getElementById('notesCount');
+const polityCount   = document.getElementById('polityCount');
 const prelimsCount  = document.getElementById('prelimsCount');
 const mainsCount    = document.getElementById('mainsCount');
 const totalNotes    = document.getElementById('totalNotes');
@@ -207,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
    STATS
    ═══════════════════════════════════════════════ */
 function updateStats() {
-  const gapCount = [...NOTES_DATA, ...PRELIMS_DATA, ...MAINS_DATA]
+  const gapCount = [...NOTES_DATA, ...POLITY_DATA, ...PRELIMS_DATA, ...MAINS_DATA]
     .filter(d => d.gapStatus === 'partial').length;
 
   animateCount(totalNotes,   NOTES_DATA.length);
@@ -237,6 +257,7 @@ const easeOut = t => 1 - Math.pow(1 - t, 3);
    ═══════════════════════════════════════════════ */
 function renderAll() {
   renderSection(NOTES_DATA,   notesGrid,   notesCount,   'notesEmpty',   '📄');
+  renderSection(POLITY_DATA,  polityGrid,  polityCount,  'polityEmpty',  '⚖️');
   renderSection(PRELIMS_DATA, prelimsGrid, prelimsCount, 'prelimsEmpty', '🎯');
   renderSection(MAINS_DATA,   mainsGrid,   mainsCount,   'mainsEmpty',   '✍️');
 }
