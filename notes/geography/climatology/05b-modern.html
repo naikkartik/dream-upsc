@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05b · Modern Climate-Change Phenomena</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f1e6; --bg-soft: #efe7d4; --paper: #fbf7ed;
+    --ink: #1a1612; --ink-soft: #4a4238; --ink-faint: #8a8170;
+    --rule: #d8cdb5; --rule-soft: #e6dec9;
+    --accent: #0b3d4a; --accent-soft: #156877; --highlight: #c2410c;
+    --new-badge: #b45309;
+    --cat: #4c1d95; --cat-bg: #e0dffa;
+    --d1: #1e3a5f; --d1-bg: #e6ecf3;
+    --d2: #2d5a3d; --d2-bg: #e3ece5;
+    --d3: #a16207; --d3-bg: #f4ecd6;
+    --d4: #b1340b; --d4-bg: #f4e0d3;
+    --d5: #5b21b6; --d5-bg: #ece2f5;
+    --d6: #991b1b; --d6-bg: #f3dada;
+    --shadow-sm: 0 1px 2px rgba(20,15,10,0.06);
+    --shadow-md: 0 4px 16px rgba(20,15,10,0.08);
+    --serif: 'Newsreader', Georgia, serif;
+    --display: 'Fraunces', 'Times New Roman', serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  [data-theme="dark"] {
+    --bg: #1a1612; --bg-soft: #221d17; --paper: #1f1a14;
+    --ink: #f0e8d6; --ink-soft: #c4baa4; --ink-faint: #8a8170;
+    --rule: #3a342a; --rule-soft: #2a2520;
+    --accent: #6fb9c9; --accent-soft: #8ad0df; --highlight: #f97316;
+    --cat: #c4b5fd; --cat-bg: #221b3a;
+    --d1: #93b5db; --d1-bg: #1f2a3a;
+    --d2: #8fc99e; --d2-bg: #1f2e25;
+    --d3: #d8b46c; --d3-bg: #322a1a;
+    --d4: #e89370; --d4-bg: #2f201a;
+    --d5: #b794e6; --d5-bg: #261d33;
+    --d6: #e08b8b; --d6-bg: #2e1c1c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--serif); font-size: 16px; line-height: 1.65; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--highlight); width: 0%; z-index: 200; transition: width 60ms linear; }
+  .theme-toggle { position: fixed; top: 18px; right: 22px; background: var(--paper); border: 1px solid var(--rule); border-radius: 999px; padding: 7px 14px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; color: var(--ink-soft); z-index: 150; box-shadow: var(--shadow-sm); }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--accent); }
+  .container { max-width: 1100px; margin: 0 auto; padding: 50px 60px 100px; }
+  .top-nav { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 36px; padding: 14px 18px; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; font-family: var(--mono); font-size: 11.5px; align-items: center; }
+  .top-nav .nav-label { color: var(--accent); font-weight: 600; letter-spacing: 0.06em; padding-right: 14px; border-right: 1px solid var(--rule); }
+  .top-nav a { color: var(--ink-soft); text-decoration: none; padding: 4px 9px; border-radius: 3px; letter-spacing: 0.04em; }
+  .top-nav a:hover { background: var(--bg-soft); color: var(--ink); }
+  .top-nav a.current { background: var(--cat); color: var(--paper); }
+  .cat-header { margin-bottom: 36px; }
+  .cat-header .cat-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 12px; color: var(--cat); display: flex; align-items: center; gap: 12px; }
+  .cat-header .cat-label::before { content: ''; width: 28px; height: 1px; background: var(--cat); }
+  .cat-header h1 { font-family: var(--display); font-weight: 600; font-size: clamp(32px, 4vw, 48px); line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 12px; }
+  .cat-header .cat-desc { font-size: 16.5px; color: var(--ink-soft); font-style: italic; max-width: 720px; line-height: 1.55; }
+  details.topic { background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; margin-bottom: 12px; overflow: hidden; transition: box-shadow 0.2s ease; }
+  details.topic[open] { box-shadow: var(--shadow-md); }
+  summary.topic-head { padding: 16px 22px; cursor: pointer; list-style: none; display: flex; align-items: center; gap: 16px; user-select: none; transition: background 0.15s ease; }
+  summary.topic-head:hover { background: var(--bg-soft); }
+  summary.topic-head::-webkit-details-marker { display: none; }
+  .topic-num { font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 1; flex-shrink: 0; width: 44px; letter-spacing: -0.02em; color: var(--cat); }
+  .topic-info { flex: 1; }
+  .topic-name { font-family: var(--display); font-weight: 500; font-size: 17.5px; line-height: 1.3; color: var(--ink); margin-bottom: 4px; }
+  .topic-tags { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .badge { font-family: var(--mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.1em; padding: 2px 7px; border-radius: 3px; font-weight: 500; }
+  .badge-pdf { background: var(--bg-soft); color: var(--ink-soft); border: 1px solid var(--rule); }
+  .badge-pmf { background: #d8eef2; color: #0e7490; }
+  .badge-new { background: var(--new-badge); color: white; letter-spacing: 0.12em; }
+  .badge-pyq { background: var(--d6-bg); color: var(--d6); }
+  .topic-toggle { color: var(--ink-faint); font-family: var(--mono); font-size: 14px; transition: transform 0.2s ease; flex-shrink: 0; }
+  details[open] .topic-toggle { transform: rotate(45deg); color: var(--highlight); }
+  .topic-body { padding: 18px 26px 24px 82px; border-top: 1px solid var(--rule-soft); background: var(--bg); }
+  .topic-body section { margin-bottom: 16px; }
+  .topic-body section:last-of-type { margin-bottom: 0; }
+  .topic-body h4 { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--highlight); margin-bottom: 8px; font-weight: 600; }
+  .topic-body p, .topic-body li { font-size: 15px; line-height: 1.6; color: var(--ink); }
+  .topic-body p { margin-bottom: 8px; }
+  .topic-body ul, .topic-body ol { margin: 4px 0 0 22px; }
+  .topic-body li { margin-bottom: 5px; }
+  .topic-body strong { color: var(--ink); font-weight: 600; }
+  .topic-body em { font-style: italic; color: var(--ink-soft); }
+  table.notes { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13.5px; background: var(--paper); box-shadow: var(--shadow-sm); border-radius: 4px; overflow: hidden; }
+  table.notes th { background: var(--bg-soft); text-align: left; padding: 9px 12px; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); border-bottom: 1.5px solid var(--ink); font-weight: 500; }
+  table.notes td { padding: 9px 12px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  table.notes tr:last-child td { border-bottom: none; }
+  .diagram-note { margin-top: 6px; padding: 9px 13px; background: var(--bg-soft); border-left: 3px solid var(--highlight); font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.03em; color: var(--ink-soft); border-radius: 0 4px 4px 0; }
+  .diagram-note::before { content: '✎ '; color: var(--highlight); font-family: var(--serif); }
+  .takeaway { margin-top: 12px; padding: 12px 16px; background: var(--paper); border: 1px dashed var(--accent); border-radius: 4px; font-style: italic; color: var(--ink); font-size: 14.5px; line-height: 1.5; }
+  .takeaway::before { content: 'Key Takeaway · '; font-style: normal; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); font-weight: 600; display: block; margin-bottom: 4px; }
+  .dimensions-section { margin-top: 16px; padding: 16px 18px; background: var(--paper); border-radius: 6px; border: 1px solid var(--rule); }
+  .dimensions-section > h4 { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--accent); margin-bottom: 12px; font-weight: 600; }
+  .dim-list { display: grid; gap: 8px; }
+  .dim { display: grid; grid-template-columns: 24px 130px 1fr; gap: 12px; padding: 10px 14px; border-radius: 4px; align-items: start; font-size: 14px; line-height: 1.5; }
+  .dim-icon { font-size: 14px; line-height: 1.5; }
+  .dim-label { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; line-height: 1.55; }
+  .dim-q { color: var(--ink); font-style: italic; }
+  .dim-q.na { color: var(--ink-faint); font-style: normal; font-size: 13px; }
+  .dim.d1 { background: var(--d1-bg); } .dim.d1 .dim-label { color: var(--d1); }
+  .dim.d2 { background: var(--d2-bg); } .dim.d2 .dim-label { color: var(--d2); }
+  .dim.d3 { background: var(--d3-bg); } .dim.d3 .dim-label { color: var(--d3); }
+  .dim.d4 { background: var(--d4-bg); } .dim.d4 .dim-label { color: var(--d4); }
+  .dim.d5 { background: var(--d5-bg); } .dim.d5 .dim-label { color: var(--d5); }
+  .dim.d6 { background: var(--d6-bg); } .dim.d6 .dim-label { color: var(--d6); }
+  .source-link { margin-top: 14px; padding: 10px 14px; background: var(--bg-soft); border-radius: 4px; font-size: 13px; color: var(--ink-soft); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .source-link::before { content: '↗'; font-family: var(--mono); color: var(--accent); font-weight: 600; }
+  .source-link strong { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); }
+  .source-link a { color: var(--accent); text-decoration: none; word-break: break-all; border-bottom: 1px dotted var(--accent); }
+  .source-link a:hover { color: var(--highlight); border-bottom-color: var(--highlight); }
+  footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); line-height: 1.8; }
+  footer div { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .to-top { position: fixed; bottom: 28px; right: 28px; width: 42px; height: 42px; border-radius: 50%; background: var(--accent); color: var(--paper); border: none; cursor: pointer; font-size: 17px; box-shadow: var(--shadow-md); opacity: 0; transform: translateY(8px); transition: all 0.25s ease; z-index: 150; }
+  .to-top.show { opacity: 1; transform: translateY(0); }
+  @media (max-width: 800px) {
+    .container { padding: 30px 22px 80px; }
+    .topic-body { padding-left: 24px; padding-right: 18px; }
+    .dim { grid-template-columns: 20px 1fr; }
+    .dim-label { grid-column: 2; }
+    .dim-q { grid-column: 1 / -1; padding-left: 32px; }
+  }
+  @media print {
+    .theme-toggle, .to-top, .progress-bar, .top-nav { display: none !important; }
+    .container { padding: 0; max-width: 100%; }
+    body { font-size: 10pt; background: white; color: black; }
+    details.topic { break-inside: avoid; box-shadow: none; }
+    details.topic > * { display: block !important; }
+    summary.topic-head { background: #eee !important; }
+    .topic-body { display: block !important; padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+<button class="theme-toggle" id="themeToggle">◐ Dark</button>
+
+<div class="container">
+  <nav class="top-nav">
+    <span class="nav-label">CLIMATOLOGY</span>
+    <a href="01-foundations.html">01 Foundations</a>
+    <a href="02-circulation.html">02 Circulation</a>
+    <a href="03-moisture.html">03 Moisture</a>
+    <a href="04-storms.html">04 Storms</a>
+    <a href="05a-variability.html">05a Oscillations</a>
+    <a href="05b-modern.html" class="current">05b Modern</a>
+  </nav>
+
+  <header class="cat-header">
+    <div class="cat-label">Category 05b · 5 Topics · Most Asked</div>
+    <h1>Modern Climate-Change Phenomena</h1>
+    <p class="cat-desc">The emerging phenomena increasingly dominating UPSC Mains questions — heat domes, polar vortex breakdowns, AMOC slowdown, GLOFs, and the heat wave–UHI crisis. Most are not in your PDF but are critical for 2026.</p>
+  </header>
+
+  <!-- TOPIC 31 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">31</div>
+      <div class="topic-info">
+        <div class="topic-name">Heat Domes</div>
+        <div class="topic-tags">
+          <span class="badge badge-pmf">PMF IAS · Web</span>
+          <span class="badge badge-new">New</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>A high-pressure atmospheric system that <strong>traps hot air over a region</strong> for an extended period, acting like a "lid" or "dome" — causing record-breaking heatwaves. Closely linked to <strong>Omega blocking patterns</strong>.</p>
+      </section>
+      <section>
+        <h4>Mechanism</h4>
+        <ol>
+          <li>High-pressure system stalls due to atmospheric blocking (Omega block)</li>
+          <li>Air <strong>subsides</strong> from upper troposphere → compresses adiabatically → warms</li>
+          <li>Clear skies → solar radiation reaches surface unimpeded</li>
+          <li>Surface heats → upward radiation absorbed by overhead high-pressure</li>
+          <li>Land becomes dry → reduced evapotranspiration → more heat retained</li>
+          <li><strong>Positive feedback</strong>: hotter ground → drier ground → more heating</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Notable Heat Domes</h4>
+        <ul>
+          <li><strong>Pacific Northwest June 2021</strong> — 49.6°C in Lytton, BC; hundreds dead; town burnt down next day</li>
+          <li><strong>Russia 2010</strong> — Moscow 38.2°C; 55,000 deaths; massive wildfires</li>
+          <li><strong>Europe 2003</strong> — France/Italy/Spain heatwave; 70,000 deaths</li>
+          <li><strong>India May 2024</strong> — Delhi 52.9°C reading; record heat across Rajasthan, NW India</li>
+          <li><strong>Texas/Mexico June 2023</strong> — exceptional heat dome</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Why Climate Change Worsens Them</h4>
+        <ul>
+          <li>Warmer baseline temperatures</li>
+          <li>Weakened jet stream → more blocking</li>
+          <li>Soil moisture deficits amplify heat</li>
+          <li>Compound with droughts → worse outcomes</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Impacts</h4>
+        <ul>
+          <li>Mass mortality (especially elderly, urban poor)</li>
+          <li>Wildfire ignition (Canada 2023 record-breaking fires)</li>
+          <li>Power grid strain (AC demand surge)</li>
+          <li>Crop failures, livestock deaths</li>
+          <li>Glacier melt acceleration</li>
+          <li>Marine heatwave amplification</li>
+        </ul>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"What are atmospheric heat domes? Explain their formation through Omega-block dynamics."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why are heat domes increasingly common over Western North America, Europe, and now South Asia?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the public health, agricultural, and infrastructure consequences of multi-week heat dome events."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine how a weakening jet stream is increasing the frequency and persistence of heat domes globally."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How do La Niña and positive IOD combine to set up heat-dome conditions over Northwest India?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine the May 2024 Indian heatwave with Delhi at 52.9°C and the role of an atmospheric heat dome."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Cross-section showing Omega block with descending warm air, clear skies, and surface heating + Pacific NW 2021 example.</div>
+      <div class="takeaway">A heat dome turns the atmosphere into a slow-cooking oven — and the recipe for record-breaking deadly heat.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Heat Domes &amp; Atmospheric Blocking</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 32 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">32</div>
+      <div class="topic-info">
+        <div class="topic-name">Polar Vortex &amp; Stratospheric Sudden Warming</div>
+        <div class="topic-tags">
+          <span class="badge badge-pmf">PMF IAS · Web</span>
+          <span class="badge badge-new">New</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p><strong>Polar Vortex</strong> = large-scale region of low pressure and cold air swirling around both poles. Two types: <strong>stratospheric polar vortex</strong> (15–50 km altitude) and <strong>tropospheric polar vortex</strong> (lower). Strongest in winter.</p>
+      </section>
+      <section>
+        <h4>Stratospheric Sudden Warming (SSW)</h4>
+        <p>A dramatic event where the <strong>stratospheric polar vortex weakens or splits</strong>, accompanied by sudden temperature rise (sometimes +50°C in a few days) in the polar stratosphere.</p>
+        <p><strong>Mechanism:</strong></p>
+        <ol>
+          <li>Rossby waves from troposphere propagate upward into stratosphere</li>
+          <li>Waves break and deposit westerly momentum</li>
+          <li>Westerly polar vortex winds slow, reverse to easterly</li>
+          <li>Vortex weakens, splits, or displaces</li>
+          <li>Cold polar air spills into mid-latitudes 1–3 weeks later</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Consequences (Northern Hemisphere)</h4>
+        <ul>
+          <li><strong>Severe cold air outbreaks</strong> 1–3 weeks after SSW event</li>
+          <li><strong>Texas freeze February 2021</strong> — followed January SSW; deadly</li>
+          <li><strong>"Beast from the East" 2018</strong> — UK/Europe paralysed</li>
+          <li><strong>Indian winter cold waves</strong> — when polar air dips far south</li>
+          <li>Disrupts jet stream → weather extremes</li>
+          <li>Increases ozone in polar stratosphere temporarily</li>
+        </ul>
+      </section>
+      <section>
+        <h4>"Warm Arctic, Cold Continents" Paradigm</h4>
+        <p>Counter-intuitive climate-change paradigm: Arctic amplification + sea-ice loss may <strong>increase frequency of SSW events</strong> — paradoxically causing more severe winters in mid-latitudes even as the planet warms.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"What is the polar vortex? Explain stratospheric sudden warming (SSW) and its triggers."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why does an SSW in the Arctic deliver winter chaos to Texas, Europe, and even North India?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the cascading impact of SSW events on power grids, transportation, and public health in mid-latitudes."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine how Arctic amplification under climate change is destabilising the polar vortex more often."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"The 'warm Arctic, cold continents' paradigm — explain how a warming planet can deliver more severe winters."</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"The Texas freeze of February 2021 — examine the role of polar vortex disruption and lessons for grid resilience."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Polar view of stratospheric polar vortex — normal (tight ring) vs SSW (split into two lobes or displaced).</div>
+      <div class="takeaway">Sometimes a warming Arctic delivers winter chaos to the south — the polar vortex breakdown is climate change's counter-intuitive fingerprint.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/polar-vortex-ozone-hole-ozone-depletion-polar-stratospheric-clouds/" target="_blank" rel="noopener">PMF IAS · Polar Vortex &amp; Ozone Depletion</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 33 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">33</div>
+      <div class="topic-info">
+        <div class="topic-name">AMOC Slowdown &amp; The "Cold Blob"</div>
+        <div class="topic-tags">
+          <span class="badge badge-pmf">Web Research</span>
+          <span class="badge badge-new">New</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p><strong>AMOC</strong> = Atlantic Meridional Overturning Circulation. A massive ocean conveyor that carries warm surface water from tropics to N Atlantic, where it cools, sinks, and returns south at depth. Powers ~25% of N Hemisphere heat transport.</p>
+      </section>
+      <section>
+        <h4>Mechanism</h4>
+        <ol>
+          <li>Gulf Stream carries warm water northeast across Atlantic</li>
+          <li>In N Atlantic, water cools, becomes dense (and saltier from evaporation)</li>
+          <li>Dense water <strong>sinks</strong> near Greenland and Labrador Sea</li>
+          <li>Travels southward at depth as North Atlantic Deep Water</li>
+          <li>Eventually upwells in Southern Ocean and Indian/Pacific Oceans</li>
+          <li>Cycle takes ~1000 years to complete</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Why It's Slowing</h4>
+        <ul>
+          <li><strong>Greenland ice sheet melting</strong> — freshens N Atlantic surface</li>
+          <li>Fresher water = less dense = doesn't sink → conveyor weakens</li>
+          <li>Arctic sea-ice loss adds more freshwater</li>
+          <li>Increased rainfall in high latitudes (climate change)</li>
+          <li>AMOC has weakened ~15% since 1950 (multiple studies)</li>
+        </ul>
+      </section>
+      <section>
+        <h4>The Cold Blob</h4>
+        <p>A persistent <strong>cold patch of ocean south of Greenland</strong> — the only major region cooling while the rest of the planet warms. Evidence of AMOC weakening.</p>
+      </section>
+      <section>
+        <h4>Consequences</h4>
+        <ul>
+          <li><strong>European heatwaves</strong> — cold blob shifts pressure patterns, channels warm air into Europe</li>
+          <li><strong>Sea-level rise on US East Coast</strong> — slower current pushes water shoreward</li>
+          <li><strong>Sahel rainfall changes</strong> — altered ITCZ position</li>
+          <li><strong>Tropical Atlantic warming</strong> — more hurricanes</li>
+          <li><strong>Arctic ice loss accelerates</strong></li>
+          <li><strong>If AMOC collapses</strong> — Europe could cool 5–15°C; massive global disruption</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Tipping Point Debate</h4>
+        <ul>
+          <li>Some 2023 studies suggest tipping by 2050–2100</li>
+          <li>2025 Nature study suggests AMOC unlikely to fully collapse this century</li>
+          <li>Even partial slowdown disruptive</li>
+          <li>IPCC AR6: "very likely" AMOC will weaken over 21st century</li>
+        </ul>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"What is the Atlantic Meridional Overturning Circulation? Explain how thermohaline density drives it."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why is the only major cooling region on a warming planet located in the North Atlantic ('Cold Blob')?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the catastrophic consequences for European agriculture, fisheries, and energy security if AMOC collapses."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine the scientific debate on AMOC tipping points: is collapse this century plausible?"</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How does AMOC variability influence Atlantic hurricane activity and Sahel rainfall?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine recent 2023–25 research debating whether AMOC slowdown has crossed a critical threshold."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Atlantic conveyor belt — warm surface flow north, cold deep return south, sinking zones near Greenland, cold blob marked.</div>
+      <div class="takeaway">If the ocean's biggest conveyor belt stalls, the planet's heat distribution machine breaks down — and we don't know exactly when that line will be crossed.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Ocean Circulation &amp; AMOC</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 34 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">34</div>
+      <div class="topic-info">
+        <div class="topic-name">Glacial Lake Outburst Floods (GLOFs)</div>
+        <div class="topic-tags">
+          <span class="badge badge-pmf">PMF IAS</span>
+          <span class="badge badge-new">New</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>A <strong>sudden release of water from a glacial lake</strong>, typically caused by failure of the natural dam (moraine or ice) holding the lake. Releases millions of cubic metres of water + debris downstream.</p>
+      </section>
+      <section>
+        <h4>How Glacial Lakes Form</h4>
+        <ol>
+          <li>Glacier retreats due to warming</li>
+          <li>Meltwater accumulates in the depression left behind</li>
+          <li>Held back by moraine (rock-debris dam) or ice barrier</li>
+          <li>Lake grows as more ice melts</li>
+          <li>Dam weakens with time</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Triggers</h4>
+        <ul>
+          <li><strong>Earthquakes</strong> (Sikkim, Nepal regions seismically active)</li>
+          <li><strong>Ice/rock avalanches</strong> into the lake (impulse waves)</li>
+          <li><strong>Heavy rainfall / cloudburst</strong></li>
+          <li><strong>Lake overfilling</strong> due to rapid meltwater inflow</li>
+          <li><strong>Dam degradation</strong> (piping erosion, slumping)</li>
+          <li><strong>Glacier surges</strong></li>
+        </ul>
+      </section>
+      <section>
+        <h4>Notable Indian GLOFs</h4>
+        <ul>
+          <li><strong>Kedarnath, June 2013</strong> — Chorabari Lake breach + cloudburst; 5,000+ deaths</li>
+          <li><strong>Chamoli, February 2021</strong> — rock-ice avalanche → Rishiganga GLOF; 200+ deaths; NTPC hydropower destroyed</li>
+          <li><strong>Sikkim, October 2023</strong> — South Lhonak Lake breach; Teesta River flood; Chungthang hydro-dam breached; 100+ deaths</li>
+        </ul>
+      </section>
+      <section>
+        <h4>India's Vulnerability</h4>
+        <ul>
+          <li>HKH region lost &gt;40% glacial mass in 40 years (ICIMOD)</li>
+          <li>Sikkim alone has 300+ glacial lakes, 10 highly dangerous</li>
+          <li>27,000+ glacial lakes mapped across Indian Himalayas</li>
+          <li>NDMA's <strong>National GLOF Risk Mitigation Programme</strong> — 195 lakes prioritised, 4 risk levels</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Mitigation Strategies</h4>
+        <ul>
+          <li><strong>Hazard mapping</strong> — high-risk lakes prioritised</li>
+          <li><strong>Early Warning Systems</strong> — automated weather + water stations</li>
+          <li><strong>Lake-level lowering</strong> — controlled drainage (siphon tubes)</li>
+          <li><strong>Downstream engineering</strong> — check dams, slope stabilisation</li>
+          <li><strong>Regional cooperation</strong> — with China, Nepal, Bhutan</li>
+          <li><strong>Restrictions on hydropower infrastructure</strong> in GLOF zones (post-Chamoli debate)</li>
+        </ul>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"What are Glacial Lake Outburst Floods? Explain how glacial lakes form and the triggers for their breach."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why are the Himalayan, Andean, and Patagonian regions the world's GLOF hotspots?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the threat GLOFs pose to Himalayan hydropower projects, pilgrim routes, and downstream populations."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine how accelerating glacier retreat is multiplying GLOF risk across the HKH region."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How does the interaction of cloudbursts, earthquakes, and rock-ice avalanches create cascading GLOF disasters?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"The 2023 South Lhonak (Sikkim) GLOF and 2021 Chamoli disaster — examine and discuss NDMA's National GLOF Risk Mitigation Programme."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Glacial lake cross-section — glacier, lake, moraine dam, downstream river + breach sequence + map of Indian GLOF hotspots.</div>
+      <div class="takeaway">GLOFs are climate change's tripwires in the Himalayas — invisible until they trigger, then devastating in minutes.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/glacial-lake-outburst-flood/" target="_blank" rel="noopener">PMF IAS · Glacial Lake Outburst Flood (GLOF)</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 35 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">35</div>
+      <div class="topic-info">
+        <div class="topic-name">Heat Waves &amp; Urban Heat Islands</div>
+        <div class="topic-tags">
+          <span class="badge badge-pmf">PDF + PMF IAS</span>
+          <span class="badge badge-pyq">Mains 2013 (UHI)</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Heat Wave — IMD Definition</h4>
+        <ul>
+          <li>Maximum temperature ≥ <strong>40°C (plains)</strong>, <strong>37°C (coast)</strong>, <strong>30°C (hills)</strong></li>
+          <li>OR departure from normal ≥ 5°C (heat wave) / ≥ 7°C (severe heat wave)</li>
+          <li>OR actual max temp ≥ 45°C (regardless of departure)</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Causes of Heat Waves</h4>
+        <ol>
+          <li><strong>Subsiding air</strong> (anticyclone/heat dome)</li>
+          <li><strong>Hot continental tropical air masses</strong> from Iran-Pakistan</li>
+          <li><strong>Loo winds</strong> over N India</li>
+          <li><strong>Soil moisture deficit</strong> — amplifies surface heating</li>
+          <li><strong>Atmospheric blocking</strong> (Omega blocks)</li>
+          <li><strong>El Niño years</strong> tend to be hotter for India</li>
+        </ol>
+      </section>
+      <section>
+        <h4>India's Heat Hotspots</h4>
+        <p>Rajasthan, Vidarbha, Telangana, Odisha, Bihar, eastern UP. <strong>2024 was India's hottest year on record</strong> — heatwave lasted unprecedented 30–50 days in some regions.</p>
+      </section>
+      <section>
+        <h4>Urban Heat Island (UHI)</h4>
+        <p>Urban areas <strong>2–7°C warmer</strong> than surrounding rural areas, especially at night. Mains 2013 question on this.</p>
+        <p><strong>Causes:</strong></p>
+        <ul>
+          <li>Albedo reduction (concrete, asphalt 5–15% vs vegetation 20–25%)</li>
+          <li>Heat retention by building materials</li>
+          <li>Anthropogenic heat (vehicles, AC, industries)</li>
+          <li>Reduced evapotranspiration (impervious surfaces)</li>
+          <li>Reduced sky-view factor (urban canyons trap radiation)</li>
+          <li>Air pollution absorbs heat</li>
+          <li>Reduced wind dispersal</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Impacts</h4>
+        <ul>
+          <li>Heat stroke, dehydration, mortality (esp. elderly, outdoor labourers)</li>
+          <li>Crop wilting, livestock deaths</li>
+          <li>Power grid stress (AC demand spike)</li>
+          <li>Water shortages, reservoir evaporation</li>
+          <li>Increased ground-level ozone pollution</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Mitigation</h4>
+        <ul>
+          <li>National Heat Action Plans (Ahmedabad 2013 model — first in India)</li>
+          <li>Cool roofs (high-albedo paint)</li>
+          <li>Urban forestry, green corridors</li>
+          <li>Blue–green infrastructure</li>
+          <li>Early warning (IMD colour-coded alerts)</li>
+          <li>Modified work hours for labourers</li>
+          <li>Push to notify heat wave as a national disaster (NDMA debate)</li>
+        </ul>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Define heat wave as per IMD criteria. Explain the urban heat island phenomenon."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Account for the formation of an Urban Heat Island in Indian metropolitan cities and its mitigation." <strong>(Mains 2013)</strong></span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the disproportionate impact of heat waves on outdoor workers, the elderly, and the urban poor in India."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine how compound heat–humidity extremes are pushing parts of India toward unliveable wet-bulb thresholds."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How do El Niño years, positive IOD, and atmospheric blocking together intensify Indian heat waves?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine India's Heat Action Plans (Ahmedabad model) and the proposal to notify heat wave as a notified national disaster."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Urban–rural temperature profile showing peaked UHI dome over city centre + diurnal cycle.</div>
+      <div class="takeaway">Heat waves kill silently — and urban heat islands turn already-hot cities into deadly ovens.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/heatwave-and-urban-heat-island-causes-and-effects/" target="_blank" rel="noopener">PMF IAS · Heatwave &amp; Urban Heat Island</a></div>
+    </div>
+  </details>
+
+  <footer>
+    <div>
+      <span>Category 05b · Modern Climate-Change Phenomena · 5 Topics · 30 Question Framings</span>
+      <span><a href="01-foundations.html" style="color: var(--accent); text-decoration: none;">◆ Return to Foundations</a></span>
+    </div>
+  </footer>
+</div>
+
+<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+<script>
+  const toggle = document.getElementById('themeToggle');
+  if (localStorage.getItem('climatology-theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    toggle.textContent = '◑ Light';
+  }
+  toggle.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      toggle.textContent = '◐ Dark';
+      localStorage.setItem('climatology-theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      toggle.textContent = '◑ Light';
+      localStorage.setItem('climatology-theme', 'dark');
+    }
+  });
+  const progress = document.getElementById('progress');
+  const toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', () => {
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (window.scrollY / docH * 100) + '%';
+    if (window.scrollY > 400) toTop.classList.add('show');
+    else toTop.classList.remove('show');
+  });
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>

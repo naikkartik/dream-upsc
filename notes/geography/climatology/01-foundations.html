@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01 · Atmospheric Foundations — Climatology Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f1e6; --bg-soft: #efe7d4; --paper: #fbf7ed;
+    --ink: #1a1612; --ink-soft: #4a4238; --ink-faint: #8a8170;
+    --rule: #d8cdb5; --rule-soft: #e6dec9;
+    --accent: #0b3d4a; --accent-soft: #156877; --highlight: #c2410c;
+    --new-badge: #b45309;
+    --cat-1: #1e3a5f; --cat-1-bg: #e6ecf3;
+    /* 6 dimension colors */
+    --d1: #1e3a5f; --d1-bg: #e6ecf3;  /* Conceptual - blue */
+    --d2: #2d5a3d; --d2-bg: #e3ece5;  /* Locational - green */
+    --d3: #a16207; --d3-bg: #f4ecd6;  /* Climate-Human - amber */
+    --d4: #b1340b; --d4-bg: #f4e0d3;  /* Climate Change - orange */
+    --d5: #5b21b6; --d5-bg: #ece2f5;  /* Variability - purple */
+    --d6: #991b1b; --d6-bg: #f3dada;  /* Current Affairs - red */
+    --shadow-sm: 0 1px 2px rgba(20,15,10,0.06);
+    --shadow-md: 0 4px 16px rgba(20,15,10,0.08);
+    --serif: 'Newsreader', Georgia, serif;
+    --display: 'Fraunces', 'Times New Roman', serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  [data-theme="dark"] {
+    --bg: #1a1612; --bg-soft: #221d17; --paper: #1f1a14;
+    --ink: #f0e8d6; --ink-soft: #c4baa4; --ink-faint: #8a8170;
+    --rule: #3a342a; --rule-soft: #2a2520;
+    --accent: #6fb9c9; --accent-soft: #8ad0df; --highlight: #f97316;
+    --cat-1: #93b5db; --cat-1-bg: #1f2a3a;
+    --d1: #93b5db; --d1-bg: #1f2a3a;
+    --d2: #8fc99e; --d2-bg: #1f2e25;
+    --d3: #d8b46c; --d3-bg: #322a1a;
+    --d4: #e89370; --d4-bg: #2f201a;
+    --d5: #b794e6; --d5-bg: #261d33;
+    --d6: #e08b8b; --d6-bg: #2e1c1c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--serif); font-size: 16px; line-height: 1.65;
+    color: var(--ink); background: var(--bg);
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  .progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: var(--highlight); width: 0%; z-index: 200;
+    transition: width 60ms linear;
+  }
+  .theme-toggle {
+    position: fixed; top: 18px; right: 22px;
+    background: var(--paper); border: 1px solid var(--rule);
+    border-radius: 999px; padding: 7px 14px;
+    font-family: var(--mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    cursor: pointer; color: var(--ink-soft);
+    z-index: 150; box-shadow: var(--shadow-sm);
+  }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--accent); }
+  .container { max-width: 1100px; margin: 0 auto; padding: 50px 60px 100px; }
+  .top-nav {
+    display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 36px;
+    padding: 14px 18px; background: var(--paper);
+    border: 1px solid var(--rule); border-radius: 6px;
+    font-family: var(--mono); font-size: 11.5px; align-items: center;
+  }
+  .top-nav .nav-label {
+    color: var(--accent); font-weight: 600;
+    letter-spacing: 0.06em; padding-right: 14px;
+    border-right: 1px solid var(--rule);
+  }
+  .top-nav a {
+    color: var(--ink-soft); text-decoration: none;
+    padding: 4px 9px; border-radius: 3px; letter-spacing: 0.04em;
+  }
+  .top-nav a:hover { background: var(--bg-soft); color: var(--ink); }
+  .top-nav a.current { background: var(--cat-1); color: var(--paper); }
+  .cat-header { margin-bottom: 36px; }
+  .cat-header .cat-label {
+    font-family: var(--mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    margin-bottom: 12px; color: var(--cat-1);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .cat-header .cat-label::before {
+    content: ''; width: 28px; height: 1px; background: var(--cat-1);
+  }
+  .cat-header h1 {
+    font-family: var(--display); font-weight: 600;
+    font-size: clamp(32px, 4vw, 48px); line-height: 1.1;
+    letter-spacing: -0.025em; margin-bottom: 12px;
+  }
+  .cat-header .cat-desc {
+    font-size: 16.5px; color: var(--ink-soft);
+    font-style: italic; max-width: 720px; line-height: 1.55;
+  }
+  details.topic {
+    background: var(--paper); border: 1px solid var(--rule);
+    border-radius: 6px; margin-bottom: 12px;
+    overflow: hidden; transition: box-shadow 0.2s ease;
+  }
+  details.topic[open] { box-shadow: var(--shadow-md); }
+  summary.topic-head {
+    padding: 16px 22px; cursor: pointer; list-style: none;
+    display: flex; align-items: center; gap: 16px;
+    user-select: none; transition: background 0.15s ease;
+  }
+  summary.topic-head:hover { background: var(--bg-soft); }
+  summary.topic-head::-webkit-details-marker { display: none; }
+  .topic-num {
+    font-family: var(--display); font-weight: 700;
+    font-size: 22px; line-height: 1; flex-shrink: 0;
+    width: 44px; letter-spacing: -0.02em; color: var(--cat-1);
+  }
+  .topic-info { flex: 1; }
+  .topic-name {
+    font-family: var(--display); font-weight: 500;
+    font-size: 17.5px; line-height: 1.3;
+    color: var(--ink); margin-bottom: 4px;
+  }
+  .topic-tags { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .badge {
+    font-family: var(--mono); font-size: 9.5px;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 2px 7px; border-radius: 3px; font-weight: 500;
+  }
+  .badge-pdf { background: var(--bg-soft); color: var(--ink-soft); border: 1px solid var(--rule); }
+  .badge-pmf { background: #d8eef2; color: #0e7490; }
+  .badge-new { background: var(--new-badge); color: white; letter-spacing: 0.12em; }
+  .badge-pyq { background: var(--d6-bg); color: var(--d6); }
+  .topic-toggle {
+    color: var(--ink-faint); font-family: var(--mono);
+    font-size: 14px; transition: transform 0.2s ease; flex-shrink: 0;
+  }
+  details[open] .topic-toggle { transform: rotate(45deg); color: var(--highlight); }
+  .topic-body {
+    padding: 18px 26px 24px 82px;
+    border-top: 1px solid var(--rule-soft); background: var(--bg);
+  }
+  .topic-body section { margin-bottom: 16px; }
+  .topic-body section:last-of-type { margin-bottom: 0; }
+  .topic-body h4 {
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--highlight); margin-bottom: 8px; font-weight: 600;
+  }
+  .topic-body p, .topic-body li {
+    font-size: 15px; line-height: 1.6; color: var(--ink);
+  }
+  .topic-body p { margin-bottom: 8px; }
+  .topic-body ul, .topic-body ol { margin: 4px 0 0 22px; }
+  .topic-body li { margin-bottom: 5px; }
+  .topic-body strong { color: var(--ink); font-weight: 600; }
+  .topic-body em { font-style: italic; color: var(--ink-soft); }
+  table.notes {
+    width: 100%; border-collapse: collapse; margin: 10px 0;
+    font-size: 13.5px; background: var(--paper);
+    box-shadow: var(--shadow-sm); border-radius: 4px; overflow: hidden;
+  }
+  table.notes th {
+    background: var(--bg-soft); text-align: left; padding: 9px 12px;
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--ink-soft); border-bottom: 1.5px solid var(--ink); font-weight: 500;
+  }
+  table.notes td {
+    padding: 9px 12px; border-bottom: 1px solid var(--rule-soft); vertical-align: top;
+  }
+  table.notes tr:last-child td { border-bottom: none; }
+  .diagram-note {
+    margin-top: 6px; padding: 9px 13px;
+    background: var(--bg-soft); border-left: 3px solid var(--highlight);
+    font-family: var(--mono); font-size: 11.5px;
+    letter-spacing: 0.03em; color: var(--ink-soft);
+    border-radius: 0 4px 4px 0;
+  }
+  .diagram-note::before { content: '✎ '; color: var(--highlight); font-family: var(--serif); }
+  .takeaway {
+    margin-top: 12px; padding: 12px 16px;
+    background: var(--paper); border: 1px dashed var(--accent);
+    border-radius: 4px; font-style: italic;
+    color: var(--ink); font-size: 14.5px; line-height: 1.5;
+  }
+  .takeaway::before {
+    content: 'Key Takeaway · '; font-style: normal;
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--accent); font-weight: 600;
+    display: block; margin-bottom: 4px;
+  }
+
+  /* 6 Dimensions section */
+  .dimensions-section {
+    margin-top: 16px;
+    padding: 16px 18px;
+    background: var(--paper);
+    border-radius: 6px;
+    border: 1px solid var(--rule);
+  }
+  .dimensions-section > h4 {
+    font-family: var(--mono); font-size: 10.5px;
+    text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--accent); margin-bottom: 12px; font-weight: 600;
+  }
+  .dim-list { display: grid; gap: 8px; }
+  .dim {
+    display: grid;
+    grid-template-columns: 24px 130px 1fr;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 4px;
+    align-items: start;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .dim-icon { font-size: 14px; line-height: 1.5; }
+  .dim-label {
+    font-family: var(--mono); font-size: 10.5px;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    font-weight: 600;
+    line-height: 1.55;
+  }
+  .dim-q { color: var(--ink); font-style: italic; }
+  .dim-q.na { color: var(--ink-faint); font-style: normal; font-size: 13px; }
+  .dim.d1 { background: var(--d1-bg); }
+  .dim.d1 .dim-label { color: var(--d1); }
+  .dim.d2 { background: var(--d2-bg); }
+  .dim.d2 .dim-label { color: var(--d2); }
+  .dim.d3 { background: var(--d3-bg); }
+  .dim.d3 .dim-label { color: var(--d3); }
+  .dim.d4 { background: var(--d4-bg); }
+  .dim.d4 .dim-label { color: var(--d4); }
+  .dim.d5 { background: var(--d5-bg); }
+  .dim.d5 .dim-label { color: var(--d5); }
+  .dim.d6 { background: var(--d6-bg); }
+  .dim.d6 .dim-label { color: var(--d6); }
+
+  /* Source section */
+  .source-link {
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: var(--bg-soft);
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    display: flex; align-items: center; gap: 8px;
+    flex-wrap: wrap;
+  }
+  .source-link::before {
+    content: '↗';
+    font-family: var(--mono);
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .source-link strong {
+    font-family: var(--mono); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--accent);
+  }
+  .source-link a {
+    color: var(--accent); text-decoration: none;
+    word-break: break-all;
+    border-bottom: 1px dotted var(--accent);
+  }
+  .source-link a:hover { color: var(--highlight); border-bottom-color: var(--highlight); }
+
+  footer {
+    margin-top: 60px; padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-faint); line-height: 1.8;
+  }
+  footer div { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .to-top {
+    position: fixed; bottom: 28px; right: 28px;
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--accent); color: var(--paper);
+    border: none; cursor: pointer; font-size: 17px;
+    box-shadow: var(--shadow-md); opacity: 0;
+    transform: translateY(8px); transition: all 0.25s ease; z-index: 150;
+  }
+  .to-top.show { opacity: 1; transform: translateY(0); }
+  @media (max-width: 800px) {
+    .container { padding: 30px 22px 80px; }
+    .topic-body { padding-left: 24px; padding-right: 18px; }
+    .dim { grid-template-columns: 20px 1fr; }
+    .dim-label { grid-column: 2; }
+    .dim-q { grid-column: 1 / -1; padding-left: 32px; }
+  }
+  @media print {
+    .theme-toggle, .to-top, .progress-bar, .top-nav { display: none !important; }
+    .container { padding: 0; max-width: 100%; }
+    body { font-size: 10pt; background: white; color: black; }
+    details.topic { break-inside: avoid; box-shadow: none; }
+    details.topic > * { display: block !important; }
+    summary.topic-head { background: #eee !important; }
+    .topic-body { display: block !important; padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+<button class="theme-toggle" id="themeToggle">◐ Dark</button>
+
+<div class="container">
+  <nav class="top-nav">
+    <span class="nav-label">CLIMATOLOGY</span>
+    <a href="01-foundations.html" class="current">01 Foundations</a>
+    <a href="02-circulation.html">02 Circulation</a>
+    <a href="03-moisture.html">03 Moisture</a>
+    <a href="04-storms.html">04 Storms</a>
+    <a href="05a-variability.html">05a Oscillations</a>
+    <a href="05b-modern.html">05b Modern</a>
+  </nav>
+
+  <header class="cat-header">
+    <div class="cat-label">Category 01 · 6 Topics</div>
+    <h1>Atmospheric Foundations</h1>
+    <p class="cat-desc">The basic building blocks — what the atmosphere is made of, how it's layered, how heat enters and leaves Earth, and how temperature changes with altitude. Master these first; everything else builds on them.</p>
+  </header>
+
+  <!-- TOPIC 1 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">01</div>
+      <div class="topic-info">
+        <div class="topic-name">Earth's Atmosphere — Composition &amp; Layers</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 20</span>
+          <span class="badge badge-pyq">PYQ 2018, 2021, 2024</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>The atmosphere is the gaseous envelope (~10,000 km thick) around Earth, held by gravity. Dry air = <strong>78% N₂, 21% O₂, 0.93% Argon, 0.04% CO₂</strong> + trace gases (CH₄, N₂O, O₃) + variable water vapour (0–4%).</p>
+      </section>
+      <section>
+        <h4>Five Layers (Bottom Up)</h4>
+        <table class="notes">
+          <thead><tr><th>Layer</th><th>Altitude</th><th>Temp Trend</th><th>Significance</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Troposphere</strong></td><td>0–12 km</td><td>↓ with height</td><td>All weather; 75% of mass; 99% water vapour</td></tr>
+            <tr><td><strong>Stratosphere</strong></td><td>12–50 km</td><td>↑ with height</td><td>Ozone layer (20–30 km); jet aircraft</td></tr>
+            <tr><td><strong>Mesosphere</strong></td><td>50–80 km</td><td>↓ with height</td><td>Meteors burn here; coldest layer (–90°C)</td></tr>
+            <tr><td><strong>Thermosphere / Ionosphere</strong></td><td>80–700 km</td><td>↑ with height</td><td>Reflects radio waves; auroras occur here</td></tr>
+            <tr><td><strong>Exosphere</strong></td><td>700–10,000 km</td><td>Atoms escape</td><td>Satellites; merges with space</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h4>Key Functions of Gases</h4>
+        <ul>
+          <li><strong>O₂</strong> — respiration, combustion</li>
+          <li><strong>N₂</strong> — dilutes oxygen, prevents spontaneous combustion</li>
+          <li><strong>CO₂</strong> — greenhouse gas; absorbs longwave radiation</li>
+          <li><strong>O₃</strong> — absorbs UV in stratosphere</li>
+          <li><strong>Water vapour</strong> — source of all precipitation; latent heat carrier</li>
+          <li><strong>Dust / aerosols</strong> — condensation nuclei, scattering, sunset colours</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>CO₂ rose 280 ppm (pre-industrial) → ~420 ppm (2024). Methane and N₂O also rising. Shifts the radiative balance → global warming. Anthropogenic aerosols modify cloud formation (Twomey effect).</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Troposphere is a very significant atmospheric layer that determines weather processes. How?" <strong>(Mains 2021)</strong></span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q na">Not commonly asked from this angle — atmosphere is global.</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss how anthropogenic activity has altered the composition of Earth's atmosphere and its consequences."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Explain how rising CO₂ and methane levels are reshaping the radiative balance of the atmosphere."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How do variations in stratospheric ozone influence surface weather and climate?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Discuss the Montreal Protocol's progress on ozone recovery and lessons for climate diplomacy."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Vertical atmospheric profile — 5 layers with zigzag temperature curve and altitude scale.</div>
+      <div class="takeaway">The atmosphere is the engine room of climate; its layered structure determines where weather, ozone, radio, and auroras happen.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Climatology Hub</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 2 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">02</div>
+      <div class="topic-info">
+        <div class="topic-name">Insolation &amp; Heat Budget</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 21</span>
+          <span class="badge badge-pyq">Prelims 2010, 2012</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p><strong>Insolation</strong> = Incoming Solar Radiation reaching Earth (~1361 W/m² at top of atmosphere = solar constant). <strong>Heat Budget</strong> = balance between incoming solar (shortwave) and outgoing terrestrial (longwave) radiation that keeps Earth at ~15°C average.</p>
+      </section>
+      <section>
+        <h4>Heat Budget (of 100 units incoming)</h4>
+        <ul>
+          <li><strong>35 reflected</strong> (planetary albedo): 27 by clouds + 2 atmosphere + 6 surface</li>
+          <li><strong>14 absorbed by atmosphere</strong> (ozone, water vapour, dust)</li>
+          <li><strong>51 absorbed by surface</strong></li>
+          <li>Earth re-emits 65 units as longwave terrestrial radiation</li>
+          <li>17 escape directly; 48 absorbed by atmosphere (greenhouse effect)</li>
+          <li>Net: Incoming 100 = Outgoing 100. Earth is in <strong>radiative equilibrium</strong>.</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Factors Affecting Insolation</h4>
+        <ol>
+          <li><strong>Angle of sun's rays</strong> (latitude) — vertical = concentrated; slanted = diffuse</li>
+          <li><strong>Length of day</strong> — longer in summer hemisphere</li>
+          <li><strong>Atmospheric transparency</strong> — clouds, dust, water vapour absorb/scatter</li>
+          <li><strong>Distance from Sun</strong> — aphelion (July) vs perihelion (Jan)</li>
+          <li><strong>Albedo</strong> — snow reflects 80%, dark soil 5%</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>Greenhouse gases <strong>don't change incoming insolation</strong> — they trap outgoing longwave radiation, shifting the budget. Result: more retention, warmer surface. Each +1 ppm CO₂ adds measurable radiative forcing.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Explain Earth's heat budget. How does it maintain global temperature equilibrium?"</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why do tropical regions receive maximum insolation while polar regions face perpetual deficit?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss how deforestation and urbanisation alter regional heat budgets."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"How does anthropogenic greenhouse gas emission disturb Earth's radiative balance? Examine."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"Solar cycles (11-year sunspot) and their measurable impact on Earth's climate — discuss."</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"IPCC AR6 findings on Earth's energy imbalance — implications for warming trajectory."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Earth heat budget — Sankey-style flow showing reflections, absorptions, and outgoing radiation totalling 100 units.</div>
+      <div class="takeaway">Earth is a giant solar oven; the heat budget is the bookkeeping that keeps it habitable — and climate change is the bookkeeping going wrong.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Temperature Distribution &amp; Heat Budget</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 3 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">03</div>
+      <div class="topic-info">
+        <div class="topic-name">Albedo &amp; Temperature Distribution</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 21</span>
+          <span class="badge badge-pyq">Prelims 2010</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p><strong>Albedo</strong> = fraction of incoming sunlight a surface reflects (0 = black/absorber; 1 = white/reflector). Earth's average albedo ~0.30.</p>
+      </section>
+      <section>
+        <h4>Surface Albedo Values</h4>
+        <table class="notes">
+          <thead><tr><th>Surface</th><th>Albedo %</th><th>Implication</th></tr></thead>
+          <tbody>
+            <tr><td>Fresh snow</td><td>80–90</td><td>Polar amplification driver</td></tr>
+            <tr><td>Thick cloud</td><td>70–80</td><td>Cooling effect</td></tr>
+            <tr><td>Desert / light soil</td><td>30–45</td><td>Hot but reflective</td></tr>
+            <tr><td>Grasses / vegetation</td><td>20–25</td><td>Moderate</td></tr>
+            <tr><td>Forest</td><td>10–20</td><td>Carbon sink + heat absorber</td></tr>
+            <tr><td>Oceans / water</td><td>6–10</td><td>Strong heat sink</td></tr>
+            <tr><td>Asphalt</td><td>5</td><td>Urban heat island driver</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Descending order (ecosystems)</strong>: Tundra &gt; Taiga &gt; Temperate Forest &gt; Tropical Forest.</p>
+      </section>
+      <section>
+        <h4>Temperature Distribution Factors</h4>
+        <ol>
+          <li><strong>Latitude</strong> — primary control</li>
+          <li><strong>Altitude</strong> — temperature falls 6.5°C/km</li>
+          <li><strong>Distance from sea</strong> — continentality</li>
+          <li><strong>Ocean currents</strong> — Gulf Stream warms NW Europe; Humboldt cools Chile</li>
+          <li><strong>Prevailing winds</strong> — onshore vs offshore</li>
+          <li><strong>Slope &amp; aspect</strong> — sun-facing vs shaded</li>
+          <li><strong>Nature of soil/vegetation</strong></li>
+        </ol>
+      </section>
+      <section>
+        <h4>Ice-Albedo Feedback (Climate Change)</h4>
+        <p><strong>Positive feedback loop</strong>: Warming melts ice → exposes dark ocean/land → more absorption → more warming → more melting. Why <strong>Arctic warms 4× faster than global average (polar amplification)</strong>.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"What is albedo? Explain how it varies across different surface types and its role in Earth's climate."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why does the Arctic warm at four times the global rate? Explain the role of albedo feedback."</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss how urban land-use change reduces albedo and contributes to heat island formation."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Explain the ice-albedo positive feedback and its role in Arctic amplification."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"Seasonal snow cover anomalies over the Tibetan Plateau and their teleconnection to Indian monsoon."</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine 'cool roof' interventions in Indian cities (Ahmedabad, Telangana) and their climate adaptation potential."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Albedo bar chart (snow vs forest vs ocean vs asphalt) + ice-albedo feedback loop diagram.</div>
+      <div class="takeaway">Albedo is the colour-of-Earth lever — change Earth's colour (melt ice, build cities) and you change Earth's climate.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Temperature Distribution &amp; Heat Budget</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 4 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">04</div>
+      <div class="topic-info">
+        <div class="topic-name">Latitudinal Heat Balance</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 21</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>Redistribution of heat from <strong>energy-surplus tropics</strong> (0–40°) to <strong>energy-deficit polar regions</strong> (40°–90°). Without this, equator would keep heating and poles cooling.</p>
+      </section>
+      <section>
+        <h4>The Imbalance</h4>
+        <ul>
+          <li><strong>0°–40°</strong>: incoming solar &gt; outgoing terrestrial → <strong>surplus</strong></li>
+          <li><strong>40°–90°</strong>: outgoing terrestrial &gt; incoming solar → <strong>deficit</strong></li>
+          <li>System transports heat poleward to maintain balance</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Mechanisms of Heat Transport</h4>
+        <ol>
+          <li><strong>Atmospheric circulation (60%)</strong> — Hadley, Ferrel, Polar cells; jet streams; storms</li>
+          <li><strong>Ocean circulation (40%)</strong> — Gulf Stream, Kuroshio carry heat poleward; cold currents return cold equatorward</li>
+          <li><strong>Latent heat transport</strong> — water evaporates in tropics, condenses at higher latitudes, releasing heat</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>As tropics warm faster <em>relatively</em>, equator-pole gradient narrows. This weakens jet streams → meandering Rossby waves → extreme winters in mid-latitudes (paradox of warming). AMOC slowdown disrupts the oceanic component.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Discuss the latitudinal heat balance. How is heat redistributed from tropics to poles?"</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why does Northwest Europe enjoy a mild climate despite its high latitude? Explain."</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Disruption of latitudinal heat balance and its consequences for global agriculture."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"How is climate change altering the equator-to-pole temperature gradient, and what are its consequences for global weather?"</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How do meandering Rossby waves explain extreme weather episodes in mid-latitudes?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"AMOC slowdown and the future of latitudinal heat transport — examine recent research."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Earth cross-section showing surplus tropics (red), deficit poles (blue), with arrows for atmospheric + oceanic heat transport.</div>
+      <div class="takeaway">Wind blows because the sun isn't fair — equator gets too much, poles too little, and the atmosphere endlessly tries to even the score.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Climatology Hub</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 5 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">05</div>
+      <div class="topic-info">
+        <div class="topic-name">Lapse Rate &amp; Atmospheric Stability</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 22</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p><strong>Lapse rate</strong> = rate at which temperature changes with altitude. Different types apply in different contexts.</p>
+      </section>
+      <section>
+        <h4>Types of Lapse Rate</h4>
+        <table class="notes">
+          <thead><tr><th>Type</th><th>Rate</th><th>What It Describes</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Normal (NLR)</strong></td><td>6.5°C/km</td><td>Average decrease in static atmosphere</td></tr>
+            <tr><td><strong>Environmental (ELR)</strong></td><td>Variable</td><td>Actual rate measured by radiosonde</td></tr>
+            <tr><td><strong>Dry Adiabatic (DALR)</strong></td><td>10°C/km</td><td>Unsaturated air parcel cooling when rising</td></tr>
+            <tr><td><strong>Wet/Saturated Adiabatic (SALR)</strong></td><td>5–6°C/km</td><td>Saturated air (slower due to latent heat release)</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h4>Three Stability States</h4>
+        <ol>
+          <li><strong>Stable</strong>: ELR &lt; SALR — rising parcel cooler than surroundings → sinks back. Calm, no clouds.</li>
+          <li><strong>Unstable</strong>: ELR &gt; DALR — rising parcel stays warmer → continues rising. Thunderstorms.</li>
+          <li><strong>Conditionally unstable</strong>: SALR &lt; ELR &lt; DALR — stable for dry, unstable for saturated. Explains <strong>orographic rainfall and cloudbursts</strong>.</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Why DALR &gt; SALR?</h4>
+        <p>When saturated air rises, condensation releases <strong>latent heat (540 cal/g)</strong>, slowing the cooling. This released energy powers thunderstorms and cyclones.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Distinguish between dry and wet adiabatic lapse rates. Why is SALR smaller than DALR?"</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why do windward sides of mountains experience heavy rainfall while leeward sides remain dry? Use lapse-rate physics."</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss how atmospheric instability drives the lightning crisis in eastern India (Bihar, Odisha, Jharkhand)."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"A warmer atmosphere increases atmospheric instability. Examine the implications for extreme convective rainfall in India."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How does atmospheric stability vary with monsoon active and break phases?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Recent Wayanad landslides — examine the role of orographic instability and conditional uplift."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Altitude (Y) vs Temperature (X) graph with NLR, DALR, SALR lines + stability zones shaded.</div>
+      <div class="takeaway">Lapse rates are the rule book of vertical air motion — when the actual atmosphere disobeys them, you get cyclones and cloudbursts.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Adiabatic Lapse Rate &amp; Latent Heat</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 6 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">06</div>
+      <div class="topic-info">
+        <div class="topic-name">Temperature Inversion</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 22</span>
+          <span class="badge badge-pyq">Mains 2013</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>Reversal of normal lapse rate — temperature <strong>increases</strong> with altitude in a specific layer (instead of decreasing). Creates a stable "lid" trapping pollutants below.</p>
+      </section>
+      <section>
+        <h4>Five Types</h4>
+        <table class="notes">
+          <thead><tr><th>Type</th><th>Mechanism</th><th>Where/When</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Radiational</strong></td><td>Surface loses heat to clear night sky</td><td>Winter nights; flat terrain</td></tr>
+            <tr><td><strong>Air drainage (valley)</strong></td><td>Cold air sinks downslope into valley floor</td><td>Kashmir, Shimla, intermontane valleys</td></tr>
+            <tr><td><strong>Advectional</strong></td><td>Warm air blows over cold surface</td><td>Coastal regions; coastal fog</td></tr>
+            <tr><td><strong>Frontal</strong></td><td>Warm air rides over cold air at a front</td><td>Temperate latitudes; warm fronts</td></tr>
+            <tr><td><strong>Subsidence</strong></td><td>Anticyclonic descending air compresses &amp; warms</td><td>Subtropical highs; persistent smog</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h4>Effects</h4>
+        <ul>
+          <li><strong>Smog &amp; pollution trap</strong> — Delhi winter, Bhopal disaster, LA basin</li>
+          <li><strong>Fog formation</strong> — IGP winter fog, aviation hazard</li>
+          <li><strong>Suppressed rainfall</strong> — no convection, no clouds</li>
+          <li><strong>Frost on valley floor</strong> — damages crops</li>
+          <li><strong>Benefit: horticulture</strong> — Kashmir apples need chilling hours</li>
+          <li><strong>Respiratory illness spike</strong> — PM2.5 trapped near ground</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>Warmer winters reduce frequency of strong radiational inversions. However, urbanisation increases localised inversion intensity. Delhi smog episodes increasingly severe due to inversion + crop burning + vehicular emissions.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"What do you understand by 'temperature inversion'? How does it affect weather and the habitants of the place?" <strong>(Mains 2013)</strong></span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why are intermontane valleys of Kashmir and Shimla particularly prone to temperature inversion?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the role of temperature inversion in Delhi's recurring winter smog crisis and its public health impact."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"How is climate change altering the frequency and intensity of temperature inversions over the Indo-Gangetic Plain?"</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"Western Disturbances and their role in modulating winter inversion-fog episodes over Northwest India."</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Recent Delhi air quality emergencies — examine the meteorological role of temperature inversion alongside GRAP measures."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Altitude-temperature graph showing inversion layer (kink) + valley inversion sketch with cold air pooling.</div>
+      <div class="takeaway">Inversion is the atmosphere's lid — when it shuts, the air below stagnates, fogs, and chokes.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Temperature Inversion — Types &amp; Effects</a></div>
+    </div>
+  </details>
+
+  <footer>
+    <div>
+      <span>Category 01 · Atmospheric Foundations · 6 Topics · 36 Question Framings</span>
+      <span><a href="02-circulation.html" style="color: var(--accent); text-decoration: none;">Next → Pressure, Wind &amp; Circulation</a></span>
+    </div>
+  </footer>
+</div>
+
+<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+<script>
+  const toggle = document.getElementById('themeToggle');
+  if (localStorage.getItem('climatology-theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    toggle.textContent = '◑ Light';
+  }
+  toggle.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      toggle.textContent = '◐ Dark';
+      localStorage.setItem('climatology-theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      toggle.textContent = '◑ Light';
+      localStorage.setItem('climatology-theme', 'dark');
+    }
+  });
+  const progress = document.getElementById('progress');
+  const toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', () => {
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (window.scrollY / docH * 100) + '%';
+    if (window.scrollY > 400) toTop.classList.add('show');
+    else toTop.classList.remove('show');
+  });
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>

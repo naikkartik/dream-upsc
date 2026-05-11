@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02 · Pressure, Wind &amp; Circulation — Climatology Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f1e6; --bg-soft: #efe7d4; --paper: #fbf7ed;
+    --ink: #1a1612; --ink-soft: #4a4238; --ink-faint: #8a8170;
+    --rule: #d8cdb5; --rule-soft: #e6dec9;
+    --accent: #0b3d4a; --accent-soft: #156877; --highlight: #c2410c;
+    --new-badge: #b45309;
+    --cat: #2d5a3d; --cat-bg: #e3ece5;
+    --d1: #1e3a5f; --d1-bg: #e6ecf3;
+    --d2: #2d5a3d; --d2-bg: #e3ece5;
+    --d3: #a16207; --d3-bg: #f4ecd6;
+    --d4: #b1340b; --d4-bg: #f4e0d3;
+    --d5: #5b21b6; --d5-bg: #ece2f5;
+    --d6: #991b1b; --d6-bg: #f3dada;
+    --shadow-sm: 0 1px 2px rgba(20,15,10,0.06);
+    --shadow-md: 0 4px 16px rgba(20,15,10,0.08);
+    --serif: 'Newsreader', Georgia, serif;
+    --display: 'Fraunces', 'Times New Roman', serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  [data-theme="dark"] {
+    --bg: #1a1612; --bg-soft: #221d17; --paper: #1f1a14;
+    --ink: #f0e8d6; --ink-soft: #c4baa4; --ink-faint: #8a8170;
+    --rule: #3a342a; --rule-soft: #2a2520;
+    --accent: #6fb9c9; --accent-soft: #8ad0df; --highlight: #f97316;
+    --cat: #8fc99e; --cat-bg: #1f2e25;
+    --d1: #93b5db; --d1-bg: #1f2a3a;
+    --d2: #8fc99e; --d2-bg: #1f2e25;
+    --d3: #d8b46c; --d3-bg: #322a1a;
+    --d4: #e89370; --d4-bg: #2f201a;
+    --d5: #b794e6; --d5-bg: #261d33;
+    --d6: #e08b8b; --d6-bg: #2e1c1c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--serif); font-size: 16px; line-height: 1.65; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--highlight); width: 0%; z-index: 200; transition: width 60ms linear; }
+  .theme-toggle { position: fixed; top: 18px; right: 22px; background: var(--paper); border: 1px solid var(--rule); border-radius: 999px; padding: 7px 14px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; color: var(--ink-soft); z-index: 150; box-shadow: var(--shadow-sm); }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--accent); }
+  .container { max-width: 1100px; margin: 0 auto; padding: 50px 60px 100px; }
+  .top-nav { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 36px; padding: 14px 18px; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; font-family: var(--mono); font-size: 11.5px; align-items: center; }
+  .top-nav .nav-label { color: var(--accent); font-weight: 600; letter-spacing: 0.06em; padding-right: 14px; border-right: 1px solid var(--rule); }
+  .top-nav a { color: var(--ink-soft); text-decoration: none; padding: 4px 9px; border-radius: 3px; letter-spacing: 0.04em; }
+  .top-nav a:hover { background: var(--bg-soft); color: var(--ink); }
+  .top-nav a.current { background: var(--cat); color: var(--paper); }
+  .cat-header { margin-bottom: 36px; }
+  .cat-header .cat-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 12px; color: var(--cat); display: flex; align-items: center; gap: 12px; }
+  .cat-header .cat-label::before { content: ''; width: 28px; height: 1px; background: var(--cat); }
+  .cat-header h1 { font-family: var(--display); font-weight: 600; font-size: clamp(32px, 4vw, 48px); line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 12px; }
+  .cat-header .cat-desc { font-size: 16.5px; color: var(--ink-soft); font-style: italic; max-width: 720px; line-height: 1.55; }
+  details.topic { background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; margin-bottom: 12px; overflow: hidden; transition: box-shadow 0.2s ease; }
+  details.topic[open] { box-shadow: var(--shadow-md); }
+  summary.topic-head { padding: 16px 22px; cursor: pointer; list-style: none; display: flex; align-items: center; gap: 16px; user-select: none; transition: background 0.15s ease; }
+  summary.topic-head:hover { background: var(--bg-soft); }
+  summary.topic-head::-webkit-details-marker { display: none; }
+  .topic-num { font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 1; flex-shrink: 0; width: 44px; letter-spacing: -0.02em; color: var(--cat); }
+  .topic-info { flex: 1; }
+  .topic-name { font-family: var(--display); font-weight: 500; font-size: 17.5px; line-height: 1.3; color: var(--ink); margin-bottom: 4px; }
+  .topic-tags { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .badge { font-family: var(--mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.1em; padding: 2px 7px; border-radius: 3px; font-weight: 500; }
+  .badge-pdf { background: var(--bg-soft); color: var(--ink-soft); border: 1px solid var(--rule); }
+  .badge-pmf { background: #d8eef2; color: #0e7490; }
+  .badge-new { background: var(--new-badge); color: white; letter-spacing: 0.12em; }
+  .badge-pyq { background: var(--d6-bg); color: var(--d6); }
+  .topic-toggle { color: var(--ink-faint); font-family: var(--mono); font-size: 14px; transition: transform 0.2s ease; flex-shrink: 0; }
+  details[open] .topic-toggle { transform: rotate(45deg); color: var(--highlight); }
+  .topic-body { padding: 18px 26px 24px 82px; border-top: 1px solid var(--rule-soft); background: var(--bg); }
+  .topic-body section { margin-bottom: 16px; }
+  .topic-body section:last-of-type { margin-bottom: 0; }
+  .topic-body h4 { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--highlight); margin-bottom: 8px; font-weight: 600; }
+  .topic-body p, .topic-body li { font-size: 15px; line-height: 1.6; color: var(--ink); }
+  .topic-body p { margin-bottom: 8px; }
+  .topic-body ul, .topic-body ol { margin: 4px 0 0 22px; }
+  .topic-body li { margin-bottom: 5px; }
+  .topic-body strong { color: var(--ink); font-weight: 600; }
+  .topic-body em { font-style: italic; color: var(--ink-soft); }
+  table.notes { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13.5px; background: var(--paper); box-shadow: var(--shadow-sm); border-radius: 4px; overflow: hidden; }
+  table.notes th { background: var(--bg-soft); text-align: left; padding: 9px 12px; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); border-bottom: 1.5px solid var(--ink); font-weight: 500; }
+  table.notes td { padding: 9px 12px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  table.notes tr:last-child td { border-bottom: none; }
+  .diagram-note { margin-top: 6px; padding: 9px 13px; background: var(--bg-soft); border-left: 3px solid var(--highlight); font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.03em; color: var(--ink-soft); border-radius: 0 4px 4px 0; }
+  .diagram-note::before { content: '✎ '; color: var(--highlight); font-family: var(--serif); }
+  .takeaway { margin-top: 12px; padding: 12px 16px; background: var(--paper); border: 1px dashed var(--accent); border-radius: 4px; font-style: italic; color: var(--ink); font-size: 14.5px; line-height: 1.5; }
+  .takeaway::before { content: 'Key Takeaway · '; font-style: normal; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); font-weight: 600; display: block; margin-bottom: 4px; }
+  .dimensions-section { margin-top: 16px; padding: 16px 18px; background: var(--paper); border-radius: 6px; border: 1px solid var(--rule); }
+  .dimensions-section > h4 { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--accent); margin-bottom: 12px; font-weight: 600; }
+  .dim-list { display: grid; gap: 8px; }
+  .dim { display: grid; grid-template-columns: 24px 130px 1fr; gap: 12px; padding: 10px 14px; border-radius: 4px; align-items: start; font-size: 14px; line-height: 1.5; }
+  .dim-icon { font-size: 14px; line-height: 1.5; }
+  .dim-label { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; line-height: 1.55; }
+  .dim-q { color: var(--ink); font-style: italic; }
+  .dim-q.na { color: var(--ink-faint); font-style: normal; font-size: 13px; }
+  .dim.d1 { background: var(--d1-bg); } .dim.d1 .dim-label { color: var(--d1); }
+  .dim.d2 { background: var(--d2-bg); } .dim.d2 .dim-label { color: var(--d2); }
+  .dim.d3 { background: var(--d3-bg); } .dim.d3 .dim-label { color: var(--d3); }
+  .dim.d4 { background: var(--d4-bg); } .dim.d4 .dim-label { color: var(--d4); }
+  .dim.d5 { background: var(--d5-bg); } .dim.d5 .dim-label { color: var(--d5); }
+  .dim.d6 { background: var(--d6-bg); } .dim.d6 .dim-label { color: var(--d6); }
+  .source-link { margin-top: 14px; padding: 10px 14px; background: var(--bg-soft); border-radius: 4px; font-size: 13px; color: var(--ink-soft); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .source-link::before { content: '↗'; font-family: var(--mono); color: var(--accent); font-weight: 600; }
+  .source-link strong { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); }
+  .source-link a { color: var(--accent); text-decoration: none; word-break: break-all; border-bottom: 1px dotted var(--accent); }
+  .source-link a:hover { color: var(--highlight); border-bottom-color: var(--highlight); }
+  footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); line-height: 1.8; }
+  footer div { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .to-top { position: fixed; bottom: 28px; right: 28px; width: 42px; height: 42px; border-radius: 50%; background: var(--accent); color: var(--paper); border: none; cursor: pointer; font-size: 17px; box-shadow: var(--shadow-md); opacity: 0; transform: translateY(8px); transition: all 0.25s ease; z-index: 150; }
+  .to-top.show { opacity: 1; transform: translateY(0); }
+  @media (max-width: 800px) {
+    .container { padding: 30px 22px 80px; }
+    .topic-body { padding-left: 24px; padding-right: 18px; }
+    .dim { grid-template-columns: 20px 1fr; }
+    .dim-label { grid-column: 2; }
+    .dim-q { grid-column: 1 / -1; padding-left: 32px; }
+  }
+  @media print {
+    .theme-toggle, .to-top, .progress-bar, .top-nav { display: none !important; }
+    .container { padding: 0; max-width: 100%; }
+    body { font-size: 10pt; background: white; color: black; }
+    details.topic { break-inside: avoid; box-shadow: none; }
+    details.topic > * { display: block !important; }
+    summary.topic-head { background: #eee !important; }
+    .topic-body { display: block !important; padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+<button class="theme-toggle" id="themeToggle">◐ Dark</button>
+
+<div class="container">
+  <nav class="top-nav">
+    <span class="nav-label">CLIMATOLOGY</span>
+    <a href="01-foundations.html">01 Foundations</a>
+    <a href="02-circulation.html" class="current">02 Circulation</a>
+    <a href="03-moisture.html">03 Moisture</a>
+    <a href="04-storms.html">04 Storms</a>
+    <a href="05a-variability.html">05a Oscillations</a>
+    <a href="05b-modern.html">05b Modern</a>
+  </nav>
+
+  <header class="cat-header">
+    <div class="cat-label">Category 02 · 6 Topics</div>
+    <h1>Pressure, Wind &amp; Circulation</h1>
+    <p class="cat-desc">How pressure differences drive air movement, how Earth's rotation deflects it, how planetary circulation organises winds into trade, westerly, and polar regimes — with jet streams overhead and Rossby waves bending them out of shape.</p>
+  </header>
+
+  <!-- TOPIC 7 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">07</div>
+      <div class="topic-info">
+        <div class="topic-name">Atmospheric Pressure &amp; Wind</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 23</span>
+          <span class="badge badge-pyq">Prelims 1997, 2011</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p><strong>Atmospheric pressure</strong> = weight of air column above a unit area. Sea level average = <strong>1013 hPa (mb)</strong>. Falls ~1 hPa per 8m altitude initially.</p>
+      </section>
+      <section>
+        <h4>Factors Affecting Pressure</h4>
+        <ol>
+          <li><strong>Temperature</strong> — heating expands air → low pressure; cooling → high pressure</li>
+          <li><strong>Altitude</strong> — pressure falls with altitude</li>
+          <li><strong>Humidity</strong> — moist air lighter than dry → lower pressure</li>
+          <li><strong>Earth's rotation</strong> — creates pressure belts</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Seven Global Pressure Belts</h4>
+        <table class="notes">
+          <thead><tr><th>Belt</th><th>Latitude</th><th>Type</th><th>Cause</th></tr></thead>
+          <tbody>
+            <tr><td>Equatorial Low (Doldrums)</td><td>0–5°</td><td>Thermal low</td><td>Strong heating</td></tr>
+            <tr><td>Subtropical High (Horse Latitudes)</td><td>25–35°N/S</td><td>Dynamic high</td><td>Subsiding Hadley cell air</td></tr>
+            <tr><td>Sub-polar Low</td><td>60–65°N/S</td><td>Dynamic low</td><td>Coriolis-driven divergence</td></tr>
+            <tr><td>Polar High</td><td>80–90°N/S</td><td>Thermal high</td><td>Extreme cold</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h4>Types of Winds</h4>
+        <ul>
+          <li><strong>Permanent (planetary):</strong> Trade winds, Westerlies, Polar Easterlies</li>
+          <li><strong>Secondary (periodic):</strong> Monsoons, Land–sea breeze, Mountain–valley breeze</li>
+          <li><strong>Local:</strong> Loo (N India), Foehn (Alps), Chinook (Rockies), Mistral (Rhone), Sirocco (Sahara → S Europe), Bora (Adriatic), Harmattan (W Africa)</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>Hadley cell expansion is shifting subtropical highs poleward (~50-100 km/decade) → expanding deserts. Pressure belts no longer stationary in their classical positions.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Explain the global distribution of atmospheric pressure belts. How do they shape planetary wind systems?"</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why are local winds like Loo, Foehn, Mistral, and Sirocco confined to specific regions? Examine."</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the impact of the Loo on agriculture, public health, and livelihoods in North India."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Subtropical high-pressure belts are expanding poleward under climate change. Examine the consequences for global aridity."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"Variations in the Subtropical High over the Pacific and their teleconnection to the Indian monsoon."</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine the role of changing pressure patterns in the recurring 2022–2024 heat waves over Europe and South Asia."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Global pressure belts and prevailing winds — 7 belts + 6 wind systems on rotated Earth view.</div>
+      <div class="takeaway">Pressure differences are the steering wheel; the Coriolis force is the suspension. Together they drive every wind on Earth.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Atmospheric Pressure Belts &amp; Wind Systems</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 8 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">08</div>
+      <div class="topic-info">
+        <div class="topic-name">Coriolis Force &amp; Geostrophic Wind</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 23</span>
+          <span class="badge badge-pyq">Prelims 2010</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p><strong>Coriolis force</strong> is an apparent (pseudo) force caused by Earth's rotation that deflects moving objects to the <strong>right in NH</strong> and <strong>left in SH</strong>. <strong>Zero at equator, maximum at poles.</strong></p>
+      </section>
+      <section>
+        <h4>Why It Exists</h4>
+        <p>Earth rotates at 1670 km/h at equator but slower at poles. A moving parcel retains its eastward speed; moving north (in NH), the ground below moves slower → parcel appears to curve right.</p>
+      </section>
+      <section>
+        <h4>Geostrophic Wind</h4>
+        <ul>
+          <li>Wind flowing <strong>parallel to isobars</strong> in upper atmosphere (above friction layer)</li>
+          <li>Result of <strong>Coriolis balancing pressure gradient force</strong></li>
+          <li>Jet streams are essentially geostrophic winds</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Key Consequences</h4>
+        <ol>
+          <li>Cyclones rotate <strong>anti-clockwise in NH, clockwise in SH</strong></li>
+          <li>Anticyclones rotate the opposite way</li>
+          <li>Tropical cyclones <strong>cannot form within 5° of equator</strong> (Coriolis too weak)</li>
+          <li>Trade winds deflect to NE and SE (not direct N–S)</li>
+          <li>Ocean gyres rotate opposite ways in two hemispheres</li>
+          <li>SH Westerlies stronger (Roaring 40s, Furious 50s) due to less landmass friction</li>
+        </ol>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"What is the Coriolis effect? Explain how it shapes global wind and ocean current patterns."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why are Southern Hemisphere westerlies (Roaring 40s, Furious 50s) significantly stronger than their Northern counterparts?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"How does Coriolis-driven ocean gyre circulation shape coastal climates and fishery resources globally?"</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q na">Coriolis is a fixed physical force; climate change does not alter it directly. Not commonly framed this way.</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"Why are tropical cyclones absent within 5° of the equator? Examine the role of Coriolis in cyclogenesis."</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine why Arabian Sea cyclones (Tauktae, Biparjoy) are increasing despite no change in Coriolis — what other factors are responsible?"</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Globe with arrows showing deflection of N–S moving objects + cyclone rotation pattern (anticlockwise NH, clockwise SH).</div>
+      <div class="takeaway">Earth's spin is invisible but its hand is on every wind — Coriolis is why hurricanes spin and why cyclones avoid the equator.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Factors Affecting Wind Movement | Coriolis Force</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 9 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">09</div>
+      <div class="topic-info">
+        <div class="topic-name">General Circulation — Three-Cell Model</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 23</span>
+          <span class="badge badge-pyq">Mains 2013</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>Global atmospheric circulation organised into <strong>three vertically-stacked cells per hemisphere</strong>: Hadley (tropical), Ferrel (mid-latitude), Polar — together moving heat from equator to poles.</p>
+      </section>
+      <section>
+        <h4>The Three Cells</h4>
+        <table class="notes">
+          <thead><tr><th>Cell</th><th>Latitude</th><th>Mechanism</th><th>Surface Winds</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Hadley</strong></td><td>0–30°N/S</td><td>Rising at ITCZ → poleward aloft → subsiding at 30° (subtropical high)</td><td>Trade winds (NE/SE)</td></tr>
+            <tr><td><strong>Ferrel</strong></td><td>30–60°N/S</td><td>Surface poleward, rising at ~60°, returning aloft (driven by neighbouring cells)</td><td>Westerlies</td></tr>
+            <tr><td><strong>Polar</strong></td><td>60–90°N/S</td><td>Subsiding cold air at pole → equatorward → rising at 60°</td><td>Polar Easterlies</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h4>ITCZ — Intertropical Convergence Zone</h4>
+        <p>Where NH and SH trade winds meet. Marked by intense convection, thunderstorms, doldrums. <strong>Shifts seasonally</strong> — northward in N-summer (drives Indian SW monsoon), southward in N-winter.</p>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p><strong>Expansion of Hadley cell</strong> (~50–100 km/decade) — pushes subtropical highs poleward → expanding deserts (Sahara, US Southwest, Australia drying). Weakening Ferrel cell → erratic mid-latitude weather.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Explain the Three-Cell Model of atmospheric circulation. How does it redistribute heat from equator to poles?"</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Major hot deserts in the northern hemisphere are located between 20–30°N and on the western side of continents. Why?" <strong>(Mains 2013)</strong></span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"How does the seasonal shift of the ITCZ shape agricultural calendars across Monsoon Asia and Sub-Saharan Africa?"</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine the expansion of the Hadley cell under climate change and its implications for subtropical aridification."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"ITCZ shifts during El Niño and their cascading effect on Sahel and Indian monsoon rainfall."</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"The 2024 Sahel drought and East Africa floods — examine the role of an anomalously displaced ITCZ."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Earth cross-section with 3 stacked cells per hemisphere + surface winds + ITCZ marked.</div>
+      <div class="takeaway">Three cells, six wind belts, one elegant heat-redistribution machine — and climate change is bending it.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Types of Winds: Permanent, Secondary &amp; Local</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 10 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">10</div>
+      <div class="topic-info">
+        <div class="topic-name">Jet Streams</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 27</span>
+          <span class="badge badge-pyq">Prelims 2011</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p><strong>Narrow, fast-flowing rivers of air</strong> in the upper troposphere (~9–12 km altitude), moving west-to-east at 100–400 km/h. Form where strong temperature gradients exist between air masses.</p>
+      </section>
+      <section>
+        <h4>Types</h4>
+        <table class="notes">
+          <thead><tr><th>Jet Stream</th><th>Location</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Sub-Tropical Jet (STJ)</strong></td><td>~25–35°N/S</td><td>Steers Western Disturbances; controls Indian monsoon onset/withdrawal</td></tr>
+            <tr><td><strong>Polar Front Jet (PFJ)</strong></td><td>~50–60°N/S</td><td>Steers temperate cyclones; meandering causes extremes</td></tr>
+            <tr><td><strong>Tropical Easterly Jet (TEJ)</strong></td><td>~10–15°N, summer</td><td>Drives Indian SW monsoon; flows east-to-west (Africa → India)</td></tr>
+            <tr><td><strong>African Easterly Jet</strong></td><td>~15°N, summer</td><td>Sets up easterly waves → Atlantic hurricanes</td></tr>
+            <tr><td><strong>Somali Jet (low-level)</strong></td><td>Surface, monsoon</td><td>Carries moisture from Arabian Sea to India</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h4>Indian Monsoon Mechanics</h4>
+        <ul>
+          <li><strong>Pre-monsoon</strong>: STJ over N India suppresses monsoon</li>
+          <li><strong>Onset</strong>: STJ withdraws north across Himalayas → TEJ establishes → monsoon bursts</li>
+          <li><strong>Withdrawal</strong>: STJ returns south → TEJ weakens → monsoon retreats</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>Arctic warming reduces equator-pole gradient → <strong>weakened, meandering jet stream</strong> (Rossby waves amplify) → polar vortex disruption → extreme winters (Texas 2021) and heatwaves (Europe 2022). Western Disturbance intensification linked to slower STJ.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Distinguish between the Sub-Tropical Jet, Polar Front Jet, and Tropical Easterly Jet. How do they originate and what determines their direction?"</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why is the Tropical Easterly Jet a unique feature of the Indian monsoon system, absent in most other tropical regions?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the role of jet streams in modern aviation routing and fuel efficiency."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Arctic amplification is weakening the polar front jet. Examine the consequences for mid-latitude weather extremes."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How do jet stream variations control the onset, intensity, and withdrawal of the Indian monsoon? Explain."</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine how a meandering jet stream contributed to the extreme winters of 2021 (Texas freeze) and heatwaves of 2022 (Europe)."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Global jet stream map showing PFJ + STJ on rotating Earth + meandering pattern.</div>
+      <div class="takeaway">Jet streams are the conductor's baton — barely visible but directing the entire weather orchestra below.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Major Jet Streams: Subtropical &amp; Polar Jet Stream</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 11 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">11</div>
+      <div class="topic-info">
+        <div class="topic-name">Rossby Waves</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 27</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>Large-scale meanders in the polar front jet stream caused by Coriolis effect and temperature contrasts. They <strong>undulate around the globe</strong> in 3–6 large waves, separating warm tropical air from cold polar air.</p>
+      </section>
+      <section>
+        <h4>Mechanism</h4>
+        <ol>
+          <li>Jet stream encounters temperature gradient at polar front</li>
+          <li>Coriolis force induces oscillation — wave pattern develops</li>
+          <li>Each "ridge" carries warm tropical air poleward</li>
+          <li>Each "trough" carries cold polar air equatorward</li>
+          <li>Waves can <strong>amplify or break</strong> — leading to extreme weather</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Impact on Weather</h4>
+        <ul>
+          <li><strong>Steers temperate cyclones</strong> along the jet's path</li>
+          <li><strong>Cold air outbreaks</strong> — when troughs dip deeply south</li>
+          <li><strong>Heat waves</strong> — when ridges extend deeply north</li>
+          <li><strong>Atmospheric blocking</strong> — when waves stall (next topic)</li>
+          <li><strong>Twin cyclones</strong> — Rossby + MJO interaction</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>Arctic amplification narrows equator-pole gradient → jet stream <strong>weakens and meanders more</strong> → larger-amplitude Rossby waves → more frequent extremes.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"What are Rossby waves? Explain their mechanism and significance in shaping mid-latitude weather."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why are Rossby waves a phenomenon of mid-latitudes rather than the tropics or poles?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss how Rossby wave-driven cold and heat extremes disrupt agriculture and public health across temperate regions."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Arctic amplification is increasing Rossby wave amplitude. Examine the implications for mid-latitude weather extremes."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How does MJO interact with Rossby waves to produce twin cyclones in the Indian Ocean?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine the role of stalled Rossby waves in the 2022 European heatwave and 2021 US polar vortex collapse."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Top-down polar view showing wavy jet stream + ridges/troughs labelled + warm and cold air flow.</div>
+      <div class="takeaway">Rossby waves are the planet's mood swings — when amplified, they create the extremes climate change amplifies further.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Geostrophic Wind, Jet Streams &amp; Rossby Waves</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 12 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">12</div>
+      <div class="topic-info">
+        <div class="topic-name">Atmospheric Blocking</div>
+        <div class="topic-tags">
+          <span class="badge badge-pmf">Web Research</span>
+          <span class="badge badge-new">New</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>A persistent, slow-moving high-pressure system that <strong>"blocks" the normal west-to-east flow</strong> of weather systems for days to weeks. Acts like a boulder in a river, forcing weather to flow around it.</p>
+      </section>
+      <section>
+        <h4>Types of Blocking Patterns</h4>
+        <table class="notes">
+          <thead><tr><th>Type</th><th>Structure</th><th>Effects</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Omega Block (Ω)</strong></td><td>High flanked by two lows — Greek letter shape</td><td>Heat domes; persistent dry weather</td></tr>
+            <tr><td><strong>Rex Block</strong></td><td>High over a low (dipole)</td><td>Stuck weather; cold or hot</td></tr>
+            <tr><td><strong>Cut-off Low</strong></td><td>Detached low-pressure system</td><td>Persistent rain; cold snap</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h4>Mechanism — How Blocks Form</h4>
+        <ol>
+          <li>Rossby wave amplifies into a deep ridge</li>
+          <li>The ridge becomes detached from the main westerly flow</li>
+          <li>Forms a closed anticyclonic circulation</li>
+          <li>Persists 7–30 days, sometimes longer</li>
+          <li>Subsiding air → clear skies → solar heating amplifies → heatwave</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Notable Events</h4>
+        <ul>
+          <li><strong>European heatwave 2003</strong> — Omega block, 70,000 deaths</li>
+          <li><strong>Russian heatwave 2010</strong> — extended block, wildfires</li>
+          <li><strong>Pacific Northwest heat dome 2021</strong> — Omega block, 49.6°C in Canada</li>
+          <li><strong>Europe heatwave 2022</strong> — UK touched 40°C for first time</li>
+          <li><strong>India heatwave May 2024</strong> — partial blocking pattern over N India</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>Weakened jet stream + Arctic amplification → blocks become <strong>more frequent and persistent</strong>. Linked to <strong>"Quasi-Resonant Amplification"</strong> theory where waves get trapped in mid-latitudes.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"What are atmospheric blocking patterns? Distinguish between Omega blocks and Rex blocks."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why are atmospheric blocks more common over Europe and North America than over tropical regions?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the public health and energy infrastructure consequences of prolonged atmospheric blocking events."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine how climate change is increasing the frequency of atmospheric blocking events and the resulting compound climate disasters."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How do Rossby wave breaking and atmospheric blocking interact to amplify weather extremes?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine the role of atmospheric blocking in the May 2024 India heatwave and the 2021 Pacific Northwest heat dome."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Top-down view of jet stream showing Omega block pattern (Ω-shape) with high pressure and flanking lows.</div>
+      <div class="takeaway">A blocking high is the climate's traffic jam — when the atmospheric expressway gets clogged, the weather underneath gets stuck and extreme.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Climatology Hub (Atmospheric Blocking)</a></div>
+    </div>
+  </details>
+
+  <footer>
+    <div>
+      <span>Category 02 · Pressure, Wind &amp; Circulation · 6 Topics · 36 Question Framings</span>
+      <span><a href="03-moisture.html" style="color: var(--accent); text-decoration: none;">Next → Moisture &amp; Precipitation</a></span>
+    </div>
+  </footer>
+</div>
+
+<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+<script>
+  const toggle = document.getElementById('themeToggle');
+  if (localStorage.getItem('climatology-theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    toggle.textContent = '◑ Light';
+  }
+  toggle.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      toggle.textContent = '◐ Dark';
+      localStorage.setItem('climatology-theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      toggle.textContent = '◑ Light';
+      localStorage.setItem('climatology-theme', 'dark');
+    }
+  });
+  const progress = document.getElementById('progress');
+  const toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', () => {
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (window.scrollY / docH * 100) + '%';
+    if (window.scrollY > 400) toTop.classList.add('show');
+    else toTop.classList.remove('show');
+  });
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>

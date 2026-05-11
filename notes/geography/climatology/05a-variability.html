@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05a · Variability — Ocean-Atmosphere Oscillations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f1e6; --bg-soft: #efe7d4; --paper: #fbf7ed;
+    --ink: #1a1612; --ink-soft: #4a4238; --ink-faint: #8a8170;
+    --rule: #d8cdb5; --rule-soft: #e6dec9;
+    --accent: #0b3d4a; --accent-soft: #156877; --highlight: #c2410c;
+    --new-badge: #b45309;
+    --cat: #5b21b6; --cat-bg: #ece2f5;
+    --d1: #1e3a5f; --d1-bg: #e6ecf3;
+    --d2: #2d5a3d; --d2-bg: #e3ece5;
+    --d3: #a16207; --d3-bg: #f4ecd6;
+    --d4: #b1340b; --d4-bg: #f4e0d3;
+    --d5: #5b21b6; --d5-bg: #ece2f5;
+    --d6: #991b1b; --d6-bg: #f3dada;
+    --shadow-sm: 0 1px 2px rgba(20,15,10,0.06);
+    --shadow-md: 0 4px 16px rgba(20,15,10,0.08);
+    --serif: 'Newsreader', Georgia, serif;
+    --display: 'Fraunces', 'Times New Roman', serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  [data-theme="dark"] {
+    --bg: #1a1612; --bg-soft: #221d17; --paper: #1f1a14;
+    --ink: #f0e8d6; --ink-soft: #c4baa4; --ink-faint: #8a8170;
+    --rule: #3a342a; --rule-soft: #2a2520;
+    --accent: #6fb9c9; --accent-soft: #8ad0df; --highlight: #f97316;
+    --cat: #b794e6; --cat-bg: #261d33;
+    --d1: #93b5db; --d1-bg: #1f2a3a;
+    --d2: #8fc99e; --d2-bg: #1f2e25;
+    --d3: #d8b46c; --d3-bg: #322a1a;
+    --d4: #e89370; --d4-bg: #2f201a;
+    --d5: #b794e6; --d5-bg: #261d33;
+    --d6: #e08b8b; --d6-bg: #2e1c1c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--serif); font-size: 16px; line-height: 1.65; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--highlight); width: 0%; z-index: 200; transition: width 60ms linear; }
+  .theme-toggle { position: fixed; top: 18px; right: 22px; background: var(--paper); border: 1px solid var(--rule); border-radius: 999px; padding: 7px 14px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; color: var(--ink-soft); z-index: 150; box-shadow: var(--shadow-sm); }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--accent); }
+  .container { max-width: 1100px; margin: 0 auto; padding: 50px 60px 100px; }
+  .top-nav { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 36px; padding: 14px 18px; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; font-family: var(--mono); font-size: 11.5px; align-items: center; }
+  .top-nav .nav-label { color: var(--accent); font-weight: 600; letter-spacing: 0.06em; padding-right: 14px; border-right: 1px solid var(--rule); }
+  .top-nav a { color: var(--ink-soft); text-decoration: none; padding: 4px 9px; border-radius: 3px; letter-spacing: 0.04em; }
+  .top-nav a:hover { background: var(--bg-soft); color: var(--ink); }
+  .top-nav a.current { background: var(--cat); color: var(--paper); }
+  .cat-header { margin-bottom: 36px; }
+  .cat-header .cat-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 12px; color: var(--cat); display: flex; align-items: center; gap: 12px; }
+  .cat-header .cat-label::before { content: ''; width: 28px; height: 1px; background: var(--cat); }
+  .cat-header h1 { font-family: var(--display); font-weight: 600; font-size: clamp(32px, 4vw, 48px); line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 12px; }
+  .cat-header .cat-desc { font-size: 16.5px; color: var(--ink-soft); font-style: italic; max-width: 720px; line-height: 1.55; }
+  details.topic { background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; margin-bottom: 12px; overflow: hidden; transition: box-shadow 0.2s ease; }
+  details.topic[open] { box-shadow: var(--shadow-md); }
+  summary.topic-head { padding: 16px 22px; cursor: pointer; list-style: none; display: flex; align-items: center; gap: 16px; user-select: none; transition: background 0.15s ease; }
+  summary.topic-head:hover { background: var(--bg-soft); }
+  summary.topic-head::-webkit-details-marker { display: none; }
+  .topic-num { font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 1; flex-shrink: 0; width: 44px; letter-spacing: -0.02em; color: var(--cat); }
+  .topic-info { flex: 1; }
+  .topic-name { font-family: var(--display); font-weight: 500; font-size: 17.5px; line-height: 1.3; color: var(--ink); margin-bottom: 4px; }
+  .topic-tags { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .badge { font-family: var(--mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.1em; padding: 2px 7px; border-radius: 3px; font-weight: 500; }
+  .badge-pdf { background: var(--bg-soft); color: var(--ink-soft); border: 1px solid var(--rule); }
+  .badge-pmf { background: #d8eef2; color: #0e7490; }
+  .badge-new { background: var(--new-badge); color: white; letter-spacing: 0.12em; }
+  .badge-pyq { background: var(--d6-bg); color: var(--d6); }
+  .topic-toggle { color: var(--ink-faint); font-family: var(--mono); font-size: 14px; transition: transform 0.2s ease; flex-shrink: 0; }
+  details[open] .topic-toggle { transform: rotate(45deg); color: var(--highlight); }
+  .topic-body { padding: 18px 26px 24px 82px; border-top: 1px solid var(--rule-soft); background: var(--bg); }
+  .topic-body section { margin-bottom: 16px; }
+  .topic-body section:last-of-type { margin-bottom: 0; }
+  .topic-body h4 { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--highlight); margin-bottom: 8px; font-weight: 600; }
+  .topic-body p, .topic-body li { font-size: 15px; line-height: 1.6; color: var(--ink); }
+  .topic-body p { margin-bottom: 8px; }
+  .topic-body ul, .topic-body ol { margin: 4px 0 0 22px; }
+  .topic-body li { margin-bottom: 5px; }
+  .topic-body strong { color: var(--ink); font-weight: 600; }
+  .topic-body em { font-style: italic; color: var(--ink-soft); }
+  table.notes { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13.5px; background: var(--paper); box-shadow: var(--shadow-sm); border-radius: 4px; overflow: hidden; }
+  table.notes th { background: var(--bg-soft); text-align: left; padding: 9px 12px; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); border-bottom: 1.5px solid var(--ink); font-weight: 500; }
+  table.notes td { padding: 9px 12px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  table.notes tr:last-child td { border-bottom: none; }
+  .diagram-note { margin-top: 6px; padding: 9px 13px; background: var(--bg-soft); border-left: 3px solid var(--highlight); font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.03em; color: var(--ink-soft); border-radius: 0 4px 4px 0; }
+  .diagram-note::before { content: '✎ '; color: var(--highlight); font-family: var(--serif); }
+  .takeaway { margin-top: 12px; padding: 12px 16px; background: var(--paper); border: 1px dashed var(--accent); border-radius: 4px; font-style: italic; color: var(--ink); font-size: 14.5px; line-height: 1.5; }
+  .takeaway::before { content: 'Key Takeaway · '; font-style: normal; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); font-weight: 600; display: block; margin-bottom: 4px; }
+  .dimensions-section { margin-top: 16px; padding: 16px 18px; background: var(--paper); border-radius: 6px; border: 1px solid var(--rule); }
+  .dimensions-section > h4 { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--accent); margin-bottom: 12px; font-weight: 600; }
+  .dim-list { display: grid; gap: 8px; }
+  .dim { display: grid; grid-template-columns: 24px 130px 1fr; gap: 12px; padding: 10px 14px; border-radius: 4px; align-items: start; font-size: 14px; line-height: 1.5; }
+  .dim-icon { font-size: 14px; line-height: 1.5; }
+  .dim-label { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; line-height: 1.55; }
+  .dim-q { color: var(--ink); font-style: italic; }
+  .dim-q.na { color: var(--ink-faint); font-style: normal; font-size: 13px; }
+  .dim.d1 { background: var(--d1-bg); } .dim.d1 .dim-label { color: var(--d1); }
+  .dim.d2 { background: var(--d2-bg); } .dim.d2 .dim-label { color: var(--d2); }
+  .dim.d3 { background: var(--d3-bg); } .dim.d3 .dim-label { color: var(--d3); }
+  .dim.d4 { background: var(--d4-bg); } .dim.d4 .dim-label { color: var(--d4); }
+  .dim.d5 { background: var(--d5-bg); } .dim.d5 .dim-label { color: var(--d5); }
+  .dim.d6 { background: var(--d6-bg); } .dim.d6 .dim-label { color: var(--d6); }
+  .source-link { margin-top: 14px; padding: 10px 14px; background: var(--bg-soft); border-radius: 4px; font-size: 13px; color: var(--ink-soft); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .source-link::before { content: '↗'; font-family: var(--mono); color: var(--accent); font-weight: 600; }
+  .source-link strong { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); }
+  .source-link a { color: var(--accent); text-decoration: none; word-break: break-all; border-bottom: 1px dotted var(--accent); }
+  .source-link a:hover { color: var(--highlight); border-bottom-color: var(--highlight); }
+  footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); line-height: 1.8; }
+  footer div { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .to-top { position: fixed; bottom: 28px; right: 28px; width: 42px; height: 42px; border-radius: 50%; background: var(--accent); color: var(--paper); border: none; cursor: pointer; font-size: 17px; box-shadow: var(--shadow-md); opacity: 0; transform: translateY(8px); transition: all 0.25s ease; z-index: 150; }
+  .to-top.show { opacity: 1; transform: translateY(0); }
+  @media (max-width: 800px) {
+    .container { padding: 30px 22px 80px; }
+    .topic-body { padding-left: 24px; padding-right: 18px; }
+    .dim { grid-template-columns: 20px 1fr; }
+    .dim-label { grid-column: 2; }
+    .dim-q { grid-column: 1 / -1; padding-left: 32px; }
+  }
+  @media print {
+    .theme-toggle, .to-top, .progress-bar, .top-nav { display: none !important; }
+    .container { padding: 0; max-width: 100%; }
+    body { font-size: 10pt; background: white; color: black; }
+    details.topic { break-inside: avoid; box-shadow: none; }
+    details.topic > * { display: block !important; }
+    summary.topic-head { background: #eee !important; }
+    .topic-body { display: block !important; padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+<button class="theme-toggle" id="themeToggle">◐ Dark</button>
+
+<div class="container">
+  <nav class="top-nav">
+    <span class="nav-label">CLIMATOLOGY</span>
+    <a href="01-foundations.html">01 Foundations</a>
+    <a href="02-circulation.html">02 Circulation</a>
+    <a href="03-moisture.html">03 Moisture</a>
+    <a href="04-storms.html">04 Storms</a>
+    <a href="05a-variability.html" class="current">05a Oscillations</a>
+    <a href="05b-modern.html">05b Modern</a>
+  </nav>
+
+  <header class="cat-header">
+    <div class="cat-label">Category 05a · 5 Topics</div>
+    <h1>Variability — Ocean–Atmosphere Oscillations</h1>
+    <p class="cat-desc">The named teleconnections driving global weather on seasonal-to-interannual timescales — ENSO, IOD, MJO, and the increasingly important marine heatwaves. Master these to understand why some monsoons fail and others flood.</p>
+  </header>
+
+  <!-- TOPIC 26 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">26</div>
+      <div class="topic-info">
+        <div class="topic-name">El Niño &amp; Walker Circulation</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 29</span>
+          <span class="badge badge-pyq">Mains 2014</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p><strong>El Niño</strong> = quasi-periodic warming of central and eastern equatorial Pacific Ocean SSTs (every 2–7 years). The oceanic component of <strong>ENSO (El Niño–Southern Oscillation)</strong>.</p>
+      </section>
+      <section>
+        <h4>Walker Circulation — Normal State</h4>
+        <ol>
+          <li>Trade winds push warm surface water westward → piles up over Indonesia/Australia ("Warm Pool")</li>
+          <li>Cold deep water upwells off Peru (cold tongue)</li>
+          <li>Air rises over Indonesia (low pressure) → heavy rainfall</li>
+          <li>Air sinks over Eastern Pacific (high pressure) → dry deserts (Atacama)</li>
+          <li>Closed loop = Walker Cell</li>
+        </ol>
+      </section>
+      <section>
+        <h4>El Niño State</h4>
+        <ol>
+          <li>Trade winds weaken or reverse</li>
+          <li>Warm Pool slumps eastward toward Peru</li>
+          <li>Walker Circulation weakens/reverses</li>
+          <li>Rising air shifts to central/east Pacific (heavy rain Peru/Ecuador)</li>
+          <li>Sinking air over Indonesia/India/Australia (drought)</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Global Impacts</h4>
+        <ul>
+          <li><strong>Indian monsoon weakening</strong> — droughts 2002, 2009, 2014–16, 2023</li>
+          <li>Peru floods, Australia bushfires, Indonesia drought</li>
+          <li>Reduced Atlantic hurricanes (more shear)</li>
+          <li>Coral bleaching globally (1998, 2016, 2023)</li>
+          <li>Mild winter in N USA</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Variants &amp; Indicators</h4>
+        <ul>
+          <li><strong>El Niño Modoki</strong> — warming concentrated in central Pacific. Different teleconnections.</li>
+          <li><strong>SOI</strong> = Tahiti pressure − Darwin pressure; negative SOI = El Niño</li>
+          <li><strong>ONI</strong> = 3-month avg SST anomaly in Niño 3.4 region (≥ +0.5°C for 5 months = El Niño)</li>
+        </ul>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Define ENSO. Explain the Walker Circulation and how it reverses during El Niño." <strong>(Mains 2014, related)</strong></span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why is ENSO confined to the equatorial Pacific Ocean, and how does it generate worldwide climate teleconnections?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the impact of El Niño on global food security with specific reference to India's monsoon-dependent agriculture."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine evidence that El Niño events are becoming more frequent and intense under climate change."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How does El Niño Modoki differ from canonical El Niño in its impact on the Indian monsoon?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine India's monsoon performance during the 2023–24 El Niño year, and what it suggests about IOD–ENSO interactions."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Pacific cross-section — Walker normal (rising west, sinking east) vs El Niño (weakened, shifted east).</div>
+      <div class="takeaway">When the Pacific catches a fever, the world catches a cold — El Niño is the planet's most powerful climate switch.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · El Niño, La Niña &amp; Walker Circulation</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 27 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">27</div>
+      <div class="topic-info">
+        <div class="topic-name">La Niña</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 29</span>
+          <span class="badge badge-pyq">Prelims 2011</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>The <strong>opposite of El Niño</strong> — abnormally cool SSTs in central/eastern equatorial Pacific. Trade winds stronger than normal; Walker Cell intensified.</p>
+      </section>
+      <section>
+        <h4>Mechanism</h4>
+        <ol>
+          <li>Trade winds <strong>strengthen</strong> → push warm water further west</li>
+          <li>Deeper, stronger upwelling off Peru</li>
+          <li>Western Pacific Warm Pool expands</li>
+          <li>Walker Cell <strong>amplified</strong></li>
+          <li>Cold tongue extends further into central Pacific</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Global Impacts</h4>
+        <ul>
+          <li><strong>Strong Indian monsoon</strong> — surplus rainfall (2020, 2021, 2022, 2024)</li>
+          <li>Australia flooding (2010–11, 2022 Brisbane)</li>
+          <li>Indonesia heavy rains</li>
+          <li>More Atlantic hurricanes (less shear)</li>
+          <li>Drought in southern USA, SE Africa</li>
+          <li>Cold winters in N USA</li>
+          <li>Peru anchovy fishery boom</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Triple-Dip La Niña (2020–22)</h4>
+        <p>An unusual <strong>three consecutive La Niña years</strong> — only the third on record. Associated with successive Australia floods, East Africa drought (worst in 40 years), and surplus Indian monsoons. Possible climate-change influence under debate.</p>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>Some studies suggest more frequent extreme La Niñas; others suggest a "more El Niño-like" mean state. The 2020–22 triple-dip raised concerns about prolonged La Niña regimes under warming.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Define La Niña. Explain how it intensifies the Walker Circulation and the implications for global weather."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why do La Niña years bring floods to Australia and Indonesia but drought to East Africa and southern USA?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the agricultural, economic, and disaster-management implications of consecutive La Niña years for India."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Will future climate be 'more El Niño-like' or 'more La Niña-like'? Examine the scientific debate."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"The unusual triple-dip La Niña of 2020–22 — examine its causes and cascading impacts."</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"The surplus 2024 Indian monsoon — examine the role of the developing La Niña."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Pacific cross-section showing intensified Walker Cell + colder eastern Pacific.</div>
+      <div class="takeaway">La Niña is El Niño's mirror twin — when Pacific cools, India usually wins (more monsoon).</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · La Niña — Mechanism &amp; Impacts</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 28 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">28</div>
+      <div class="topic-info">
+        <div class="topic-name">Indian Ocean Dipole (IOD)</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 29</span>
+          <span class="badge badge-pyq">Prelims 2017</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>Difference in SST between <strong>Western Indian Ocean (near Africa)</strong> and <strong>Eastern Indian Ocean (near Indonesia)</strong>. Discovered 1999. The Indian Ocean's own ENSO-like phenomenon.</p>
+      </section>
+      <section>
+        <h4>Phases</h4>
+        <table class="notes">
+          <thead><tr><th>Phase</th><th>SST Pattern</th><th>Indian Monsoon</th><th>African Impact</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Positive IOD</strong></td><td>Warmer West, Cooler East</td><td>Enhanced monsoon</td><td>Floods in E Africa</td></tr>
+            <tr><td><strong>Negative IOD</strong></td><td>Cooler West, Warmer East</td><td>Weakened monsoon</td><td>Droughts in E Africa</td></tr>
+            <tr><td><strong>Neutral</strong></td><td>Normal gradient</td><td>Normal (subject to ENSO)</td><td>Normal</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h4>How It Saves the Indian Monsoon</h4>
+        <ul>
+          <li><strong>Positive IOD can offset El Niño</strong> — 2019 was a strong El Niño year but India had near-normal monsoon due to super positive IOD</li>
+          <li>Negative IOD with El Niño = worst-case drought (2002)</li>
+          <li>Positive IOD with La Niña = bumper monsoon</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Mechanism</h4>
+        <ol>
+          <li>Easterly winds along equator weaken</li>
+          <li>Warm pool spreads to Western Indian Ocean</li>
+          <li>Cold upwelling near Sumatra/Indonesia</li>
+          <li>Convection shifts to Western IO → more rain reaching India</li>
+        </ol>
+      </section>
+      <section>
+        <h4>2019 &amp; 2024 IOD Events</h4>
+        <p><strong>2019:</strong> Strongest positive IOD in 60 years; rescued Indian monsoon during El Niño; devastated Australia (bushfires) and East Africa (locust swarms).<br><strong>2024:</strong> Neutral-to-positive IOD aligned with strong 2024 monsoon (108% of normal).</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"What is the Indian Ocean Dipole? Distinguish between positive, negative, and neutral phases and their mechanisms."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why does the Indian Ocean develop its own dipole oscillation independent of the Pacific ENSO system?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss IOD's role in modulating East African floods/droughts and Australian bushfires."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine how a warming Indian Ocean is intensifying IOD events and changing the monsoon's reliability."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How does a positive IOD rescue the Indian monsoon during El Niño years? Explain with the 2019 example."</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine the changing forecast utility of IOD given the 2019 super-positive event and 2024 IOD–monsoon coupling."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Indian Ocean map with positive IOD (warm west, cool east) + negative IOD pattern + convection cells.</div>
+      <div class="takeaway">IOD is India's secret weapon — when positive, it can rescue the monsoon even when the Pacific has gone rogue.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Indian Ocean Dipole (IOD)</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 29 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">29</div>
+      <div class="topic-info">
+        <div class="topic-name">Madden–Julian Oscillation (MJO)</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 29</span>
+          <span class="badge badge-new">Detailed</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>An eastward-moving belt of <strong>enhanced rainfall (convection) and suppressed rainfall</strong> that traverses the equatorial Indian and Pacific Oceans every <strong>30–60 days</strong>. The largest element of intra-seasonal tropical variability.</p>
+      </section>
+      <section>
+        <h4>8 Phases</h4>
+        <p>MJO has 8 phases, each 5–10 days, indicating position of the active convective region:</p>
+        <ul>
+          <li><strong>Phases 2–3</strong> (over Indian Ocean) — boost Indian monsoon rainfall</li>
+          <li><strong>Phases 4–5</strong> (Maritime Continent — Indonesia/Malaysia) — break in Indian monsoon</li>
+          <li><strong>Phases 6–7</strong> (Western Pacific) — weaken Indian monsoon further</li>
+          <li><strong>Phases 8–1</strong> (Africa, Western Hemisphere) — recovery</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Differences from ENSO</h4>
+        <ul>
+          <li>MJO is <strong>moving</strong>, ENSO is <strong>stationary</strong></li>
+          <li>MJO timescale: weeks; ENSO: months–years</li>
+          <li>Multiple MJO events per year; one ENSO every 2–7 years</li>
+          <li>MJO modulates ENSO (can trigger El Niño initiation through westerly wind bursts)</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Impacts</h4>
+        <ul>
+          <li><strong>Modulates Indian monsoon</strong> — active/break phases</li>
+          <li><strong>Tropical cyclone formation</strong> — convective phase favours genesis</li>
+          <li><strong>Twin cyclones</strong> — MJO + Rossby waves</li>
+          <li><strong>Cold air outbreaks</strong> — alters jet stream globally</li>
+          <li><strong>Heatwaves</strong> — induces atmospheric Rossby waves</li>
+          <li><strong>El Niño initiation</strong> — westerly wind bursts</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>Studies suggest MJO is intensifying and slowing under climate change → more extended wet/dry periods. Linked to extreme rainfall events globally and increased Arabian Sea cyclogenesis.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"What is the Madden–Julian Oscillation? Explain its 8 phases and eastward propagation."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why is the MJO concentrated in the equatorial Indian and Pacific Oceans rather than other ocean basins?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss MJO's operational utility for forecasting Indian monsoon active/break phases and its agricultural significance."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine how the MJO is intensifying and slowing under climate change and the implications for extreme rainfall events."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How does the MJO modulate ENSO, tropical cyclone genesis, and twin cyclones in the Indian Ocean?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine the role of an active MJO in the recent surge of Arabian Sea cyclones (Tauktae, Biparjoy, Mocha)."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Equatorial belt showing MJO active phase moving from Indian Ocean → Maritime Continent → Pacific, with 8-phase circle.</div>
+      <div class="takeaway">The MJO is the monsoon's heartbeat — every 30–60 days it pulses across the tropics, deciding when India rains.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Madden–Julian Oscillation (MJO)</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 30 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">30</div>
+      <div class="topic-info">
+        <div class="topic-name">Marine Heatwaves (MHWs)</div>
+        <div class="topic-tags">
+          <span class="badge badge-pmf">PMF IAS · Web</span>
+          <span class="badge badge-new">New</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>Periods of <strong>abnormally high ocean surface temperatures</strong> lasting ≥5 consecutive days, with SST above the 90th percentile of the local 30-year climatology. Can last weeks to years.</p>
+      </section>
+      <section>
+        <h4>Mechanism — How They Form</h4>
+        <ol>
+          <li><strong>Weak winds</strong> reduce normal ocean cooling (evaporation + mixing)</li>
+          <li><strong>Stratification</strong> — top layer becomes thin, isolated from cooler depths</li>
+          <li><strong>Solar heating</strong> concentrates in thin layer → rapid warming</li>
+          <li><strong>Atmospheric blocking</strong> often overhead — high pressure suppresses cooling</li>
+          <li>Can be amplified by El Niño, IOD, or local feedbacks</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Categories (Hobday et al. 2018)</h4>
+        <ul>
+          <li><strong>Category I — Moderate</strong>: 1–2× temperature anomaly</li>
+          <li><strong>Category II — Strong</strong>: 2–3×</li>
+          <li><strong>Category III — Severe</strong>: 3–4×</li>
+          <li><strong>Category IV — Extreme</strong>: &gt;4× (e.g., "Blob" in NE Pacific 2013–16)</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Notable Events</h4>
+        <ul>
+          <li><strong>"The Blob"</strong> — NE Pacific 2013–16; killed millions of seabirds, salmon</li>
+          <li><strong>2023 N Atlantic MHW</strong> — record-breaking, 5°C above normal</li>
+          <li><strong>2024 Arabian Sea MHW</strong> — fuelled severe Indian heatwave; coral bleaching in Gulf of Mannar, Lakshadweep</li>
+          <li><strong>2023–24 global event</strong> — 4th global coral bleaching event (NOAA)</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Impacts</h4>
+        <ul>
+          <li><strong>Coral bleaching</strong> — Lakshadweep, Andamans, Gulf of Mannar</li>
+          <li><strong>Fish kills</strong> — direct thermal stress on commercial species</li>
+          <li><strong>Species migration</strong> — tropicalisation of temperate seas</li>
+          <li><strong>Fuel for cyclones</strong> — rapid intensification (Tauktae 2021, Mocha 2023)</li>
+          <li><strong>Atmospheric heat waves</strong> — MHW + heat dome compound events</li>
+          <li><strong>Disrupted monsoon</strong> — Arabian Sea MHWs alter moisture transport</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>MHWs have <strong>doubled in frequency</strong> since 1980. At +2°C global warming, MHWs become <strong>23× more likely</strong>. <strong>Indian Ocean MHWs have tripled.</strong></p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"What are marine heatwaves? Distinguish them from atmospheric heatwaves in cause and impact."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why have the Indian Ocean MHWs tripled in frequency since 1980, while other basins have only doubled?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the economic impact of marine heatwaves on coral reef tourism (Lakshadweep, Andamans) and small-scale fisheries."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine how marine heatwaves serve as the most visible signal of ocean climate change."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How do MHWs interact with El Niño and IOD to compound atmospheric extremes?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"The 2024 Arabian Sea MHW and India's compound heat–cyclone–coral disaster — examine."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: SST anomaly map showing recent MHWs (red blobs) over global oceans + cross-section showing surface stratification.</div>
+      <div class="takeaway">Marine heatwaves are climate change made visible underwater — silent, vast, and devastating to ocean ecosystems.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Marine Heatwaves</a></div>
+    </div>
+  </details>
+
+  <footer>
+    <div>
+      <span>Category 05a · Ocean–Atmosphere Oscillations · 5 Topics · 30 Question Framings</span>
+      <span><a href="05b-modern.html" style="color: var(--accent); text-decoration: none;">Next → Modern Climate-Change Phenomena</a></span>
+    </div>
+  </footer>
+</div>
+
+<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+<script>
+  const toggle = document.getElementById('themeToggle');
+  if (localStorage.getItem('climatology-theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    toggle.textContent = '◑ Light';
+  }
+  toggle.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      toggle.textContent = '◐ Dark';
+      localStorage.setItem('climatology-theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      toggle.textContent = '◑ Light';
+      localStorage.setItem('climatology-theme', 'dark');
+    }
+  });
+  const progress = document.getElementById('progress');
+  const toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', () => {
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (window.scrollY / docH * 100) + '%';
+    if (window.scrollY > 400) toTop.classList.add('show');
+    else toTop.classList.remove('show');
+  });
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>

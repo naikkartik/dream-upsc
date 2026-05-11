@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>04 · Storms &amp; Cyclones — Climatology Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f1e6; --bg-soft: #efe7d4; --paper: #fbf7ed;
+    --ink: #1a1612; --ink-soft: #4a4238; --ink-faint: #8a8170;
+    --rule: #d8cdb5; --rule-soft: #e6dec9;
+    --accent: #0b3d4a; --accent-soft: #156877; --highlight: #c2410c;
+    --new-badge: #b45309;
+    --cat: #991b1b; --cat-bg: #f3dada;
+    --d1: #1e3a5f; --d1-bg: #e6ecf3;
+    --d2: #2d5a3d; --d2-bg: #e3ece5;
+    --d3: #a16207; --d3-bg: #f4ecd6;
+    --d4: #b1340b; --d4-bg: #f4e0d3;
+    --d5: #5b21b6; --d5-bg: #ece2f5;
+    --d6: #991b1b; --d6-bg: #f3dada;
+    --shadow-sm: 0 1px 2px rgba(20,15,10,0.06);
+    --shadow-md: 0 4px 16px rgba(20,15,10,0.08);
+    --serif: 'Newsreader', Georgia, serif;
+    --display: 'Fraunces', 'Times New Roman', serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  [data-theme="dark"] {
+    --bg: #1a1612; --bg-soft: #221d17; --paper: #1f1a14;
+    --ink: #f0e8d6; --ink-soft: #c4baa4; --ink-faint: #8a8170;
+    --rule: #3a342a; --rule-soft: #2a2520;
+    --accent: #6fb9c9; --accent-soft: #8ad0df; --highlight: #f97316;
+    --cat: #e08b8b; --cat-bg: #2e1c1c;
+    --d1: #93b5db; --d1-bg: #1f2a3a;
+    --d2: #8fc99e; --d2-bg: #1f2e25;
+    --d3: #d8b46c; --d3-bg: #322a1a;
+    --d4: #e89370; --d4-bg: #2f201a;
+    --d5: #b794e6; --d5-bg: #261d33;
+    --d6: #e08b8b; --d6-bg: #2e1c1c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--serif); font-size: 16px; line-height: 1.65; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--highlight); width: 0%; z-index: 200; transition: width 60ms linear; }
+  .theme-toggle { position: fixed; top: 18px; right: 22px; background: var(--paper); border: 1px solid var(--rule); border-radius: 999px; padding: 7px 14px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; color: var(--ink-soft); z-index: 150; box-shadow: var(--shadow-sm); }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--accent); }
+  .container { max-width: 1100px; margin: 0 auto; padding: 50px 60px 100px; }
+  .top-nav { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 36px; padding: 14px 18px; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; font-family: var(--mono); font-size: 11.5px; align-items: center; }
+  .top-nav .nav-label { color: var(--accent); font-weight: 600; letter-spacing: 0.06em; padding-right: 14px; border-right: 1px solid var(--rule); }
+  .top-nav a { color: var(--ink-soft); text-decoration: none; padding: 4px 9px; border-radius: 3px; letter-spacing: 0.04em; }
+  .top-nav a:hover { background: var(--bg-soft); color: var(--ink); }
+  .top-nav a.current { background: var(--cat); color: var(--paper); }
+  .cat-header { margin-bottom: 36px; }
+  .cat-header .cat-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 12px; color: var(--cat); display: flex; align-items: center; gap: 12px; }
+  .cat-header .cat-label::before { content: ''; width: 28px; height: 1px; background: var(--cat); }
+  .cat-header h1 { font-family: var(--display); font-weight: 600; font-size: clamp(32px, 4vw, 48px); line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 12px; }
+  .cat-header .cat-desc { font-size: 16.5px; color: var(--ink-soft); font-style: italic; max-width: 720px; line-height: 1.55; }
+  details.topic { background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; margin-bottom: 12px; overflow: hidden; transition: box-shadow 0.2s ease; }
+  details.topic[open] { box-shadow: var(--shadow-md); }
+  summary.topic-head { padding: 16px 22px; cursor: pointer; list-style: none; display: flex; align-items: center; gap: 16px; user-select: none; transition: background 0.15s ease; }
+  summary.topic-head:hover { background: var(--bg-soft); }
+  summary.topic-head::-webkit-details-marker { display: none; }
+  .topic-num { font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 1; flex-shrink: 0; width: 44px; letter-spacing: -0.02em; color: var(--cat); }
+  .topic-info { flex: 1; }
+  .topic-name { font-family: var(--display); font-weight: 500; font-size: 17.5px; line-height: 1.3; color: var(--ink); margin-bottom: 4px; }
+  .topic-tags { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .badge { font-family: var(--mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.1em; padding: 2px 7px; border-radius: 3px; font-weight: 500; }
+  .badge-pdf { background: var(--bg-soft); color: var(--ink-soft); border: 1px solid var(--rule); }
+  .badge-pmf { background: #d8eef2; color: #0e7490; }
+  .badge-new { background: var(--new-badge); color: white; letter-spacing: 0.12em; }
+  .badge-pyq { background: var(--d6-bg); color: var(--d6); }
+  .topic-toggle { color: var(--ink-faint); font-family: var(--mono); font-size: 14px; transition: transform 0.2s ease; flex-shrink: 0; }
+  details[open] .topic-toggle { transform: rotate(45deg); color: var(--highlight); }
+  .topic-body { padding: 18px 26px 24px 82px; border-top: 1px solid var(--rule-soft); background: var(--bg); }
+  .topic-body section { margin-bottom: 16px; }
+  .topic-body section:last-of-type { margin-bottom: 0; }
+  .topic-body h4 { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--highlight); margin-bottom: 8px; font-weight: 600; }
+  .topic-body p, .topic-body li { font-size: 15px; line-height: 1.6; color: var(--ink); }
+  .topic-body p { margin-bottom: 8px; }
+  .topic-body ul, .topic-body ol { margin: 4px 0 0 22px; }
+  .topic-body li { margin-bottom: 5px; }
+  .topic-body strong { color: var(--ink); font-weight: 600; }
+  .topic-body em { font-style: italic; color: var(--ink-soft); }
+  table.notes { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13.5px; background: var(--paper); box-shadow: var(--shadow-sm); border-radius: 4px; overflow: hidden; }
+  table.notes th { background: var(--bg-soft); text-align: left; padding: 9px 12px; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); border-bottom: 1.5px solid var(--ink); font-weight: 500; }
+  table.notes td { padding: 9px 12px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  table.notes tr:last-child td { border-bottom: none; }
+  .diagram-note { margin-top: 6px; padding: 9px 13px; background: var(--bg-soft); border-left: 3px solid var(--highlight); font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.03em; color: var(--ink-soft); border-radius: 0 4px 4px 0; }
+  .diagram-note::before { content: '✎ '; color: var(--highlight); font-family: var(--serif); }
+  .takeaway { margin-top: 12px; padding: 12px 16px; background: var(--paper); border: 1px dashed var(--accent); border-radius: 4px; font-style: italic; color: var(--ink); font-size: 14.5px; line-height: 1.5; }
+  .takeaway::before { content: 'Key Takeaway · '; font-style: normal; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); font-weight: 600; display: block; margin-bottom: 4px; }
+  .dimensions-section { margin-top: 16px; padding: 16px 18px; background: var(--paper); border-radius: 6px; border: 1px solid var(--rule); }
+  .dimensions-section > h4 { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--accent); margin-bottom: 12px; font-weight: 600; }
+  .dim-list { display: grid; gap: 8px; }
+  .dim { display: grid; grid-template-columns: 24px 130px 1fr; gap: 12px; padding: 10px 14px; border-radius: 4px; align-items: start; font-size: 14px; line-height: 1.5; }
+  .dim-icon { font-size: 14px; line-height: 1.5; }
+  .dim-label { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; line-height: 1.55; }
+  .dim-q { color: var(--ink); font-style: italic; }
+  .dim-q.na { color: var(--ink-faint); font-style: normal; font-size: 13px; }
+  .dim.d1 { background: var(--d1-bg); } .dim.d1 .dim-label { color: var(--d1); }
+  .dim.d2 { background: var(--d2-bg); } .dim.d2 .dim-label { color: var(--d2); }
+  .dim.d3 { background: var(--d3-bg); } .dim.d3 .dim-label { color: var(--d3); }
+  .dim.d4 { background: var(--d4-bg); } .dim.d4 .dim-label { color: var(--d4); }
+  .dim.d5 { background: var(--d5-bg); } .dim.d5 .dim-label { color: var(--d5); }
+  .dim.d6 { background: var(--d6-bg); } .dim.d6 .dim-label { color: var(--d6); }
+  .source-link { margin-top: 14px; padding: 10px 14px; background: var(--bg-soft); border-radius: 4px; font-size: 13px; color: var(--ink-soft); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .source-link::before { content: '↗'; font-family: var(--mono); color: var(--accent); font-weight: 600; }
+  .source-link strong { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); }
+  .source-link a { color: var(--accent); text-decoration: none; word-break: break-all; border-bottom: 1px dotted var(--accent); }
+  .source-link a:hover { color: var(--highlight); border-bottom-color: var(--highlight); }
+  footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); line-height: 1.8; }
+  footer div { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .to-top { position: fixed; bottom: 28px; right: 28px; width: 42px; height: 42px; border-radius: 50%; background: var(--accent); color: var(--paper); border: none; cursor: pointer; font-size: 17px; box-shadow: var(--shadow-md); opacity: 0; transform: translateY(8px); transition: all 0.25s ease; z-index: 150; }
+  .to-top.show { opacity: 1; transform: translateY(0); }
+  @media (max-width: 800px) {
+    .container { padding: 30px 22px 80px; }
+    .topic-body { padding-left: 24px; padding-right: 18px; }
+    .dim { grid-template-columns: 20px 1fr; }
+    .dim-label { grid-column: 2; }
+    .dim-q { grid-column: 1 / -1; padding-left: 32px; }
+  }
+  @media print {
+    .theme-toggle, .to-top, .progress-bar, .top-nav { display: none !important; }
+    .container { padding: 0; max-width: 100%; }
+    body { font-size: 10pt; background: white; color: black; }
+    details.topic { break-inside: avoid; box-shadow: none; }
+    details.topic > * { display: block !important; }
+    summary.topic-head { background: #eee !important; }
+    .topic-body { display: block !important; padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+<button class="theme-toggle" id="themeToggle">◐ Dark</button>
+
+<div class="container">
+  <nav class="top-nav">
+    <span class="nav-label">CLIMATOLOGY</span>
+    <a href="01-foundations.html">01 Foundations</a>
+    <a href="02-circulation.html">02 Circulation</a>
+    <a href="03-moisture.html">03 Moisture</a>
+    <a href="04-storms.html" class="current">04 Storms</a>
+    <a href="05a-variability.html">05a Oscillations</a>
+    <a href="05b-modern.html">05b Modern</a>
+  </nav>
+
+  <header class="cat-header">
+    <div class="cat-label">Category 04 · 7 Topics</div>
+    <h1>Storms &amp; Cyclones</h1>
+    <p class="cat-desc">The most destructive expressions of atmospheric energy — tropical cyclones, tornadoes, temperate cyclones, and the Western Disturbances that bring rain to north India in winter.</p>
+  </header>
+
+  <!-- TOPIC 19 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">19</div>
+      <div class="topic-info">
+        <div class="topic-name">Tropical Cyclones</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 26</span>
+          <span class="badge badge-pyq">Mains 2014, 2022, 2024</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>Intense low-pressure systems with organised thunderstorm activity, originating over warm tropical oceans, with sustained winds &gt;62 km/h (cyclonic storm) to &gt;220 km/h (super cyclone). Called <strong>hurricanes</strong> (Atlantic), <strong>typhoons</strong> (Pacific), <strong>cyclones</strong> (Indian Ocean), <strong>willy-willy</strong> (Australia).</p>
+      </section>
+      <section>
+        <h4>Six Conditions for Formation</h4>
+        <ol>
+          <li><strong>SST ≥ 26.5°C</strong> up to 60–70 m depth</li>
+          <li><strong>Coriolis force adequate</strong> (5°–20° latitude; absent near equator)</li>
+          <li><strong>Pre-existing low-pressure disturbance</strong> (ITCZ proximity)</li>
+          <li><strong>Low vertical wind shear</strong> (allows vertical organisation)</li>
+          <li><strong>High mid-tropospheric humidity</strong> (no dry-air intrusion)</li>
+          <li><strong>Upper-level divergence</strong> (lets convection rise)</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Structure</h4>
+        <ul>
+          <li><strong>Eye</strong> — calm centre, 20–50 km wide, clear skies, lowest pressure</li>
+          <li><strong>Eyewall</strong> — strongest winds, deepest convection (10–20 km thick)</li>
+          <li><strong>Rain bands</strong> — spiral outward, several hundred km</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Three Cyclone Basins (Mains 2014)</h4>
+        <ul>
+          <li><strong>Bay of Bengal</strong> — shallow shelf, semi-enclosed, monsoon trough trigger</li>
+          <li><strong>South China Sea</strong> — warm Kuroshio extension, Aug–Oct peak</li>
+          <li><strong>Gulf of Mexico</strong> — warm Loop Current, African easterly waves</li>
+        </ul>
+        <p>Why not South Atlantic? High wind shear, cold Benguela current, no ITCZ.</p>
+      </section>
+      <section>
+        <h4>Naming Convention</h4>
+        <p><strong>RSMC New Delhi</strong> names cyclones in North Indian Ocean (13 countries — Bangladesh, India, Maldives, Myanmar, Oman, Pakistan, Sri Lanka, Thailand, UAE, Yemen + Iran, Qatar, Saudi Arabia added 2018).</p>
+      </section>
+      <section>
+        <h4>Recent Indian Cyclones</h4>
+        <p>Phailin (2013), Hudhud (2014), Ockhi (2017), Fani (2019), Amphan (2020), <strong>Tauktae, Yaas</strong> (2021), <strong>Biparjoy, Mocha</strong> (2023), Remal, Dana (2024).</p>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>SST rise → more energy → faster intensification (RI doubled since 1980); poleward shift; longer season; Arabian Sea cyclones tripled; wetter cyclones (Clausius–Clapeyron); higher storm surges with sea-level rise.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Explain the conditions necessary for tropical cyclone formation. Discuss their structure and life cycle." <strong>(Mains 2022, related)</strong></span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Tropical cyclones are confined to the South China Sea, Bay of Bengal, and Gulf of Mexico. Discuss." <strong>(Mains 2014)</strong></span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the impact of tropical cyclones on coastal communities, agriculture, and infrastructure in the Indian context."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine how rising sea surface temperatures are altering the frequency, intensity, and geography of tropical cyclones."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How do El Niño and La Niña phases modulate tropical cyclone activity in the Bay of Bengal vs Atlantic basins?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"The recent surge in Arabian Sea cyclones (Tauktae, Biparjoy) — examine causes and India's preparedness."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Top-down cyclone structure (eye, eyewall, spiral rain bands) + side view with cloud heights.</div>
+      <div class="takeaway">A tropical cyclone is the atmosphere's most efficient heat engine — and climate change is supercharging its fuel.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Tropical Cyclones — Formation, Structure &amp; Classification</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 20 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">20</div>
+      <div class="topic-info">
+        <div class="topic-name">Tornadoes &amp; Twisters</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 25</span>
+          <span class="badge badge-pyq">Mains 2024</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>A violently rotating column of air extending from a cumulonimbus cloud to the ground. Winds 65–500 km/h. Diameter 10–3,000 m. Lifespan minutes to an hour.</p>
+      </section>
+      <section>
+        <h4>Tornado vs Tropical Cyclone</h4>
+        <table class="notes">
+          <thead><tr><th>Feature</th><th>Tornado</th><th>Tropical Cyclone</th></tr></thead>
+          <tbody>
+            <tr><td>Size</td><td>Small (m to km)</td><td>Huge (hundreds of km)</td></tr>
+            <tr><td>Lifespan</td><td>Minutes</td><td>Days</td></tr>
+            <tr><td>Origin</td><td>Land thunderstorm</td><td>Ocean</td></tr>
+            <tr><td>Wind speed</td><td>Up to 500 km/h</td><td>Up to 300 km/h</td></tr>
+            <tr><td>Damage radius</td><td>Narrow path</td><td>Wide area</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h4>Formation (Supercell Tornadoes)</h4>
+        <ol>
+          <li><strong>Warm moist surface, cool dry aloft</strong> — instability</li>
+          <li><strong>Wind shear</strong> creates horizontal vortex</li>
+          <li>Strong updraft tilts the horizontal vortex <strong>vertically</strong></li>
+          <li>Mesocyclone (rotating thunderstorm) forms</li>
+          <li>Funnel cloud descends; touches ground = tornado</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Tornado Alley &amp; Gulf Coast Twisters (Mains 2024)</h4>
+        <ul>
+          <li>Constant moisture from Gulf SST</li>
+          <li>Cold continental polar air mass from north</li>
+          <li>Strong upper-level jet stream</li>
+          <li>Flat plains — no mountain disruption</li>
+          <li>Spring + early summer peak</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Indian Tornadoes</h4>
+        <p>Rare. Occasional in West Bengal, Odisha, Bihar (Nor'wester regions). Tornado in WB 2024 killed 5; rare but increasing reports.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Distinguish tornadoes from tropical cyclones in mechanism, size, lifespan, and damage profile."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"What is the phenomenon of 'twisters'? Why are they frequent in the United States but rare in India?" <strong>(Mains 2024)</strong></span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss tornado preparedness and warning systems — what can India learn from the US?"</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine the eastward shift of Tornado Alley in the US and the role of climate change in altering tornado geography."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How do ENSO phases influence the frequency and intensity of US tornado outbreaks?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine the recent rise in tornado reports from West Bengal and the implications for the Indo-Gangetic plain."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Supercell vertical structure — mesocyclone, wall cloud, funnel, tornado + Tornado Alley map.</div>
+      <div class="takeaway">A tornado is small in size but unmatched in intensity — Earth's most violent atmospheric phenomenon by wind speed.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Climatology Hub (Tornadoes &amp; Twisters)</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 21 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">21</div>
+      <div class="topic-info">
+        <div class="topic-name">Air Masses</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 28</span>
+          <span class="badge badge-pyq">Mains 2016</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>A vast body of air (1000+ km horizontally, several km vertically) with <strong>uniform temperature and humidity</strong> characteristics, acquired by staying long enough over a source region.</p>
+      </section>
+      <section>
+        <h4>Classification</h4>
+        <table class="notes">
+          <thead><tr><th>Symbol</th><th>Type</th><th>Source Region</th></tr></thead>
+          <tbody>
+            <tr><td><strong>cA / cAA</strong></td><td>Continental Arctic/Antarctic</td><td>Greenland, Antarctica — cold, dry</td></tr>
+            <tr><td><strong>cP</strong></td><td>Continental Polar</td><td>Siberia, N Canada — cold, dry, stable</td></tr>
+            <tr><td><strong>mP</strong></td><td>Maritime Polar</td><td>N Atlantic, N Pacific — cold, moist</td></tr>
+            <tr><td><strong>cT</strong></td><td>Continental Tropical</td><td>Sahara, Australia — hot, dry</td></tr>
+            <tr><td><strong>mT</strong></td><td>Maritime Tropical</td><td>Gulf of Mexico, Indian Ocean — hot, moist</td></tr>
+            <tr><td><strong>mE</strong></td><td>Maritime Equatorial</td><td>Tropical seas — warm, very moist</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h4>Role in Weather</h4>
+        <ul>
+          <li><strong>Heat waves</strong> — cT pushed poleward (India 2024)</li>
+          <li><strong>Cold waves</strong> — cP pushed equatorward (Texas 2021)</li>
+          <li><strong>Frontogenesis</strong> — when contrasting air masses meet</li>
+          <li><strong>Indian SW Monsoon</strong> = mT air mass from Indian Ocean</li>
+          <li><strong>Western Disturbances</strong> = mP from Mediterranean</li>
+          <li><strong>Hurricanes</strong> = mT over warm Atlantic</li>
+        </ul>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Discuss the concept of air mass and explain its role in macro-climatic changes." <strong>(Mains 2016)</strong></span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Identify the major global air-mass source regions and explain why they form there."</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss how air-mass migration triggers extreme cold and heat waves with major public-health consequences."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Polar amplification is weakening boundaries between air masses. Examine the consequences for mid-latitude weather extremes."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"The maritime tropical air mass from the Indian Ocean and its annual journey driving the Indian monsoon — explain."</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"The Texas freeze 2021 and Indian heatwave 2024 — examine the role of anomalous air-mass excursions."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: World map showing major air mass source regions colour-coded by type.</div>
+      <div class="takeaway">Air masses are the building blocks of climate — when they collide or migrate, the weather around them transforms.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Climatology Hub (Air Masses)</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 22 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">22</div>
+      <div class="topic-info">
+        <div class="topic-name">Fronts &amp; Frontogenesis</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 28</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>A <strong>front</strong> is the boundary surface where two air masses of different properties meet. <strong>Frontogenesis</strong> = formation; <strong>Frontolysis</strong> = dissipation.</p>
+      </section>
+      <section>
+        <h4>Four Types</h4>
+        <table class="notes">
+          <thead><tr><th>Type</th><th>Mechanism</th><th>Weather</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Cold Front</strong></td><td>Cold air pushes under warm air (steep slope)</td><td>Brief intense thunderstorms; clears quickly</td></tr>
+            <tr><td><strong>Warm Front</strong></td><td>Warm air rides over cold air (gentle slope)</td><td>Prolonged moderate rain; gradual clearing</td></tr>
+            <tr><td><strong>Stationary Front</strong></td><td>Neither air mass moves</td><td>Persistent cloudy weather; rain spells</td></tr>
+            <tr><td><strong>Occluded Front</strong></td><td>Cold front overtakes warm front (lifts it off ground)</td><td>End stage of temperate cyclone</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h4>Frontogenesis Conditions</h4>
+        <ol>
+          <li>Two contrasting air masses converging</li>
+          <li>Strong temperature/humidity gradient (baroclinic zone)</li>
+          <li>Jet stream above (provides upper-level divergence)</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Where Fronts Form</h4>
+        <ul>
+          <li><strong>Polar Front</strong> (~60°N/S) — temperate cyclones form here</li>
+          <li><strong>Arctic Front</strong> — between Arctic and Polar air masses</li>
+          <li><strong>Mediterranean Front</strong> — feeds Western Disturbances</li>
+          <li><strong>ITCZ</strong> — equatorial "front" of trade wind convergence</li>
+        </ul>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"What is frontogenesis? Distinguish between cold, warm, stationary, and occluded fronts."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why are fronts a defining feature of mid-latitude weather but largely absent in the tropics?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss how frontal weather systems affect aviation, agriculture, and energy demand in temperate regions."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"A weakening polar front under climate change — examine its consequences for European and North American storms."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How does the seasonal shift of the polar front modulate Mediterranean cyclogenesis and Western Disturbances?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine the role of a stalled frontal system in the 2023 Storm Daniel that devastated Greece and Libya."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Cross-section of cold front (steep) and warm front (gentle) showing air motion + occluded front formation.</div>
+      <div class="takeaway">A front is where two air masses argue — and the resulting weather is the argument made visible.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Climatology Hub (Fronts &amp; Frontogenesis)</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 23 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">23</div>
+      <div class="topic-info">
+        <div class="topic-name">Temperate Cyclones (Extratropical)</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 28</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>Large low-pressure systems (~1000–4000 km) of mid-latitudes (35°–65°), formed at the polar front. Driven by <strong>baroclinic instability</strong> (horizontal temperature gradient), not by warm ocean.</p>
+      </section>
+      <section>
+        <h4>Life Cycle (Polar Front Theory)</h4>
+        <ol>
+          <li><strong>Stationary front</strong> — polar front quiet</li>
+          <li><strong>Wave stage</strong> — small perturbation in jet stream creates a kink</li>
+          <li><strong>Mature stage</strong> — defined warm and cold fronts develop</li>
+          <li><strong>Occlusion stage</strong> — cold front overtakes warm front</li>
+          <li><strong>Dissipation</strong> — pressure rises, cyclone fades</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Tropical vs Temperate Cyclones</h4>
+        <table class="notes">
+          <thead><tr><th>Feature</th><th>Tropical</th><th>Temperate</th></tr></thead>
+          <tbody>
+            <tr><td>Origin</td><td>Warm ocean</td><td>Polar front</td></tr>
+            <tr><td>Energy</td><td>Latent heat (condensation)</td><td>Temperature gradient (baroclinic)</td></tr>
+            <tr><td>Size</td><td>200–2000 km</td><td>1000–4000 km</td></tr>
+            <tr><td>Movement</td><td>Slow, irregular</td><td>Steady, west-to-east</td></tr>
+            <tr><td>Lifespan</td><td>7–14 days</td><td>5–10 days</td></tr>
+            <tr><td>Fronts</td><td>No fronts</td><td>Warm + cold fronts</td></tr>
+            <tr><td>Eye</td><td>Present</td><td>Absent</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h4>Where They Affect</h4>
+        <ul>
+          <li>Europe — Britain, France, Scandinavia</li>
+          <li>USA/Canada — Great Lakes storms, blizzards</li>
+          <li>Mediterranean — Western Disturbances (special category)</li>
+          <li>Russia, Siberia</li>
+          <li>SH — Roaring 40s storms</li>
+        </ul>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Differentiate between tropical and temperate cyclones in origin, structure, energy source, and impact."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why are temperate cyclones confined to mid-latitudes between 35° and 65° in both hemispheres?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the socio-economic impact of recent slow-moving temperate cyclones on Europe (Storm Daniel, Storm Eunice)."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine how a weakening jet stream is making temperate cyclones slower and wetter — implications for floods."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How does the North Atlantic Oscillation (NAO) modulate temperate cyclone tracks over Europe?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"The 2023 Storm Daniel that devastated Libya and Greece — examine its anomalous behaviour and climate change linkage."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Temperate cyclone plan view — warm front, cold front, occluded front, isobars, warm and cold sectors.</div>
+      <div class="takeaway">Temperate cyclones are the mid-latitudes' weather makers — born from cold-warm collisions, they shape European and American winters.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Climatology Hub (Temperate Cyclones)</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 24 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">24</div>
+      <div class="topic-info">
+        <div class="topic-name">Western Disturbances</div>
+        <div class="topic-tags">
+          <span class="badge badge-pmf">PDF + PMF IAS</span>
+          <span class="badge badge-new">Detailed</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>Extra-tropical storms originating over the <strong>Mediterranean Sea</strong>, moving eastward and reaching North-West India in winter (Dec–April), bringing rain and snow. Steered by the <strong>Sub-Tropical Westerly Jet (STJ)</strong>.</p>
+      </section>
+      <section>
+        <h4>Mechanism</h4>
+        <ol>
+          <li>Cold polar air meets warm Mediterranean air → Mediterranean cyclones</li>
+          <li>STJ at ~25–35°N steers them eastward</li>
+          <li>Cross Iran, Afghanistan, Pakistan → enter NW India</li>
+          <li>Forced uplift against Himalayas → precipitation</li>
+          <li>Average 4–6 WDs per winter</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Effects on India</h4>
+        <ul>
+          <li><strong>Winter rainfall</strong> — Punjab, Haryana, Delhi, W UP — vital for rabi crop (wheat, mustard)</li>
+          <li><strong>Snowfall</strong> in J&amp;K, HP, Uttarakhand — replenishes glaciers</li>
+          <li><strong>Cold waves</strong> in N India (post-WD)</li>
+          <li><strong>Frontal thunderstorms</strong> March–April (pre-monsoon)</li>
+          <li><strong>Fog formation</strong> over IGP</li>
+          <li><strong>Cloud bursts</strong> when WD interacts with monsoon trough</li>
+          <li><strong>Avalanches</strong> in Himalayas (Siachen)</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Changing Patterns (Climate Change)</h4>
+        <ul>
+          <li>WD frequency increased ~50% in last 4 decades</li>
+          <li>Shifting northward (less rain to Punjab plains, more snow to Himalayas)</li>
+          <li>Becoming more intense → extreme precipitation events</li>
+          <li>Reaching deeper into summer months (April–June) — unusual</li>
+          <li>Linked to <strong>Joshimath subsidence (2023)</strong>, Sikkim GLOF (2023), Kashmir avalanche (2024)</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Wider Significance</h4>
+        <ul>
+          <li><strong>Glacier sustenance</strong> — Himalayan glaciers depend on WD snowfall</li>
+          <li><strong>Indus River system</strong> — WD-fed snowmelt powers Pakistan agriculture</li>
+          <li><strong>Air quality</strong> — WDs can clear Delhi smog (with rain)</li>
+          <li><strong>Tourism</strong> — Kashmir winter tourism depends on snowfall</li>
+        </ul>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"What are Western Disturbances? Trace their origin, mechanism, and trajectory."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why does Northwest India receive winter precipitation while the rest of India remains dry?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the role of Western Disturbances in the rabi crop economy, Himalayan tourism, and Indus water supply."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine how climate change is altering the frequency, track, and intensity of Western Disturbances."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"The interaction of Western Disturbances with the monsoon trough — explain its role in Himalayan cloudbursts."</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"The recent Joshimath subsidence, Kashmir avalanches, and Himalayan extreme rainfall events — examine the role of intensifying Western Disturbances."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Mediterranean → Iran → Pakistan → NW India trajectory with STJ overhead + Himalayan barrier.</div>
+      <div class="takeaway">Western Disturbances are the Himalayas' winter saviours — feeding glaciers, watering rabi crops, but increasingly delivering chaos as the climate shifts.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Climatology Hub (Western Disturbances)</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 25 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">25</div>
+      <div class="topic-info">
+        <div class="topic-name">Twin Cyclones</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 26</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>Two tropical cyclones forming <strong>simultaneously on opposite sides of the equator</strong> — one in each hemisphere — usually mirror images of each other.</p>
+      </section>
+      <section>
+        <h4>Mechanism (MJO + Rossby Wave)</h4>
+        <ol>
+          <li>Madden–Julian Oscillation produces eastward-moving convective burst near equator</li>
+          <li>Equatorial Rossby waves are excited symmetrically about the equator</li>
+          <li>Convection organises into <strong>twin lows on either side of the equator</strong></li>
+          <li>Westerly wind bursts between the twins sometimes also trigger El Niño</li>
+          <li>Each low intensifies into a tropical cyclone — rotating in opposite directions due to Coriolis</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Notable Events</h4>
+        <ul>
+          <li><strong>Cyclone Asani (NH) + Cyclone Karim (SH)</strong> — May 2022, both in Indian Ocean</li>
+          <li><strong>Tauktae + 22S</strong> — May 2021</li>
+          <li>Frequency: roughly 1–2 events per year in Indian Ocean</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>Warmer Indian Ocean → more favourable conditions for twin formation. MJO intensification under climate change increases twin probability.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"What are twin cyclones? Explain the role of MJO and equatorial Rossby waves in their formation."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why are twin cyclones predominantly an Indian Ocean phenomenon?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the cascading impact of twin cyclones on coastal communities across both hemispheres simultaneously."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"How is a warming Indian Ocean increasing the likelihood of twin-cyclone events?"</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"The MJO–Rossby wave interaction as a forerunner of El Niño initiation — explain through the twin-cyclone mechanism."</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine the May 2022 Cyclone Asani + Karim twin event in the Indian Ocean and its broader climatic significance."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Indian Ocean map with two cyclones on either side of equator, rotating opposite directions, MJO arrow.</div>
+      <div class="takeaway">Twin cyclones are nature's mirror trick — when the MJO whispers near the equator, two storms answer in stereo.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Climatology Hub (Twin Cyclones)</a></div>
+    </div>
+  </details>
+
+  <footer>
+    <div>
+      <span>Category 04 · Storms &amp; Cyclones · 7 Topics · 42 Question Framings</span>
+      <span><a href="05-variability.html" style="color: var(--accent); text-decoration: none;">Next → Climate Variability &amp; Modern Phenomena</a></span>
+    </div>
+  </footer>
+</div>
+
+<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+<script>
+  const toggle = document.getElementById('themeToggle');
+  if (localStorage.getItem('climatology-theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    toggle.textContent = '◑ Light';
+  }
+  toggle.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      toggle.textContent = '◐ Dark';
+      localStorage.setItem('climatology-theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      toggle.textContent = '◑ Light';
+      localStorage.setItem('climatology-theme', 'dark');
+    }
+  });
+  const progress = document.getElementById('progress');
+  const toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', () => {
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (window.scrollY / docH * 100) + '%';
+    if (window.scrollY > 400) toTop.classList.add('show');
+    else toTop.classList.remove('show');
+  });
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>

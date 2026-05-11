@@ -94,6 +94,115 @@ const NOTES_DATA = [
 
 ];
 
+const GEOGRAPHY_DATA = [
+
+  // ── Climatology — Strategic Guide ──
+  {
+    id:        'gs1_geography_climatology_strategic_guide_001',
+    type:      'note',
+    gs:        'gs1',
+    title:     'Climatology — Mains Strategic Guide',
+    subtopic:  'GS1 → Physical Geography → Climatology → Complete Coverage Map',
+    pyqYears:  [2013, 2014, 2016, 2021, 2022, 2024],
+    gapStatus: 'complete',
+    source:    'PMF_IAS_Climatology_PDF.pdf',
+    createdAt: '2026-05-11',
+    file:      'notes/geography/climatology/strategic-guide.html',
+    summary:   'Master index: all 35 topics, 6-dimension question framework, PYQ heatmap, answer-writing templates, and exam strategy for Climatology GS1 Mains 2026.'
+  },
+
+  // ── Climatology — 01: Atmospheric Foundations ──
+  {
+    id:        'gs1_geography_climatology_01_foundations_001',
+    type:      'note',
+    gs:        'gs1',
+    title:     'Climatology 01 — Atmospheric Foundations',
+    subtopic:  'GS1 → Physical Geography → Climatology → Atmosphere, Insolation, Albedo, Lapse Rate, Inversion',
+    pyqYears:  [2013, 2018, 2021],
+    gapStatus: 'complete',
+    source:    'PMF_IAS_Climatology_PDF_Ch20-22.pdf',
+    createdAt: '2026-05-11',
+    file:      'notes/geography/climatology/01-foundations.html',
+    summary:   '6 topics · Atmospheric layers, insolation & heat budget, albedo, latitudinal heat balance, lapse rates (DALR/SALR), temperature inversion — with 6-dimension mains question framings each.'
+  },
+
+  // ── Climatology — 02: Pressure, Wind & Circulation ──
+  {
+    id:        'gs1_geography_climatology_02_circulation_001',
+    type:      'note',
+    gs:        'gs1',
+    title:     'Climatology 02 — Pressure, Wind & Circulation',
+    subtopic:  'GS1 → Physical Geography → Climatology → Pressure Belts, Coriolis, Three-Cell Model, Jet Streams, Rossby Waves, Blocking',
+    pyqYears:  [2013, 2021, 2022],
+    gapStatus: 'complete',
+    source:    'PMF_IAS_Climatology_PDF_Ch23-27.pdf',
+    createdAt: '2026-05-11',
+    file:      'notes/geography/climatology/02-circulation.html',
+    summary:   '6 topics · Global pressure belts, Coriolis force & geostrophic wind, three-cell model & ITCZ, jet streams (STJ/PFJ/TEJ), Rossby waves, atmospheric blocking (Omega/Rex blocks).'
+  },
+
+  // ── Climatology — 03: Moisture & Precipitation ──
+  {
+    id:        'gs1_geography_climatology_03_moisture_001',
+    type:      'note',
+    gs:        'gs1',
+    title:     'Climatology 03 — Moisture & Precipitation',
+    subtopic:  'GS1 → Physical Geography → Climatology → Humidity, Clouds, Rainfall, Thunderstorms, Cloudbursts, Atmospheric Rivers',
+    pyqYears:  [2024],
+    gapStatus: 'complete',
+    source:    'PMF_IAS_Climatology_PDF_Ch24-25.pdf',
+    createdAt: '2026-05-11',
+    file:      'notes/geography/climatology/03-moisture.html',
+    summary:   '6 topics · Humidity & Clausius-Clapeyron, condensation & cloud types, rainfall mechanisms, thunderstorms & Kalbaisakhi, cloudbursts (Wayanad/Kedarnath), atmospheric rivers (Pineapple Express).'
+  },
+
+  // ── Climatology — 04: Storms & Cyclones ──
+  {
+    id:        'gs1_geography_climatology_04_storms_001',
+    type:      'note',
+    gs:        'gs1',
+    title:     'Climatology 04 — Storms & Cyclones',
+    subtopic:  'GS1 → Physical Geography → Climatology → Tropical Cyclones, Tornadoes, Air Masses, Fronts, Temperate Cyclones, Western Disturbances, Twin Cyclones',
+    pyqYears:  [2014, 2016, 2022, 2024],
+    gapStatus: 'complete',
+    source:    'PMF_IAS_Climatology_PDF_Ch25-28.pdf',
+    createdAt: '2026-05-11',
+    file:      'notes/geography/climatology/04-storms.html',
+    summary:   '7 topics · Tropical cyclones (6 conditions, structure, India basins), tornadoes vs cyclones, air masses, fronts & frontogenesis, temperate cyclones, Western Disturbances, twin cyclones.'
+  },
+
+  // ── Climatology — 05a: Ocean-Atmosphere Oscillations ──
+  {
+    id:        'gs1_geography_climatology_05a_variability_001',
+    type:      'note',
+    gs:        'gs1',
+    title:     'Climatology 05a — Ocean-Atmosphere Oscillations',
+    subtopic:  'GS1 → Physical Geography → Climatology → ENSO, La Niña, IOD, MJO, Marine Heatwaves',
+    pyqYears:  [2014, 2017],
+    gapStatus: 'complete',
+    source:    'PMF_IAS_Climatology_PDF_Ch29.pdf',
+    createdAt: '2026-05-11',
+    file:      'notes/geography/climatology/05a-variability.html',
+    summary:   '5 topics · El Niño & Walker Circulation, La Niña (triple-dip 2020-22), Indian Ocean Dipole (IOD), Madden-Julian Oscillation (8 phases), marine heatwaves & coral bleaching.'
+  },
+
+  // ── Climatology — 05b: Modern Climate-Change Phenomena ──
+  {
+    id:        'gs1_geography_climatology_05b_modern_001',
+    type:      'note',
+    gs:        'gs1',
+    title:     'Climatology 05b — Modern Climate-Change Phenomena',
+    subtopic:  'GS1 → Physical Geography → Climatology → Heat Domes, Polar Vortex, AMOC, GLOFs, Heat Waves & UHI',
+    pyqYears:  [2013, 2021, 2023, 2024],
+    gapStatus: 'complete',
+    source:    'PMF_IAS_Climatology_Web.pdf',
+    createdAt: '2026-05-11',
+    file:      'notes/geography/climatology/05b-modern.html',
+    summary:   '5 topics · Heat domes (Omega blocks, Pacific NW 2021), polar vortex & SSW events, AMOC slowdown & cold blob, GLOFs (Chamoli/Sikkim), heat waves & urban heat islands (Mains 2013).'
+  },
+
+];
+
 const POLITY_DATA = [
 
   {
@@ -209,11 +318,13 @@ const state = {
    ═══════════════════════════════════════════════ */
 const searchInput   = document.getElementById('searchInput');
 const notesGrid     = document.getElementById('notesGrid');
+const geographyGrid = document.getElementById('geographyGrid');
 const polityGrid    = document.getElementById('polityGrid');
 const prelimsGrid   = document.getElementById('prelimsGrid');
 const mainsGrid     = document.getElementById('mainsGrid');
-const notesCount    = document.getElementById('notesCount');
-const polityCount   = document.getElementById('polityCount');
+const notesCount      = document.getElementById('notesCount');
+const geographyCount  = document.getElementById('geographyCount');
+const polityCount     = document.getElementById('polityCount');
 const prelimsCount  = document.getElementById('prelimsCount');
 const mainsCount    = document.getElementById('mainsCount');
 const totalNotes    = document.getElementById('totalNotes');
@@ -241,7 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
    STATS
    ═══════════════════════════════════════════════ */
 function updateStats() {
-  const gapCount = [...NOTES_DATA, ...POLITY_DATA, ...PRELIMS_DATA, ...MAINS_DATA]
+  const gapCount = [...NOTES_DATA, ...GEOGRAPHY_DATA, ...POLITY_DATA, ...PRELIMS_DATA, ...MAINS_DATA]
     .filter(d => d.gapStatus === 'partial').length;
 
   animateCount(totalNotes,   NOTES_DATA.length);
@@ -270,10 +381,11 @@ const easeOut = t => 1 - Math.pow(1 - t, 3);
    RENDER
    ═══════════════════════════════════════════════ */
 function renderAll() {
-  renderSection(NOTES_DATA,   notesGrid,   notesCount,   'notesEmpty',   '📄');
-  renderSection(POLITY_DATA,  polityGrid,  polityCount,  'polityEmpty',  '⚖️');
-  renderSection(PRELIMS_DATA, prelimsGrid, prelimsCount, 'prelimsEmpty', '🎯');
-  renderSection(MAINS_DATA,   mainsGrid,   mainsCount,   'mainsEmpty',   '✍️');
+  renderSection(NOTES_DATA,     notesGrid,     notesCount,     'notesEmpty',     '📄');
+  renderSection(GEOGRAPHY_DATA, geographyGrid, geographyCount, 'geographyEmpty', '🌍');
+  renderSection(POLITY_DATA,    polityGrid,    polityCount,    'polityEmpty',    '⚖️');
+  renderSection(PRELIMS_DATA,   prelimsGrid,   prelimsCount,   'prelimsEmpty',   '🎯');
+  renderSection(MAINS_DATA,     mainsGrid,     mainsCount,     'mainsEmpty',     '✍️');
 }
 
 function renderSection(data, grid, countEl, emptyId, icon) {

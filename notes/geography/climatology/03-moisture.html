@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03 · Moisture &amp; Precipitation — Climatology Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f1e6; --bg-soft: #efe7d4; --paper: #fbf7ed;
+    --ink: #1a1612; --ink-soft: #4a4238; --ink-faint: #8a8170;
+    --rule: #d8cdb5; --rule-soft: #e6dec9;
+    --accent: #0b3d4a; --accent-soft: #156877; --highlight: #c2410c;
+    --new-badge: #b45309;
+    --cat: #0e7490; --cat-bg: #d8eef2;
+    --d1: #1e3a5f; --d1-bg: #e6ecf3;
+    --d2: #2d5a3d; --d2-bg: #e3ece5;
+    --d3: #a16207; --d3-bg: #f4ecd6;
+    --d4: #b1340b; --d4-bg: #f4e0d3;
+    --d5: #5b21b6; --d5-bg: #ece2f5;
+    --d6: #991b1b; --d6-bg: #f3dada;
+    --shadow-sm: 0 1px 2px rgba(20,15,10,0.06);
+    --shadow-md: 0 4px 16px rgba(20,15,10,0.08);
+    --serif: 'Newsreader', Georgia, serif;
+    --display: 'Fraunces', 'Times New Roman', serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  [data-theme="dark"] {
+    --bg: #1a1612; --bg-soft: #221d17; --paper: #1f1a14;
+    --ink: #f0e8d6; --ink-soft: #c4baa4; --ink-faint: #8a8170;
+    --rule: #3a342a; --rule-soft: #2a2520;
+    --accent: #6fb9c9; --accent-soft: #8ad0df; --highlight: #f97316;
+    --cat: #67d8ed; --cat-bg: #18303a;
+    --d1: #93b5db; --d1-bg: #1f2a3a;
+    --d2: #8fc99e; --d2-bg: #1f2e25;
+    --d3: #d8b46c; --d3-bg: #322a1a;
+    --d4: #e89370; --d4-bg: #2f201a;
+    --d5: #b794e6; --d5-bg: #261d33;
+    --d6: #e08b8b; --d6-bg: #2e1c1c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--serif); font-size: 16px; line-height: 1.65; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--highlight); width: 0%; z-index: 200; transition: width 60ms linear; }
+  .theme-toggle { position: fixed; top: 18px; right: 22px; background: var(--paper); border: 1px solid var(--rule); border-radius: 999px; padding: 7px 14px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; color: var(--ink-soft); z-index: 150; box-shadow: var(--shadow-sm); }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--accent); }
+  .container { max-width: 1100px; margin: 0 auto; padding: 50px 60px 100px; }
+  .top-nav { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 36px; padding: 14px 18px; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; font-family: var(--mono); font-size: 11.5px; align-items: center; }
+  .top-nav .nav-label { color: var(--accent); font-weight: 600; letter-spacing: 0.06em; padding-right: 14px; border-right: 1px solid var(--rule); }
+  .top-nav a { color: var(--ink-soft); text-decoration: none; padding: 4px 9px; border-radius: 3px; letter-spacing: 0.04em; }
+  .top-nav a:hover { background: var(--bg-soft); color: var(--ink); }
+  .top-nav a.current { background: var(--cat); color: var(--paper); }
+  .cat-header { margin-bottom: 36px; }
+  .cat-header .cat-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 12px; color: var(--cat); display: flex; align-items: center; gap: 12px; }
+  .cat-header .cat-label::before { content: ''; width: 28px; height: 1px; background: var(--cat); }
+  .cat-header h1 { font-family: var(--display); font-weight: 600; font-size: clamp(32px, 4vw, 48px); line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 12px; }
+  .cat-header .cat-desc { font-size: 16.5px; color: var(--ink-soft); font-style: italic; max-width: 720px; line-height: 1.55; }
+  details.topic { background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; margin-bottom: 12px; overflow: hidden; transition: box-shadow 0.2s ease; }
+  details.topic[open] { box-shadow: var(--shadow-md); }
+  summary.topic-head { padding: 16px 22px; cursor: pointer; list-style: none; display: flex; align-items: center; gap: 16px; user-select: none; transition: background 0.15s ease; }
+  summary.topic-head:hover { background: var(--bg-soft); }
+  summary.topic-head::-webkit-details-marker { display: none; }
+  .topic-num { font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 1; flex-shrink: 0; width: 44px; letter-spacing: -0.02em; color: var(--cat); }
+  .topic-info { flex: 1; }
+  .topic-name { font-family: var(--display); font-weight: 500; font-size: 17.5px; line-height: 1.3; color: var(--ink); margin-bottom: 4px; }
+  .topic-tags { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .badge { font-family: var(--mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.1em; padding: 2px 7px; border-radius: 3px; font-weight: 500; }
+  .badge-pdf { background: var(--bg-soft); color: var(--ink-soft); border: 1px solid var(--rule); }
+  .badge-pmf { background: #d8eef2; color: #0e7490; }
+  .badge-new { background: var(--new-badge); color: white; letter-spacing: 0.12em; }
+  .badge-pyq { background: var(--d6-bg); color: var(--d6); }
+  .topic-toggle { color: var(--ink-faint); font-family: var(--mono); font-size: 14px; transition: transform 0.2s ease; flex-shrink: 0; }
+  details[open] .topic-toggle { transform: rotate(45deg); color: var(--highlight); }
+  .topic-body { padding: 18px 26px 24px 82px; border-top: 1px solid var(--rule-soft); background: var(--bg); }
+  .topic-body section { margin-bottom: 16px; }
+  .topic-body section:last-of-type { margin-bottom: 0; }
+  .topic-body h4 { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--highlight); margin-bottom: 8px; font-weight: 600; }
+  .topic-body p, .topic-body li { font-size: 15px; line-height: 1.6; color: var(--ink); }
+  .topic-body p { margin-bottom: 8px; }
+  .topic-body ul, .topic-body ol { margin: 4px 0 0 22px; }
+  .topic-body li { margin-bottom: 5px; }
+  .topic-body strong { color: var(--ink); font-weight: 600; }
+  .topic-body em { font-style: italic; color: var(--ink-soft); }
+  table.notes { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13.5px; background: var(--paper); box-shadow: var(--shadow-sm); border-radius: 4px; overflow: hidden; }
+  table.notes th { background: var(--bg-soft); text-align: left; padding: 9px 12px; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); border-bottom: 1.5px solid var(--ink); font-weight: 500; }
+  table.notes td { padding: 9px 12px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  table.notes tr:last-child td { border-bottom: none; }
+  .diagram-note { margin-top: 6px; padding: 9px 13px; background: var(--bg-soft); border-left: 3px solid var(--highlight); font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.03em; color: var(--ink-soft); border-radius: 0 4px 4px 0; }
+  .diagram-note::before { content: '✎ '; color: var(--highlight); font-family: var(--serif); }
+  .takeaway { margin-top: 12px; padding: 12px 16px; background: var(--paper); border: 1px dashed var(--accent); border-radius: 4px; font-style: italic; color: var(--ink); font-size: 14.5px; line-height: 1.5; }
+  .takeaway::before { content: 'Key Takeaway · '; font-style: normal; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); font-weight: 600; display: block; margin-bottom: 4px; }
+  .dimensions-section { margin-top: 16px; padding: 16px 18px; background: var(--paper); border-radius: 6px; border: 1px solid var(--rule); }
+  .dimensions-section > h4 { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--accent); margin-bottom: 12px; font-weight: 600; }
+  .dim-list { display: grid; gap: 8px; }
+  .dim { display: grid; grid-template-columns: 24px 130px 1fr; gap: 12px; padding: 10px 14px; border-radius: 4px; align-items: start; font-size: 14px; line-height: 1.5; }
+  .dim-icon { font-size: 14px; line-height: 1.5; }
+  .dim-label { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; line-height: 1.55; }
+  .dim-q { color: var(--ink); font-style: italic; }
+  .dim-q.na { color: var(--ink-faint); font-style: normal; font-size: 13px; }
+  .dim.d1 { background: var(--d1-bg); } .dim.d1 .dim-label { color: var(--d1); }
+  .dim.d2 { background: var(--d2-bg); } .dim.d2 .dim-label { color: var(--d2); }
+  .dim.d3 { background: var(--d3-bg); } .dim.d3 .dim-label { color: var(--d3); }
+  .dim.d4 { background: var(--d4-bg); } .dim.d4 .dim-label { color: var(--d4); }
+  .dim.d5 { background: var(--d5-bg); } .dim.d5 .dim-label { color: var(--d5); }
+  .dim.d6 { background: var(--d6-bg); } .dim.d6 .dim-label { color: var(--d6); }
+  .source-link { margin-top: 14px; padding: 10px 14px; background: var(--bg-soft); border-radius: 4px; font-size: 13px; color: var(--ink-soft); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .source-link::before { content: '↗'; font-family: var(--mono); color: var(--accent); font-weight: 600; }
+  .source-link strong { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); }
+  .source-link a { color: var(--accent); text-decoration: none; word-break: break-all; border-bottom: 1px dotted var(--accent); }
+  .source-link a:hover { color: var(--highlight); border-bottom-color: var(--highlight); }
+  footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); line-height: 1.8; }
+  footer div { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .to-top { position: fixed; bottom: 28px; right: 28px; width: 42px; height: 42px; border-radius: 50%; background: var(--accent); color: var(--paper); border: none; cursor: pointer; font-size: 17px; box-shadow: var(--shadow-md); opacity: 0; transform: translateY(8px); transition: all 0.25s ease; z-index: 150; }
+  .to-top.show { opacity: 1; transform: translateY(0); }
+  @media (max-width: 800px) {
+    .container { padding: 30px 22px 80px; }
+    .topic-body { padding-left: 24px; padding-right: 18px; }
+    .dim { grid-template-columns: 20px 1fr; }
+    .dim-label { grid-column: 2; }
+    .dim-q { grid-column: 1 / -1; padding-left: 32px; }
+  }
+  @media print {
+    .theme-toggle, .to-top, .progress-bar, .top-nav { display: none !important; }
+    .container { padding: 0; max-width: 100%; }
+    body { font-size: 10pt; background: white; color: black; }
+    details.topic { break-inside: avoid; box-shadow: none; }
+    details.topic > * { display: block !important; }
+    summary.topic-head { background: #eee !important; }
+    .topic-body { display: block !important; padding-left: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+<button class="theme-toggle" id="themeToggle">◐ Dark</button>
+
+<div class="container">
+  <nav class="top-nav">
+    <span class="nav-label">CLIMATOLOGY</span>
+    <a href="01-foundations.html">01 Foundations</a>
+    <a href="02-circulation.html">02 Circulation</a>
+    <a href="03-moisture.html" class="current">03 Moisture</a>
+    <a href="04-storms.html">04 Storms</a>
+    <a href="05a-variability.html">05a Oscillations</a>
+    <a href="05b-modern.html">05b Modern</a>
+  </nav>
+
+  <header class="cat-header">
+    <div class="cat-label">Category 03 · 6 Topics</div>
+    <h1>Moisture &amp; Precipitation</h1>
+    <p class="cat-desc">How water gets into the atmosphere, becomes clouds, falls as rain — and the extreme forms it takes: thunderstorms, cloudbursts, and the recently-discovered atmospheric rivers that drown coastlines.</p>
+  </header>
+
+  <!-- TOPIC 13 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">13</div>
+      <div class="topic-info">
+        <div class="topic-name">Humidity &amp; Evaporation</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 24</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p><strong>Humidity</strong> = water vapour content in air. <strong>Evaporation</strong> = liquid water → vapour. Driving force of the hydrological cycle.</p>
+      </section>
+      <section>
+        <h4>Types of Humidity</h4>
+        <ul>
+          <li><strong>Absolute humidity</strong> — actual mass of water vapour per unit volume (g/m³)</li>
+          <li><strong>Specific humidity</strong> — mass of water vapour per unit mass of air</li>
+          <li><strong>Relative humidity (RH)</strong> — percentage of max moisture air can hold at that temperature</li>
+          <li><strong>Dew point</strong> — temperature at which RH = 100%</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Factors Affecting Evaporation</h4>
+        <ol>
+          <li><strong>Temperature</strong> — higher temp = more evaporation</li>
+          <li><strong>Humidity</strong> — drier air = more evaporation</li>
+          <li><strong>Wind speed</strong> — removes saturated layer → more evaporation</li>
+          <li><strong>Water-surface area</strong> — more surface = more evaporation</li>
+          <li><strong>Composition of water</strong> — saline slower than fresh</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Clausius–Clapeyron Relationship</h4>
+        <p>Air's water-holding capacity increases <strong>~7% per °C of warming</strong>. This is the fundamental reason climate change leads to more intense precipitation events.</p>
+      </section>
+      <section>
+        <h4>Wet-Bulb Temperature</h4>
+        <p>Combined measure of heat and humidity — when wet-bulb crosses <strong>35°C, human survival is impossible</strong> even in shade. South Asia is approaching this threshold during peak summers.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Distinguish between absolute, specific, and relative humidity. Why is RH most useful in weather forecasting?"</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why do coastal regions experience high absolute humidity but moderate temperatures compared to interior regions?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the impact of rising humidity on heat stress, public health, and labour productivity in tropical India."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Explain the Clausius–Clapeyron relationship and its role in intensifying precipitation extremes under climate change."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How does atmospheric humidity vary across monsoon active and break phases over the Indian subcontinent?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine the rising wet-bulb temperature crisis and South Asia's vulnerability to lethal heat–humidity combinations."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Temperature vs water-holding capacity curve (exponential) + wet-bulb survival threshold marked.</div>
+      <div class="takeaway">For every degree of warming, the atmosphere can hold 7% more water — which is why a warmer world rains harder and sweats deadlier.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Climatology Hub (Humidity &amp; Evaporation)</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 14 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">14</div>
+      <div class="topic-info">
+        <div class="topic-name">Condensation &amp; Cloud Formation</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 24</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>Phase change of water vapour to liquid water (or directly to ice = deposition). Requires (1) air cooled to dew point, and (2) condensation nuclei (dust, salts, aerosols, pollution particles).</p>
+      </section>
+      <section>
+        <h4>Cooling Mechanisms</h4>
+        <ol>
+          <li><strong>Adiabatic cooling</strong> — rising air (orographic, convective, frontal, cyclonic) — main mechanism</li>
+          <li><strong>Radiational cooling</strong> — heat loss at night → fog, dew</li>
+          <li><strong>Advection</strong> — warm air over cold surface → fog</li>
+          <li><strong>Mixing of air masses</strong> — at fronts</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Forms of Condensation</h4>
+        <table class="notes">
+          <thead><tr><th>Form</th><th>Description</th><th>Conditions</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Dew</strong></td><td>Water droplets on surfaces</td><td>Clear night, calm air, high humidity</td></tr>
+            <tr><td><strong>Frost</strong></td><td>Ice crystals on surfaces</td><td>Dew point below freezing</td></tr>
+            <tr><td><strong>Fog</strong></td><td>Cloud at ground level (visibility &lt; 1 km)</td><td>Cooling + condensation nuclei</td></tr>
+            <tr><td><strong>Mist</strong></td><td>Less dense (visibility &gt; 1 km)</td><td>Similar, lighter</td></tr>
+            <tr><td><strong>Clouds</strong></td><td>Condensation aloft</td><td>Adiabatic uplift</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h4>Cloud Types (4 Families)</h4>
+        <ul>
+          <li><strong>High clouds (6–12 km)</strong> — Cirrus, Cirrostratus, Cirrocumulus (ice crystals)</li>
+          <li><strong>Mid clouds (2–6 km)</strong> — Altostratus, Altocumulus</li>
+          <li><strong>Low clouds (0–2 km)</strong> — Stratus, Stratocumulus, Nimbostratus</li>
+          <li><strong>Vertical development</strong> — Cumulus, Cumulonimbus (thunderstorms)</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>Aerosol pollution increases condensation nuclei → can suppress rain (small droplets don't coalesce) or cause intense bursts. Urban pollution alters local cloud microphysics. Cloud feedback remains the <strong>single largest uncertainty in climate models</strong>.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Explain the four mechanisms of atmospheric cooling that lead to condensation. Classify cloud types by altitude."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why do San Francisco and the Peruvian coast experience persistent advectional fog despite tropical/subtropical latitude?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss how aerosol pollution from biomass burning and industry is altering regional cloud and rainfall patterns over India."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Cloud feedback is the single largest uncertainty in climate projections. Examine why."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How do varying levels of condensation nuclei from monsoon-season aerosols modulate Indian rainfall?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine recent cloud seeding programmes (Maharashtra, Karnataka, UAE) and the science behind weather modification."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Cloud-type chart with altitude bands + example cloud shapes from cirrus to cumulonimbus.</div>
+      <div class="takeaway">Without condensation nuclei, the sky would be perpetually humid but cloudless — dust and pollution are the unsung heroes (and villains) of rain.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Climatology Hub (Condensation &amp; Clouds)</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 15 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">15</div>
+      <div class="topic-info">
+        <div class="topic-name">Types of Rainfall</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 24</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>Rainfall = precipitation in liquid form. Classified by the <strong>mechanism causing air uplift</strong>.</p>
+      </section>
+      <section>
+        <h4>Three Types</h4>
+        <table class="notes">
+          <thead><tr><th>Type</th><th>Mechanism</th><th>Example Regions</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Convectional</strong></td><td>Surface heating → warm air rises → cools → condenses</td><td>Equatorial belt, Amazon, Congo</td></tr>
+            <tr><td><strong>Orographic</strong></td><td>Air forced up windward slopes of mountains</td><td>Western Ghats, Himalayas, Cherrapunji</td></tr>
+            <tr><td><strong>Cyclonic / Frontal</strong></td><td>Warm air rises over cold air at fronts</td><td>Mid-latitudes, Britain, NW Europe</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h4>Orographic Rainfall — Key Concepts</h4>
+        <ul>
+          <li><strong>Windward side</strong>: heavy rainfall (Cherrapunji ~11,800 mm/yr)</li>
+          <li><strong>Leeward side</strong>: rain shadow (Pune behind Western Ghats; Ladakh behind Greater Himalayas)</li>
+          <li><strong>Foehn winds</strong>: warm dry winds descending leeward (Chinook in Rockies, Foehn in Alps)</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>Rainfall is becoming <strong>more intense, less frequent</strong>. India's monsoon — total rainfall stable, but heavy-rain days increasing 3×, moderate days decreasing. Greater flood + drought risk simultaneously.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Distinguish between convectional, orographic, and cyclonic rainfall with global examples."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why does Cherrapunji receive ~11,000 mm of rainfall annually while Pune, only 500 km away, receives less than 700 mm?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss how changing rainfall distribution patterns are reshaping cropping calendars and food security across India."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine the trend toward fewer-but-heavier rainfall events in India and its implications for both floods and droughts."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How does the Indian monsoon distribute rainfall differently during active and break phases?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"The 2024 Wayanad landslides and Pakistan 2022 floods — examine the role of orographic intensification of extreme rainfall."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Three sketches — convectional column, orographic uplift with rain shadow, frontal uplift.</div>
+      <div class="takeaway">Rain needs only one thing — air going up. Whether by heating, mountains, or a front, the mechanism decides where it falls.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Climatology Hub (Types of Rainfall)</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 16 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">16</div>
+      <div class="topic-info">
+        <div class="topic-name">Thunderstorms</div>
+        <div class="topic-tags">
+          <span class="badge badge-pdf">PDF · Ch 25</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>A short, violent storm with heavy rain, lightning, thunder, sometimes hail, produced by a <strong>cumulonimbus cloud</strong>. Lifespan: 30 minutes to a few hours.</p>
+      </section>
+      <section>
+        <h4>Conditions Required</h4>
+        <ol>
+          <li>Plenty of moisture (high humidity)</li>
+          <li>Conditional instability (warm humid surface, cool aloft)</li>
+          <li>Trigger mechanism (surface heating, frontal lifting, orographic)</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Life Cycle (3 Stages)</h4>
+        <ol>
+          <li><strong>Cumulus stage</strong>: updrafts dominate, cloud grows</li>
+          <li><strong>Mature stage</strong>: updrafts + downdrafts; rain, lightning, hail</li>
+          <li><strong>Dissipating stage</strong>: downdrafts dominate, rain weakens, cloud collapses</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Types</h4>
+        <ul>
+          <li><strong>Thermal (single-cell)</strong> — afternoon storms; brief</li>
+          <li><strong>Frontal</strong> — at cold/warm fronts</li>
+          <li><strong>Orographic</strong> — at mountain barriers</li>
+          <li><strong>Mesoscale Convective System (MCS)</strong> — large multi-cell, long-lasting</li>
+          <li><strong>Supercell</strong> — rotating updraft (mesocyclone); spawns tornadoes</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Indian Examples</h4>
+        <ul>
+          <li><strong>Kalbaisakhi / Nor'westers</strong> — pre-monsoon thunderstorms, West Bengal/Odisha</li>
+          <li><strong>Mango showers</strong> — pre-monsoon, Karnataka/Kerala</li>
+          <li><strong>Loo + dust storms</strong> — N India pre-monsoon (Andhi)</li>
+          <li><strong>Western Disturbance thunderstorms</strong> — N India winter</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>Higher SST + more moisture → more intense thunderstorms. <strong>Lightning strikes increasing in India</strong> — 2,500+ deaths/year, concentrated in Odisha, Bihar, Jharkhand, MP. NDMA notified lightning as a disaster in 2023.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"Explain the conditions necessary for thunderstorm formation and trace its three-stage life cycle."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why are Kalbaisakhi (Nor'westers) characteristic of West Bengal and Odisha during pre-monsoon months?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the rising lightning fatality crisis in eastern India and the mitigation strategies required."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine how climate change is altering the frequency and intensity of severe thunderstorms in India."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"Western Disturbances and pre-monsoon thunderstorm activity over Northwest India — explain the linkage."</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine NDMA's recent notification of lightning as a natural disaster and the framework for compensating victims."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Cumulonimbus cross-section with updrafts (red), downdrafts (blue), lightning, rain, anvil top.</div>
+      <div class="takeaway">A thunderstorm is the atmosphere's pressure cooker letting off steam — quick, violent, and increasingly dangerous in a warming India.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Climatology Hub (Thunderstorms)</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 17 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">17</div>
+      <div class="topic-info">
+        <div class="topic-name">Cloudbursts</div>
+        <div class="topic-tags">
+          <span class="badge badge-pmf">PDF + PMF IAS</span>
+          <span class="badge badge-new">Detailed</span>
+          <span class="badge badge-pyq">Mains 2024</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p>An <strong>extreme localised rainfall event</strong> with intensity ≥100 mm/hour over an area &lt;20–30 km², producing flash floods. Almost always associated with deep cumulonimbus over mountainous terrain.</p>
+      </section>
+      <section>
+        <h4>Mechanism (Step-by-Step)</h4>
+        <ol>
+          <li><strong>Orographic uplift</strong>: warm moist air forced rapidly up steep slopes</li>
+          <li><strong>Conditional instability</strong>: parcel reaches dew point, condensation begins</li>
+          <li><strong>Cumulonimbus tower</strong> grows to 12–15 km vertically</li>
+          <li><strong>Strong updrafts</strong> hold raindrops suspended; droplets coalesce, grow large</li>
+          <li><strong>Topographic trapping</strong>: surrounding mountains prevent cloud from drifting</li>
+          <li><strong>Updraft collapse</strong>: when moisture supply weakens, water mass dumps in minutes</li>
+        </ol>
+      </section>
+      <section>
+        <h4>Conducive Factors</h4>
+        <ul>
+          <li>Steep slopes (Himalayas, Western Ghats, NE hills)</li>
+          <li>Monsoon trough or Western Disturbance interaction</li>
+          <li>High atmospheric moisture (warm SST upstream)</li>
+          <li>Clausius–Clapeyron: each +1°C → +7% moisture available</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Notable Indian Cloudbursts</h4>
+        <ul>
+          <li><strong>Leh 2010</strong> — 257 mm in 2 hours; 250+ deaths</li>
+          <li><strong>Kedarnath 2013</strong> — 375 mm in 24 hrs + GLOF; 5,000+ deaths</li>
+          <li><strong>Amarnath Yatra 2022</strong> — 31 mm in &lt;1 hr; 17 deaths</li>
+          <li><strong>Wayanad 2024</strong> — cloudburst-triggered landslides; 400+ deaths</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>Warmer atmosphere = more moisture; warmer Arabian Sea/Bay of Bengal = more moisture transport; weakened jet streams = stalled monsoon troughs over Himalayas. Cloudbursts are becoming <strong>more frequent and unpredictable</strong>.</p>
+      </section>
+      <section>
+        <h4>Mitigation</h4>
+        <ul>
+          <li>Doppler weather radar expansion (IMD's <strong>Mission Mausam</strong>)</li>
+          <li>Nowcasting (3–6 hour forecasts) for Himalayan states</li>
+          <li>Restricted construction in floodplains</li>
+          <li>Early-warning sirens in pilgrim/tourist zones</li>
+          <li>Slope stabilisation, afforestation</li>
+        </ul>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"What is the phenomenon of 'cloudbursts'? Explain." <strong>(Mains 2024)</strong></span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why are cloudbursts disproportionately common in the Himalayan states (Uttarakhand, J&amp;K, HP) and the Western Ghats?"</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the compounding impact of cloudbursts on pilgrim safety, hydropower infrastructure, and Himalayan tourism."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"How is a warmer atmosphere intensifying cloudburst frequency in the Himalayas? Examine through the Clausius–Clapeyron lens."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"The Western Disturbance–monsoon trough interaction as a trigger for Himalayan cloudbursts — explain."</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"The Wayanad 2024, Amarnath 2022, and Kedarnath 2013 cloudburst tragedies — examine common patterns and lessons for disaster management."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Orographic cloudburst mechanism — moist air, mountain barrier, towering cumulonimbus, sudden collapse with rainfall arrow.</div>
+      <div class="takeaway">Cloudbursts are the Himalayas' violent surprise — localised, lethal, and becoming more frequent as the atmosphere warms.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/climatology/" target="_blank" rel="noopener">PMF IAS · Climatology Hub (Cloudbursts)</a></div>
+    </div>
+  </details>
+
+  <!-- TOPIC 18 -->
+  <details class="topic">
+    <summary class="topic-head">
+      <div class="topic-num">18</div>
+      <div class="topic-info">
+        <div class="topic-name">Atmospheric Rivers (Pineapple Express)</div>
+        <div class="topic-tags">
+          <span class="badge badge-pmf">PMF IAS</span>
+          <span class="badge badge-new">New</span>
+        </div>
+      </div>
+      <div class="topic-toggle">+</div>
+    </summary>
+    <div class="topic-body">
+      <section>
+        <h4>Definition</h4>
+        <p><strong>Long, narrow corridors of concentrated water vapour</strong> in the atmosphere (~400–500 km wide, 1000+ km long) that transport moisture from tropical oceans to higher latitudes. Often called <strong>"rivers in the sky."</strong></p>
+      </section>
+      <section>
+        <h4>Mechanism</h4>
+        <ol>
+          <li>Warm tropical oceans evaporate vast amounts of water</li>
+          <li>Cyclonic winds organise vapour into a narrow band</li>
+          <li>The river extends thousands of km, flowing poleward</li>
+          <li>On hitting coastal mountains, vapour is forced up → torrential rain</li>
+          <li>Single event can carry water equal to <strong>7–15× the daily flow of the Mississippi</strong></li>
+        </ol>
+      </section>
+      <section>
+        <h4>Famous Atmospheric Rivers</h4>
+        <ul>
+          <li><strong>Pineapple Express</strong> — tropical Pacific (near Hawaii) → US West Coast</li>
+          <li><strong>Atmospheric Pineapple</strong> — Atlantic equivalent affecting UK/Europe</li>
+          <li><strong>Indian Monsoon ARs</strong> — increasingly identified during Kerala 2018, Chennai 2015 floods</li>
+        </ul>
+      </section>
+      <section>
+        <h4>Where They Occur</h4>
+        <ul>
+          <li>North Pacific (US West Coast)</li>
+          <li>North Atlantic (Western Europe)</li>
+          <li>Southeast Pacific (Chile)</li>
+          <li>South Atlantic</li>
+          <li><strong>Indian subcontinent (emerging area of study)</strong></li>
+        </ul>
+      </section>
+      <section>
+        <h4>Dual Nature — Beneficial vs Destructive</h4>
+        <table class="notes">
+          <thead><tr><th>Beneficial</th><th>Destructive</th></tr></thead>
+          <tbody>
+            <tr><td>40–50% of US West Coast water supply</td><td>80% of flooding damage on West Coast</td></tr>
+            <tr><td>Replenishes drought-stricken regions</td><td>Triggers landslides, mudflows</td></tr>
+            <tr><td>Snowpack accumulation (Sierra Nevada)</td><td>Coastal erosion</td></tr>
+            <tr><td>Sustains hydroelectric reservoirs</td><td>Levee breaches, urban flooding</td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h4>Climate Change Linkage</h4>
+        <p>Warmer oceans + more atmospheric moisture (Clausius–Clapeyron) → atmospheric rivers becoming <strong>longer, wider, wetter</strong>. By 2100, AR intensity may increase 25%. India's recent extreme rainfall events (Kerala 2018, Pakistan floods 2022) involved AR-like moisture transport.</p>
+      </section>
+
+      <div class="dimensions-section">
+        <h4>6 Dimensions of Possible Mains Questions</h4>
+        <div class="dim-list">
+          <div class="dim d1"><span class="dim-icon">●</span><span class="dim-label">Conceptual</span><span class="dim-q">"What are atmospheric rivers? Explain their formation, structure, and significance in global moisture transport."</span></div>
+          <div class="dim d2"><span class="dim-icon">●</span><span class="dim-label">Locational</span><span class="dim-q">"Why are atmospheric rivers most prominent over the US West Coast and Western Europe? Examine their emerging presence over the Indian Ocean."</span></div>
+          <div class="dim d3"><span class="dim-icon">●</span><span class="dim-label">Climate-Human</span><span class="dim-q">"Discuss the dual role of atmospheric rivers as both flood threat and critical water resource for water-scarce regions."</span></div>
+          <div class="dim d4"><span class="dim-icon">●</span><span class="dim-label">Climate Change</span><span class="dim-q">"Examine how a warming atmosphere is making atmospheric rivers longer, wider, and wetter, with consequences for coastal regions."</span></div>
+          <div class="dim d5"><span class="dim-icon">●</span><span class="dim-label">Variability</span><span class="dim-q">"How do atmospheric rivers interact with the Indian monsoon to produce extreme rainfall events?"</span></div>
+          <div class="dim d6"><span class="dim-icon">●</span><span class="dim-label">Current Affairs</span><span class="dim-q">"Examine the role of atmospheric rivers in the Kerala 2018 floods and Pakistan 2022 mega-floods."</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-note">Diagram: Global map showing AR corridors (narrow blue bands from tropics to mid-latitudes) with Pineapple Express highlighted.</div>
+      <div class="takeaway">When the sky channels a river, you get either life-saving water or catastrophic floods — and a warmer world increases both possibilities.</div>
+      <div class="source-link"><strong>Source:</strong> <a href="https://www.pmfias.com/atmospheric-rivers-pineapple-express/" target="_blank" rel="noopener">PMF IAS · Atmospheric Rivers | Pineapple Express</a></div>
+    </div>
+  </details>
+
+  <footer>
+    <div>
+      <span>Category 03 · Moisture &amp; Precipitation · 6 Topics · 36 Question Framings</span>
+      <span><a href="04-storms.html" style="color: var(--accent); text-decoration: none;">Next → Storms &amp; Cyclones</a></span>
+    </div>
+  </footer>
+</div>
+
+<button class="to-top" id="toTop" aria-label="Back to top">↑</button>
+
+<script>
+  const toggle = document.getElementById('themeToggle');
+  if (localStorage.getItem('climatology-theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    toggle.textContent = '◑ Light';
+  }
+  toggle.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      toggle.textContent = '◐ Dark';
+      localStorage.setItem('climatology-theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      toggle.textContent = '◑ Light';
+      localStorage.setItem('climatology-theme', 'dark');
+    }
+  });
+  const progress = document.getElementById('progress');
+  const toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', () => {
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (window.scrollY / docH * 100) + '%';
+    if (window.scrollY > 400) toTop.classList.add('show');
+    else toTop.classList.remove('show');
+  });
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>
