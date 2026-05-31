@@ -206,6 +206,20 @@ const GEOGRAPHY_DATA = [
 const POLITY_DATA = [
 
   {
+    id:        'gs2_polity_ordinances_001',
+    type:      'note',
+    gs:        'gs2',
+    title:     'Ordinances (Art. 123 & 213)',
+    subtopic:  'GS2 → Indian Polity → Executive → Ordinance-Making Power',
+    pyqYears:  [2015, 2022],
+    gapStatus: 'complete',
+    source:    'MCF Live Batch (Atish Mathur) — Ordinances lecture',
+    createdAt: '2026-05-31',
+    file:      'notes/polity/ordinances.html',
+    summary:   'Art.123/213, 6 months + 6 weeks limit, re-promulgation & lapse, judicial review (advice shielded vs satisfaction reviewable), landmark cases (RC Cooper, AK Roy, DC Wadhwa, Krishna Kumar Singh 2017), data & full mains framework.'
+  },
+
+  {
     id:        'gs2_polity_vice_president_001',
     type:      'note',
     gs:        'gs2',

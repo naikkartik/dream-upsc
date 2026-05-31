@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ordinances &mdash; UPSC Polity Study Notes</title>
+<style>
+  :root{
+    --ink:#1e293b; --accent:#1e3a8a; --accent2:#2563eb; --soft:#475569;
+    --paper:#fbfaf6; --card:#ffffff; --line:#e2e8f0;
+    --red:#b91c1c; --redbg:#fef2f2; --green:#166534; --greenbg:#f0fdf4;
+    --amber:#92400e; --amberbg:#fffbeb; --purple:#6d28d9; --purplebg:#f5f3ff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;font-size:15.5px;}
+  .wrap{max-width:900px;margin:0 auto;padding:28px 22px 80px;}
+  header.top{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:8px;}
+  header.top h1{margin:0;font-size:30px;color:var(--accent);letter-spacing:-.5px;}
+  header.top .sub{color:var(--soft);font-size:14.5px;margin-top:4px;}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:18px 0 26px;
+    font-size:14px;column-count:2;column-gap:26px;}
+  .toc a{color:var(--accent2);text-decoration:none;display:block;padding:2px 0;break-inside:avoid;}
+  .toc a:hover{text-decoration:underline;}
+  h2{color:var(--accent);font-size:21px;margin:34px 0 6px;padding-top:10px;border-top:1px solid var(--line);}
+  h2 .num{display:inline-block;background:var(--accent);color:#fff;border-radius:6px;font-size:14px;
+    padding:1px 9px;margin-right:9px;vertical-align:middle;}
+  h3{color:var(--accent2);font-size:17px;margin:20px 0 4px;}
+  p{margin:8px 0;}
+  ul,ol{margin:8px 0 8px 4px;padding-left:22px;}
+  li{margin:4px 0;}
+  .lead{font-size:16px;color:var(--soft);}
+  .tag{display:inline-block;font-size:12px;font-weight:600;border-radius:5px;padding:1px 7px;margin:1px 2px;}
+  .tag.art{background:#eef2ff;color:var(--accent);}
+  .tag.case{background:#ecfeff;color:#0e7490;}
+  .tag.pyq{background:var(--purplebg);color:var(--purple);}
+  .tag.data{background:#f0fdfa;color:#0f766e;}
+  .box{border-radius:10px;padding:12px 16px;margin:14px 0;border:1px solid var(--line);background:var(--card);}
+  .box .bx-h{font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px;}
+  .crit{background:var(--redbg);border-color:#fecaca;}
+  .crit .bx-h{color:var(--red);}
+  .key{background:var(--amberbg);border-color:#fde68a;}
+  .key .bx-h{color:var(--amber);}
+  .good{background:var(--greenbg);border-color:#bbf7d0;}
+  .good .bx-h{color:var(--green);}
+  .syn{background:var(--purplebg);border-color:#ddd6fe;}
+  .syn .bx-h{color:var(--purple);}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px;background:var(--card);
+    border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;}
+  th{background:var(--accent);color:#fff;font-weight:600;}
+  tr:nth-child(even) td{background:#f8fafc;}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0;}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center;}
+  .stat .n{font-size:26px;font-weight:800;color:var(--accent);line-height:1.1;}
+  .stat .l{font-size:12.5px;color:var(--soft);margin-top:3px;}
+  .pillar{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:14px 0;}
+  .pillar .p{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent2);
+    border-radius:8px;padding:10px 12px;}
+  .pillar .p b{color:var(--accent);}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;}
+  @media(max-width:640px){.twocol{grid-template-columns:1fr;}.toc{column-count:1;}}
+  .footer{margin-top:40px;border-top:1px solid var(--line);padding-top:14px;color:var(--soft);font-size:13px;}
+  code{background:#eef2ff;color:var(--accent);padding:1px 5px;border-radius:4px;font-size:13.5px;}
+  .small{font-size:13px;color:var(--soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>Ordinances &mdash; The Complete Mains &amp; Prelims Note</h1>
+  <div class="sub">Article 123 &amp; 213 &middot; Core issues, case law, judicial review, impact &amp; the full answer framework &middot; UPSC CSE 2025&ndash;26</div>
+</header>
+
+<nav class="toc">
+  <a href="#orient">0 &middot; Orientation &amp; Why This Topic</a>
+  <a href="#gaps">1 &middot; The Three Core Gaps</a>
+  <a href="#found">2 &middot; Foundations: Rule of Law &amp; Constitutionalism</a>
+  <a href="#what">3 &middot; WHAT &mdash; Definition &amp; Provisions</a>
+  <a href="#why">4 &middot; WHY &mdash; Rationale</a>
+  <a href="#data">5 &middot; DATA &mdash; Frequency &amp; Comparison</a>
+  <a href="#use">6 &middot; CURRENT USE &mdash; Drivers</a>
+  <a href="#issues">7 &middot; The Four Core Issues</a>
+  <a href="#cases">8 &middot; Landmark Case Law</a>
+  <a href="#jr">9 &middot; Judicial Review (Deep Dive)</a>
+  <a href="#pg">10 &middot; President vs Governor</a>
+  <a href="#lapse">11 &middot; Lapse &amp; Irreversibility</a>
+  <a href="#impact">12 &middot; Impact on Constitutional Pillars</a>
+  <a href="#examples">13 &middot; Real-World Examples</a>
+  <a href="#framework">14 &middot; The Mains Answer Framework</a>
+  <a href="#revision">15 &middot; One-Page Revision Card</a>
+</nav>
+
+<!-- 0 ORIENTATION -->
+<h2 id="orient"><span class="num">0</span>Orientation &amp; Why This Topic Matters</h2>
+<p class="lead">An ordinance is temporary law made by the executive (President or Governor) when the legislature is not in session. It is constitutionally <em>legitimate</em> &mdash; but it sits on a fault line where the executive starts doing the legislature&rsquo;s job. That tension is exactly what examiners probe.</p>
+<p>The topic is so valued because it is a single hook that lets you discuss almost every core constitutional doctrine at once: Separation of Powers, Checks &amp; Balances, Judicial Review, Parliamentary Democracy, Federalism and Constitutional Morality. Master it once and you have ready material for many different questions.</p>
+<div class="box key">
+  <div class="bx-h">Previous Year Questions to anchor your prep</div>
+  <p><span class="tag pyq">2015</span> Framed around <b>ordinance-making power vs the Separation of Powers</b>. The question did <em>not</em> simply ask &ldquo;should the power be abolished?&rdquo; &mdash; it probed whether using the power fundamentally challenges the constitutional division of functions between executive and legislature. Even a majority government issuing several ordinances in a year raises this (e.g. the Citizenship Act ordinance). Investigative angles: rationale, role of the Supreme Court, essential conditions, legality of re-issuance, abolition vs retention.</p>
+  <p><span class="tag pyq">2022</span> Shifted focus to the <b>Governor&rsquo;s legislative power</b> and the legality/practice of re-issuing ordinances &mdash; framed by the landmark <b>2017 Supreme Court judgment</b> (<i>Krishna Kumar Singh</i>).</p>
+  <p class="small">For 2025&ndash;26, expect short questions that still demand deep, comprehensive understanding rather than superficial knowledge.</p>
+</div>
+
+<!-- 1 THREE GAPS -->
+<h2 id="gaps"><span class="num">1</span>The Three Core Gaps (the spine of the topic)</h2>
+<p>Every problem with ordinances reduces to three basic questions. Hold these in your head &mdash; the entire case law and analysis hangs off them.</p>
+<table>
+  <tr><th>Gap</th><th>The question</th><th>The risk if it fails</th></tr>
+  <tr><td><b>1. Urgency?</b> &rarr; Misuse?</td><td>Is there genuine, immediate urgency &mdash; or is the power being used to bypass Parliament?</td><td>If no real urgency, the ordinance bypasses the legislature; the courts must then judge the executive&rsquo;s <b>intent</b>.</td></tr>
+  <tr><td><b>2. Re-issue?</b> &rarr; Limit?</td><td>Are there limits on how often / under what conditions an ordinance can be re-promulgated?</td><td>Constant re-issuance lets the executive govern by ordinance continuously, undermining the legislature.</td></tr>
+  <tr><td><b>3. Lapse / End?</b> &rarr; Effect?</td><td>Once an ordinance lapses or ends, do the changes it made survive or also lapse?</td><td>Legal uncertainty &mdash; raising questions of Parliamentary Democracy and Arbitrariness.</td></tr>
+</table>
+<div class="box crit">
+  <div class="bx-h">The conflict that follows</div>
+  <p>Questioning the executive&rsquo;s <b>intent</b> immediately triggers conflicts with <b>Separation of Powers (SoP)</b>, <b>Checks &amp; Balances (CBs)</b> and <b>Judicial Review (JR)</b>. Because the judiciary is the body that checks an ordinance&rsquo;s validity, it becomes the arbiter of whether the executive&rsquo;s intent was genuine urgency or a misuse of power.</p>
+</div>
+<p class="small">Issues can be split into <b>Theoretical / Constitutional</b> (how ordinances interact with SoP, Parliamentary Democracy, Rule of Law) and <b>Practical</b> (the real-world application and actual consequences of how they are used).</p>
+
+<!-- 2 FOUNDATIONS -->
+<h2 id="found"><span class="num">2</span>Foundations: Rule of Law &amp; Constitutionalism</h2>
+<p>The whole critique of ordinances is ultimately a test of whether the <b>Rule of Law</b> is being upheld. The chain runs:</p>
+<p style="text-align:center;font-weight:600;color:var(--accent);">Rule of Law &nbsp;&rarr;&nbsp; predominance of legal spirit &nbsp;&rarr;&nbsp; Constitutionalism &nbsp;&rarr;&nbsp; basis of the Constitution</p>
+<div class="twocol">
+  <div class="box">
+    <div class="bx-h">Rule of Law implies</div>
+    <ul>
+      <li><b>AoA</b> &mdash; Absence of Arbitrary power</li>
+      <li><b>EBL</b> &mdash; Equality Before Law</li>
+      <li><b>PLS</b> &mdash; Predominance of Legal Spirit</li>
+    </ul>
+    <p class="small">A failure in any of these signals a deficiency in the Rule of Law &mdash; this is the &ldquo;RoL test&rdquo; you apply to ordinances.</p>
+  </div>
+  <div class="box">
+    <div class="bx-h">Basic features engaged</div>
+    <p>Written Constitution &middot; Separation of Powers &middot; Checks &amp; Balances &middot; Judicial Review &middot; Independent Judiciary &middot; Parliamentary Democracy &middot; Federalism.</p>
+    <p class="small">Ordinances are themselves subject to the Rule of Law &mdash; even executive actions must operate within the legal framework (e.g. in criminal law).</p>
+  </div>
+</div>
+
+<!-- 3 WHAT -->
+<h2 id="what"><span class="num">3</span>WHAT &mdash; Definition &amp; Constitutional Provisions</h2>
+<p>This layer is your <b>introduction</b> and also overlaps directly with the <b>Prelims</b> syllabus &mdash; master the technicalities early.</p>
+<div class="twocol">
+  <div class="box good">
+    <div class="bx-h">Article 123 &mdash; President</div>
+    <p>Ordinance-making power during the <b>recess of Parliament</b>, rooted in the legislative powers of the executive head.</p>
+  </div>
+  <div class="box good">
+    <div class="bx-h">Article 213 &mdash; Governor</div>
+    <p>Ordinance-making power during the recess of the State Legislature.</p>
+    <p class="small"><span class="tag pyq">trap</span> Many textbooks get these numbers wrong &mdash; memorise 123 (President) and 213 (Governor) precisely.</p>
+  </div>
+</div>
+
+<h3>Article 123 in detail</h3>
+<p><b>(1) Conditions for promulgation:</b></p>
+<ul>
+  <li>Can be exercised at any time <b>except when both Houses of Parliament are in session</b>.</li>
+  <li>The President must be <b>satisfied</b> that circumstances exist which render it necessary to take <b>immediate action</b>.</li>
+  <li>The President may promulgate such ordinances as the circumstances appear to require.</li>
+</ul>
+<p><b>(2) Legal status &amp; parliamentary oversight:</b></p>
+<ul>
+  <li>An ordinance has the <b>same force and effect as an Act of Parliament</b>.</li>
+  <li><b>Mandatory:</b> every ordinance must be <b>laid before both Houses</b>.</li>
+  <li>It <b>ceases to operate</b> at the expiration of <b>six weeks from the reassembly</b> of Parliament &mdash; or earlier, if both Houses pass resolutions disapproving it (on the passing of the second resolution).</li>
+</ul>
+
+<div class="box key">
+  <div class="bx-h">Temporal limit &mdash; the number to remember</div>
+  <p>Maximum duration of an ordinance = <b>6 months + 6 weeks</b>. The logic: once the legislature reassembles, the ordinance must be passed within <b>6 weeks</b>; if not, it lapses. This strict limit is precisely why excessive re-promulgation became the central abuse.</p>
+</div>
+
+<h3>Other key provisions &amp; limits</h3>
+<ul>
+  <li><b>Governor&rsquo;s subject-matter limit:</b> the Governor <b>cannot</b> issue an ordinance on matters that must be <b>reserved for the President&rsquo;s consideration</b> &mdash; preventing the Governor from bypassing the President where assent/review is mandatory.</li>
+  <li><span class="tag art">Art 13(2)</span> An ordinance that violates <b>Fundamental Rights</b> is void &mdash; the clear textual basis for challenging ordinances.</li>
+  <li><span class="tag art">Art 20</span> Prohibits <b>ex post facto</b> criminal law &mdash; so an ordinance <b>cannot</b> create a backdated criminal offence.</li>
+</ul>
+
+<h3>How an ordinance ends &mdash; and the loophole</h3>
+<div class="twocol">
+  <div class="box">
+    <div class="bx-h">Two ways to remove</div>
+    <ul><li><b>Expiration</b> &mdash; hits the constitutional time limit and lapses automatically.</li>
+    <li><b>Withdrawal</b> &mdash; the government actively withdraws it.</li></ul>
+  </div>
+  <div class="box crit">
+    <div class="bx-h">The loophole</div>
+    <p>If the government wants the law to continue but wishes to avoid Parliament&rsquo;s scrutiny, it may <b>withdraw and immediately re-issue</b> the ordinance &mdash; which is exactly the <b>re-promulgation</b> problem.</p>
+  </div>
+</div>
+
+<!-- 4 WHY -->
+<h2 id="why"><span class="num">4</span>WHY &mdash; The Rationale for Ordinances</h2>
+<p>Ordinances exist because certain situations arise where the only viable solution is to <b>create a law</b>, and the regular legislative process is not immediately available.</p>
+<div class="box">
+  <div class="bx-h">The structural reason: a session-based legislature</div>
+  <p>Unlike countries such as <b>Australia</b>, where Parliament effectively functions through the year, the Indian Parliament works in <b>sessions</b>. Between sessions there are periods when no law-making body is active. Ordinances are the mechanism to create law during these gaps when immediate action is needed.</p>
+</div>
+<div class="box syn">
+  <div class="bx-h">Purpose vs Use &mdash; the distinction that elevates an answer</div>
+  <p><b>Purpose</b> = the underlying constitutional reason <em>why</em> the power exists (the &lsquo;why&rsquo; behind the provision). <b>Use</b> = the practical motive for <em>why</em> it is actually exercised in a given situation. A sophisticated answer separates the two and then asks whether the executive is adhering to the original intent or deviating from it.</p>
+</div>
+<div class="box crit">
+  <div class="bx-h">Historical criticism</div>
+  <p>A major criticism is the potential for an <b>extended duration</b>: if an ordinance can run too long, the executive effectively creates and implements law for significant periods <b>without ever seeking Parliament&rsquo;s approval</b>.</p>
+</div>
+
+<!-- 5 DATA -->
+<h2 id="data"><span class="num">5</span>DATA &mdash; Frequency &amp; Comparative Context</h2>
+<p>Data is what separates a descriptive answer from an analytical one. Use frequency to distinguish <b>&ldquo;emergency necessity&rdquo;</b> from <b>&ldquo;political / legislative bypass.&rdquo;</b></p>
+
+<div class="cards">
+  <div class="stat"><div class="n">3</div><div class="l">democracies use ordinances</div></div>
+  <div class="stat"><div class="n">196</div><div class="l">LPG era, 1990&ndash;99</div></div>
+  <div class="stat"><div class="n">~100</div><div class="l">in 1975 (Emergency)</div></div>
+  <div class="stat"><div class="n">256</div><div class="l">Bihar re-promulgations</div></div>
+  <div class="stat"><div class="n">76</div><div class="l">in the decade 2010&ndash;19</div></div>
+  <div class="stat"><div class="n">~42</div><div class="l">ordinance&rarr;Act transitions</div></div>
+</div>
+
+<h3>International comparison <span class="tag data">Comparative / VA angle</span></h3>
+<p>The ordinance-making power is <b>not</b> a universal democratic feature. Only three democracies use it &mdash; <b>India, Pakistan and Bangladesh</b> &mdash; and the reason they share it is their common heritage under the <b>British Raj</b>.</p>
+
+<h3>Recent central trend (declining &mdash; not a routine tool)</h3>
+<table>
+  <tr><th>Year</th><th>Central ordinances</th><th>Note</th></tr>
+  <tr><td>2019</td><td>16</td><td>baseline year</td></tr>
+  <tr><td>2020</td><td>11</td><td>&mdash;</td></tr>
+  <tr><td>2021</td><td>15</td><td>COVID-19 driven</td></tr>
+  <tr><td>2022</td><td>0</td><td>none issued at the Centre</td></tr>
+  <tr><td>2023</td><td>1</td><td>&mdash;</td></tr>
+</table>
+<div class="box key">
+  <div class="bx-h">Analytical takeaway (challenging the pandemic narrative)</div>
+  <p>2019 (16) was actually <b>higher</b> than 2020 (11) or 2021 (15). So the spike in 2021 cannot be explained by COVID alone &mdash; the use of ordinances is a <b>long-standing practice</b>, not a pandemic-era phenomenon. The fluctuation itself helps distinguish genuine emergency from habitual bypass.</p>
+</div>
+
+<h3>Historical peaks</h3>
+<ul>
+  <li><b>LPG reforms, 1990&ndash;1999:</b> 196 ordinances total; <b>1993 alone saw 34</b> &mdash; driven by the dual pressure of massive economic shifts and coalition-government complexity. Ordinances were used to bypass the slow parliamentary process for structural reform.</li>
+  <li><b>Emergency, 1975:</b> ~100 ordinances in a single year &mdash; a massive outlier showing how extreme political circumstances scale up executive law-making.</li>
+  <li><b>~42 instances</b> where a law began as an ordinance and was later formalised into an Act &mdash; the intended &ldquo;bridge to legislation&rdquo; function.</li>
+</ul>
+
+<h3>State level &mdash; some states far higher</h3>
+<div class="twocol">
+  <div class="box"><div class="bx-h">Kerala (2006)</div><p>Issued <b>144</b> ordinances; <b>141</b> were successfully converted into Acts &mdash; high volume but high conversion (relatively legitimate use).</p></div>
+  <div class="box crit"><div class="bx-h">Bihar</div><p>An ordinance was re-issued <b>256 times</b> &mdash; the prime example of <b>re-promulgation misuse</b> to bypass the legislature (the D.C. Wadhwa story).</p></div>
+</div>
+<div class="box">
+  <div class="bx-h">Variable to correlate: political composition</div>
+  <p>Don&rsquo;t stop at counts &mdash; correlate frequency with the <b>type of government</b>: minority / majority / supermajority. A government with a strong, stable majority tends to need ordinances <b>less</b> (it can pass laws normally); <b>political instability</b> tends to push frequency <b>up</b>. This lets you argue whether the power is used for genuine necessity or political convenience.</p>
+</div>
+
+<!-- 6 CURRENT USE -->
+<h2 id="use"><span class="num">6</span>CURRENT USE &mdash; Why They Get Promulgated Today</h2>
+<p>The original rationale was strictly <b>urgency</b> (filling gaps when Parliament is not sitting). The analytical question is: <em>why has the pattern of usage changed?</em> Moving from <b>Purpose</b> (why they exist in theory) to <b>Use</b> (why they are used in practice) reveals the real drivers.</p>
+<div class="pillar">
+  <div class="p"><b>Political instability</b><br>Lack of clear numbers (no majority) makes the normal legislative route harder; ordinances manage immediate needs.</div>
+  <div class="p"><b>Legislative friction</b><br>Strong opposition in the upper house (e.g. Rajya Sabha) creates confrontation the government would rather avoid.</div>
+  <div class="p"><b>Avoiding scrutiny</b><br>Rather than introduce a Bill that triggers debate and possible rejection, the executive promulgates an ordinance &mdash; sometimes passing controversial laws within minutes of the House meeting, &ldquo;without showing their face&rdquo; to the legislature.</div>
+</div>
+<div class="box">
+  <div class="bx-h">The opposition&rsquo;s role &mdash; a balanced view</div>
+  <p>Friction is not always the government&rsquo;s fault. A healthy system needs balance between executive and opposition. Sometimes the opposition prioritises <b>obstructionism</b> &mdash; creating hurdles for its own sake. Positions also flip with power: a party may be <b>pro-FDI in government</b> and turn <b>anti-FDI in opposition</b>. This situational shift adds to the friction that pushes the executive toward ordinances.</p>
+</div>
+
+<!-- 7 FOUR CORE ISSUES -->
+<h2 id="issues"><span class="num">7</span>The Four Core Issues (the analytical engine)</h2>
+<p>When evaluating any ordinance dispute, the Supreme Court applies four issues. These are the lens through which the Court examines petitions and the structure you use in answers.</p>
+<table>
+  <tr><th>Issue</th><th>The question</th><th>Mapped case law</th></tr>
+  <tr><td><b>1. Urgency</b></td><td>Was there a genuine, immediate need requiring action before the legislature could convene?</td><td><span class="tag case">A.K. Roy v. UOI (1982)</span></td></tr>
+  <tr><td><b>2. Re-issue / Re-promulgation</b></td><td>Was the ordinance re-issued repeatedly to bypass scrutiny?</td><td><span class="tag case">D.C. Wadhwa v. Bihar (1987)</span> <span class="tag case">Krishna Kumar Singh (2017)</span></td></tr>
+  <tr><td><b>3. Lapse</b></td><td>What happens to rights/actions created once the ordinance lapses or is withdrawn?</td><td><span class="tag case">Krishna Kumar Singh (2017)</span> + Irreversibility, Public Interest, Constitutional Necessity</td></tr>
+  <tr><td><b>4. Judicial Review (JR)</b></td><td>How far can the judiciary scrutinise the President&rsquo;s &ldquo;satisfaction&rdquo;?</td><td><span class="tag case">R.C. Cooper v. UOI (1970)</span> <span class="tag case">S.R. Bommai v. UOI (1994)</span></td></tr>
+</table>
+<div class="box syn">
+  <div class="bx-h">Why we even need case law here</div>
+  <p>The Constitution gives <b>no direct answer</b> to questions like whether an ordinance is a &ldquo;decorative tool&rdquo; or whether a specific use is valid. Because the text is not exhaustive on these nuances, <b>Supreme Court judgments</b> supply the legal reasoning that draws the line between legitimate <b>use</b> and <b>misuse</b>.</p>
+</div>
+
+<!-- 8 CASES -->
+<h2 id="cases"><span class="num">8</span>Landmark Case Law (chronological evolution)</h2>
+
+<h3><span class="tag case">1955</span> Ram Jawaya Kapur v. State of Punjab</h3>
+<p>The <b>foundational</b> case for understanding the <b>scope and limits of executive power</b> in relation to legislative functions. Start any deep answer on executive law-making here.</p>
+
+<h3><span class="tag case">1970</span> R.C. Cooper v. Union of India &mdash; <i>Bank Nationalisation case</i></h3>
+<p>The bedrock JR case. The Court held that the President&rsquo;s <b>&ldquo;satisfaction&rdquo; is not absolute</b>. It can examine the basis of that satisfaction to check if the decision was <b>malafide</b> (bad faith) or driven by <b>unjust / improper reasons</b> rather than genuine urgency. This prevents the executive from hiding behind &ldquo;non-reviewable advice&rdquo; to bypass the legislature through dishonest motives.</p>
+
+<h3><span class="tag case">1982</span> A.K. Roy v. Union of India &mdash; <span class="tag">Issue: Urgency</span></h3>
+<ul>
+  <li>Ordinances must <b>never</b> be a substitute for regular parliamentary legislation.</li>
+  <li>The power is reserved for instances of <b>extreme and unforeseen urgency</b>.</li>
+  <li>Using ordinances for routine lawmaking or to bypass the legislature <b>violates</b> this principle.</li>
+</ul>
+
+<h3><span class="tag case">1985 / 1987</span> D.C. Wadhwa v. State of Bihar &mdash; <span class="tag">Issue: Re-issue</span></h3>
+<p>Bihar systematically refused to let ordinances lapse or convert them into Acts &mdash; it simply re-issued them. Over <b>14 years, just 3 ordinances were re-promulgated 256 times</b>, letting the executive bypass the legislature for over a decade.</p>
+<div class="box crit">
+  <div class="bx-h">The verdict</div>
+  <p>Re-promulgating ordinances <b>without placing them before the legislature</b> is a <b>misuse of power</b> and a violation of the constitutional scheme. The Court called excessive re-promulgation a <b>&ldquo;fraud on the Constitution&rdquo;</b> and a <b>subversion of the democratic process</b>.</p>
+</div>
+
+<h3><span class="tag case">1994</span> S.R. Bommai v. Union of India &mdash; <span class="tag">Issue: JR</span></h3>
+<p>Cited alongside R.C. Cooper as the pair anchoring the <b>scope of judicial review</b> over executive &ldquo;satisfaction.&rdquo;</p>
+
+<h3><span class="tag case">2017</span> Krishna Kumar Singh v. State of Bihar &mdash; <span class="tag">Re-issue + Lapse</span></h3>
+<ul>
+  <li>The practice of <b>excessive re-promulgation without legislative scrutiny is unconstitutional</b> &mdash; a &ldquo;fraud on the Constitution.&rdquo;</li>
+  <li>An ordinance <b>cannot be re-promulgated indefinitely</b>; it must be <b>laid before the legislature within six weeks</b>, otherwise it lapses.</li>
+  <li>The executive <b>cannot use ordinance power as a substitute</b> for legislation; ordinances are only for genuine urgency and must be approved by the legislature.</li>
+  <li><b>Procedural note:</b> the matter went from a <b>three-judge bench</b> and was referred to a <b>five-judge bench</b> for an authoritative ruling; a secondary question was whether the <em>original</em> ordinance was valid at its inception.</li>
+  <li>The judgment is <b>also used for &ldquo;Lapse&rdquo; analysis</b> &mdash; determining the status of actions taken under a now-lapsed ordinance.</li>
+</ul>
+
+<div class="box key">
+  <div class="bx-h">The arc to remember</div>
+  <p>Ram Jawaya (1955) &rarr; R.C. Cooper (1970) &rarr; A.K. Roy (1982) &rarr; D.C. Wadhwa (1987) &rarr; S.R. Bommai (1994) &rarr; Krishna Kumar Singh (2017). Also relevant: <i>State of Rajasthan v. Union of India</i> on the extent of JR.</p>
+</div>
+
+<!-- 9 JUDICIAL REVIEW -->
+<h2 id="jr"><span class="num">9</span>Judicial Review &mdash; Deep Dive</h2>
+<p>Can the judiciary review an ordinance? Yes &mdash; because an ordinance is an executive action that functions as law, it must be open to scrutiny so it does not violate constitutional principles or exceed the power under Art 123 / 213. But the review has a precise boundary.</p>
+
+<h3>The real locus of decision-making</h3>
+<p>Although the President formally exercises the power, the decision is <b>not independent</b>. The President&rsquo;s &ldquo;satisfaction&rdquo; of urgency rests on the advice of the <b>Council of Ministers (CoM)</b> &mdash; so the CoM is effectively the entity that decides whether a matter is &ldquo;urgent&rdquo; enough.</p>
+<p style="text-align:center;font-weight:600;color:var(--accent);">Council of Ministers &nbsp;&rarr;(advice)&rarr;&nbsp; President&rsquo;s satisfaction &nbsp;&rarr;(promulgates)&rarr;&nbsp; Ordinance</p>
+
+<div class="twocol">
+  <div class="box crit">
+    <div class="bx-h">ADVICE (the input) &mdash; NOT reviewable</div>
+    <p>The content and rationale of the CoM&rsquo;s advice is <b>shielded by the Separation of Powers</b>. Reviewing it would intrude on the executive&rsquo;s internal decision-making. This creates a <b>&ldquo;grey area&rdquo;</b>: the real drivers (the CoM) are hard to hold accountable through the courts.</p>
+  </div>
+  <div class="box good">
+    <div class="bx-h">SATISFACTION (the outcome) &mdash; IS reviewable</div>
+    <p>The President&rsquo;s formal &ldquo;satisfaction&rdquo; that an ordinance is necessary <b>is</b> subject to JR (<i>R.C. Cooper</i>). The court can check whether it was genuine <b>without</b> second-guessing the political advice that led to it.</p>
+  </div>
+</div>
+<p class="small"><b>Core tension:</b> Judicial Review &harr; Separation of Powers. The distinction between shielded <em>advice</em> and reviewable <em>satisfaction</em> is what lets the courts intervene without crossing into the executive&rsquo;s domain.</p>
+
+<h3>Grounds on which an ordinance can be challenged</h3>
+<ol>
+  <li><b>Violation of Fundamental Rights</b> &mdash; clear basis in <span class="tag art">Art 13(2)</span>.</li>
+  <li><b>Doctrine of Colorable Legislation</b> &mdash; you cannot do <b>indirectly</b> what you are barred from doing directly. If the legislature lacks the power to pass a law normally, it cannot use an ordinance to achieve the same result.</li>
+  <li><b>Lack of Legislative Competence</b> &mdash; legislating on a matter where the government has no constitutional authority (e.g. a backdated criminal law).</li>
+  <li><b>Malafide / improper motive or lack of genuine necessity</b> &mdash; per <i>R.C. Cooper</i>.</li>
+</ol>
+<div class="box">
+  <div class="bx-h">The advanced layer: the Irrationality test</div>
+  <p>The judiciary has moved <b>beyond formal validity</b> to scrutinise the <b>material</b> the President relied on. The CoM must present data/information to justify urgency. If the data referred to does <b>not</b> actually demonstrate a need for urgency, the President&rsquo;s satisfaction becomes <b>irrational</b> and can be struck down.</p>
+  <p class="small">Remember: JR is <b>not</b> a critique of the policy itself &mdash; it scrutinises the <b>legality</b> and the <b>constitutional process</b> followed during promulgation. The court must always have a valid legal ground to intervene (&ldquo;on what basis are we reviewing this?&rdquo;).</p>
+</div>
+
+<!-- 10 PRESIDENT VS GOVERNOR -->
+<h2 id="pg"><span class="num">10</span>President vs Governor &mdash; a key comparison</h2>
+<table>
+  <tr><th>Dimension</th><th>President (Art 123)</th><th>Governor (Art 213)</th></tr>
+  <tr><td>Relation to the council</td><td><b>Bound</b> to follow the Council of Ministers&rsquo; advice; no independent discretion to refuse a Cabinet-recommended ordinance.</td><td><b>Not strictly bound</b> &mdash; can apply an <b>&ldquo;independent mind&rdquo;</b> (often aligned with the Centre) and may <b>refuse</b> to promulgate if he/she thinks it inappropriate.</td></tr>
+  <tr><td>Subject-matter limit</td><td>Full Union/Concurrent scope during recess.</td><td><b>Cannot</b> issue on matters reserved for the President&rsquo;s consideration.</td></tr>
+  <tr><td>Exam relevance</td><td>2015 PYQ context.</td><td>2022 PYQ + 2017 SC judgment (KK Singh).</td></tr>
+</table>
+<div class="box syn">
+  <div class="bx-h">Why the difference matters analytically</div>
+  <p>The Governor&rsquo;s discretion (often aligned with the Union) makes ordinance power a vivid example that the <b>Centre is stronger than the States</b> &mdash; a specific nuance for the <b>Federalism / unitary-bias</b> debate. And <b>re-promulgation</b> at the state level is the prime example of a challenge to <b>Parliamentary Democracy</b>.</p>
+</div>
+
+<!-- 11 LAPSE -->
+<h2 id="lapse"><span class="num">11</span>Lapse &amp; Irreversibility</h2>
+<p>The hardest question: when an ordinance lapses, do the changes it made survive? The answer depends on <b>three decisive factors</b>.</p>
+<div class="pillar">
+  <div class="p"><b>1. Public Interest</b><br>Does maintaining the change serve the broader interests of the public?</div>
+  <div class="p"><b>2. Constitutional Necessity</b><br>Is continued application needed to uphold constitutional principles or prevent a legal vacuum?</div>
+  <div class="p"><b>3. Irreversibility</b><br>Have the substantive changes fundamentally altered the legal landscape in a way that cannot easily be undone?</div>
+</div>
+<div class="box">
+  <div class="bx-h">Worked example &mdash; criminal law amendment</div>
+  <p>Suppose an ordinance amends the IPC to criminalise <b>voyeurism, stalking, indecent behaviour and unwelcome advances</b>. Once these acts are criminalised and their legal status has changed, that shift in the legal landscape <b>may persist even after the ordinance lapses</b>, because the underlying legal reality has been fundamentally altered. (<i>Krishna Kumar Singh</i> is the judgment used to analyse this.)</p>
+</div>
+<div class="box crit">
+  <div class="bx-h">The core concern</div>
+  <p>A lapse creates <b>legal uncertainty</b>, raising questions of <b>Parliamentary Democracy</b> (is the executive circumventing the legislature?) and <b>Arbitrariness</b> (changes lacking permanent legislative backing).</p>
+</div>
+
+<!-- 12 IMPACT -->
+<h2 id="impact"><span class="num">12</span>Impact on Constitutional Pillars</h2>
+<p>This is where you convert the technical mechanics into a high-level Mains answer. Misuse of ordinances strikes at multiple pillars at once.</p>
+<div class="pillar">
+  <div class="p"><b>Parliamentary Democracy</b><br>The law is presented as a <i>fait accompli</i> &mdash; the legislature loses the ability to debate, amend or reject before it takes effect. (<span class="tag art">Art 20</span> bars an ordinance from creating retroactive criminal law.)</div>
+  <div class="p"><b>Separation of Powers</b><br>The executive performs the legislature&rsquo;s function and effectively becomes a lawmaker, blurring the constitutional lines meant to keep the branches distinct and checked.</div>
+  <div class="p"><b>Federalism</b><br>State-level ordinances plus the Governor&rsquo;s discretion tilt power toward the Centre &mdash; a clear instance of India&rsquo;s unitary bias.</div>
+  <div class="p"><b>Judicial Review</b><br>The necessity and scope of courts&rsquo; oversight &mdash; checking malafide intent and irrational &ldquo;satisfaction.&rdquo;</div>
+</div>
+<div class="box syn">
+  <div class="bx-h">Higher synthesis &mdash; Constitutional Morality</div>
+  <p>Tie the Core Issues (urgency, lapse, re-issue) and the themes (PD, SoP, Federalism, JR) together to discuss <b>Constitutional Morality</b> &mdash; commitment to the <em>spirit</em> and institutional norms of the Constitution, not just the letter. It requires that the executive does <b>not</b> use ordinances to bypass a functional legislature. The doctrine of <b>Colorable Legislation</b> sits inside this: the spirit (legislature as primary lawmaker) must not be undermined by the letter (the emergency provision).</p>
+</div>
+<div class="box key">
+  <div class="bx-h">The philosophical clincher (democratic health)</div>
+  <p>Democracy is not defined only by periodic elections &mdash; the true test is how power is exercised in the <b>inter-election period</b>, when the same leadership governs for years. A democratic <b>mandate gives authority, not licence</b>: leaders must rule <em>according to</em> the Constitution and cannot make a &ldquo;mockery&rdquo; of it. Arbitrary use of power, even with popular support, erodes institutions over the long term.</p>
+</div>
+
+<!-- 13 EXAMPLES -->
+<h2 id="examples"><span class="num">13</span>Real-World Examples (your answer fodder)</h2>
+<table>
+  <tr><th>Example</th><th>What happened</th><th>Which issue it illustrates</th></tr>
+  <tr><td><b>Bihar teacher case</b><br><span class="small">(D.C. Wadhwa context)</span></td><td>Ordinances changed the status of <b>private school teachers to government teachers</b> (to draw government salaries); similarly private <b>Sanskrit schools &rarr; government schools</b>. Created massive uncertainty over service conditions when ordinances lapsed/replaced.</td><td>Demonstrates <b>all four</b>: Urgency, Re-issue, Lapse, JR.</td></tr>
+  <tr><td><b>2018 Criminal Law Amendment</b><br><span class="small">(Kathua context)</span></td><td>Mandated the <b>death penalty for rape/assault of a girl under 12</b> &mdash; rapid change to criminal sentencing via ordinance.</td><td>Substantive change in response to urgent societal demand; lapse/irreversibility.</td></tr>
+  <tr><td><b>2015 Commercial code</b></td><td>Ordinance creating a commercial code for transactions under <b>&#8377;3 lakh</b>.</td><td><b>&ldquo;Futility&rdquo; test</b> &mdash; was this genuinely urgent, or bypassing deliberation for a minor matter?</td></tr>
+  <tr><td><b>2020 Delhi civil services</b></td><td>After the SC held the LG must act on the Council of Ministers&rsquo; advice, an ordinance on civil services was promulgated.</td><td>Using ordinance power to <b>nullify / bypass a court ruling</b> limiting executive autonomy.</td></tr>
+  <tr><td><b>Citizenship Act ordinance</b></td><td>A majority government still issuing ordinances &mdash; raising the bypass question.</td><td>Direct link to the <b>2015 PYQ</b>.</td></tr>
+  <tr><td><b>LPG reforms</b></td><td>Ordinances used to push structural economic change without waiting for the slow parliamentary process.</td><td>Historic large-scale use.</td></tr>
+  <tr><td><b>2021 COVID-19 spike</b></td><td>15 central ordinances driven by pandemic necessity.</td><td>Genuine <b>&ldquo;emergency necessity&rdquo;</b> &mdash; the legitimate end of the spectrum.</td></tr>
+</table>
+
+<!-- 14 FRAMEWORK -->
+<h2 id="framework"><span class="num">14</span>The Mains Answer Framework</h2>
+<p>To build a high-scoring answer, follow this structured progression. The intro + body build <em>toward</em> the conclusion &mdash; the analytical points are not themselves the conclusion.</p>
+<ol>
+  <li><b>What are ordinances?</b> &mdash; definition + constitutional provisions (Art 123/213). <span class="small">This is your Introduction and the Prelims foundation.</span></li>
+  <li><b>Why do they exist?</b> &mdash; purpose / rationale (session gaps, urgency).</li>
+  <li><b>Are they common internationally?</b> &mdash; only India/Pakistan/Bangladesh (Comparative Constitutionalism / VA angle).</li>
+  <li><b>Are they frequent?</b> &mdash; support with <b>data</b> (196 in LPG era, 76 in 2010&ndash;19, 0 in 2022).</li>
+  <li><b>Why are they promulgated today?</b> &mdash; current use / drivers (instability, avoiding scrutiny).</li>
+  <li><b>What are the core issues?</b> &mdash; Urgency, Re-promulgation, Lapse, Role of the Judiciary.</li>
+  <li><b>How can they be challenged?</b> &mdash; grounds for JR (FR / Art 13(2), Colorable Legislation, Competence).</li>
+  <li><b>Impact</b> &mdash; Parliamentary Democracy, Separation of Powers, Federalism, Judicial Review, Constitutional Morality.</li>
+  <li><b>Cost&ndash;Benefit Analysis</b> &mdash; weigh immediate utility against long-term constitutional harm.</li>
+</ol>
+<div class="twocol">
+  <div class="box good">
+    <div class="bx-h">Benefits</div>
+    <ul><li>Rapid response to emergencies.</li><li>Legislative continuity when Parliament is not in session.</li></ul>
+  </div>
+  <div class="box crit">
+    <div class="bx-h">Harms / Risks</div>
+    <ul><li>Executive overreach.</li><li>Bypassing legislative scrutiny.</li><li>Undermining the Rule of Law.</li></ul>
+  </div>
+</div>
+<div class="box key">
+  <div class="bx-h">Way forward (avoid a binary yes/no)</div>
+  <p>Argue that ordinances <b>should be retained</b> &mdash; they are a constitutionally recognised mechanism for genuine exigency &mdash; <b>but</b> must be used with extreme caution and strict adherence to safeguards. Then elevate the discussion from a legalistic argument to a <b>philosophical one</b>: how the use (or misuse) of such powers affects the health and integrity of democracy. Add an <b>ethics / merit</b> lens: is the practice ethically justifiable even where technically legal?</p>
+  <p class="small">Critical closing question: <em>Do the benefits of issuing an ordinance outweigh the harm caused to the constitutional structure?</em></p>
+</div>
+
+<!-- 15 REVISION CARD -->
+<h2 id="revision"><span class="num">15</span>One-Page Revision Card</h2>
+<div class="box">
+  <div class="bx-h">Articles</div>
+  <p><span class="tag art">123</span> President &middot; <span class="tag art">213</span> Governor &middot; <span class="tag art">13(2)</span> ordinance violating FR is void &middot; <span class="tag art">20</span> no ex post facto criminal law.</p>
+</div>
+<div class="box">
+  <div class="bx-h">Numbers</div>
+  <p>Max duration = <b>6 months + 6 weeks</b> &middot; lay before House within <b>6 weeks</b> of reassembly &middot; only <b>3</b> democracies (India/Pak/Bangladesh) &middot; LPG 1990&ndash;99 = <b>196</b> (1993 alone = 34) &middot; 2010&ndash;19 = <b>76</b> &middot; 1975 Emergency &asymp; <b>100</b> &middot; Kerala 2006 = <b>144</b> (141 to Acts) &middot; Bihar = <b>256</b> re-issues &middot; ~<b>42</b> ordinance&rarr;Act transitions &middot; 2022 = <b>0</b>, 2023 = <b>1</b>.</p>
+</div>
+<div class="box">
+  <div class="bx-h">Cases &amp; their issue</div>
+  <p>Ram Jawaya Kapur (1955) &mdash; scope of executive power &middot; R.C. Cooper (1970) &mdash; JR, satisfaction reviewable if malafide &middot; A.K. Roy (1982) &mdash; Urgency, not a substitute &middot; D.C. Wadhwa (1987) &mdash; Re-issue, &ldquo;fraud on the Constitution&rdquo; &middot; S.R. Bommai (1994) &mdash; JR &middot; Krishna Kumar Singh (2017) &mdash; Re-issue + Lapse, must lay before legislature.</p>
+</div>
+<div class="box">
+  <div class="bx-h">Power phrases for the exam</div>
+  <p>&ldquo;Fraud on the Constitution&rdquo; &middot; &ldquo;subversion of the democratic process&rdquo; &middot; &ldquo;fait accompli&rdquo; &middot; &ldquo;Purpose vs Use&rdquo; &middot; &ldquo;mandate gives authority, not licence&rdquo; &middot; &ldquo;Colorable Legislation &mdash; cannot do indirectly what is barred directly&rdquo; &middot; &ldquo;advice shielded, satisfaction reviewable.&rdquo;</p>
+</div>
+
+<div class="footer">
+  <p>Source: MCF Live Batch (Atish Mathur) &mdash; lecture transcript on Ordinances, prepared for UPSC CSE 2025&ndash;26. Notes restructured and consolidated for study; duplicate slides merged.</p>
+</div>
+
+</div>
+</body>
+</html>
+
+
+
+
