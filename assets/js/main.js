@@ -206,6 +206,20 @@ const GEOGRAPHY_DATA = [
 const POLITY_DATA = [
 
   {
+    id:        'gs2_polity_governor_001',
+    type:      'note',
+    gs:        'gs2',
+    title:     'Governor',
+    subtopic:  'GS2 → Indian Polity → State Executive → Governor (Art. 153–167, Part VI)',
+    pyqYears:  [2010, 2014, 2017, 2019, 2022],
+    gapStatus: 'complete',
+    source:    'Laxmikanth_Ch30_Governor.pdf',
+    createdAt: '2026-06-07',
+    file:      'notes/polity/governor.html',
+    summary:   'Appointment (Art.155), Qualifications (Art.157), Term & Removal (Art.156), Conditions (Art.158), Executive/Legislative/Financial/Judicial Powers, Veto & Ordinance comparison with President, Pardoning powers, Discretion (Constitutional & Situational), Sarkaria Commission. 14 visual pages.'
+  },
+
+  {
     id:        'gs2_polity_ordinances_001',
     type:      'note',
     gs:        'gs2',
