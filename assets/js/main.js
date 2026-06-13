@@ -203,6 +203,24 @@ const POLITY_DATA = [
 
 ];
 
+const CULTURE_DATA = [
+
+  {
+    id:        'gs1_culture_scripts_sabar_lipi_001',
+    type:      'note',
+    gs:        'gs1',
+    title:     'Sabar Lipi — The Sora Script',
+    subtopic:  'GS1 → Indian Culture → Scripts & Tribal Languages → Soura/Sora People of Odisha',
+    pyqYears:  [],
+    gapStatus: 'complete',
+    source:    'sabar-lipi.html',
+    createdAt: '2026-06-13',
+    file:      'notes/sabar-lipi.html',
+    summary:   'Origin, structure, and cultural significance of Sabar Lipi (ସବର ଲିପି), the indigenous script of the Sora tribal community of Odisha. Covers script inventor Mangei Gomango, UNESCO recognition, and UPSC relevance.'
+  },
+
+];
+
 const PRELIMS_DATA = [
 
 ];
@@ -228,11 +246,13 @@ const searchInput   = document.getElementById('searchInput');
 const notesGrid     = document.getElementById('notesGrid');
 const geographyGrid = document.getElementById('geographyGrid');
 const polityGrid    = document.getElementById('polityGrid');
+const cultureGrid   = document.getElementById('cultureGrid');
 const prelimsGrid   = document.getElementById('prelimsGrid');
 const mainsGrid     = document.getElementById('mainsGrid');
 const notesCount      = document.getElementById('notesCount');
 const geographyCount  = document.getElementById('geographyCount');
 const polityCount     = document.getElementById('polityCount');
+const cultureCount    = document.getElementById('cultureCount');
 const prelimsCount  = document.getElementById('prelimsCount');
 const mainsCount    = document.getElementById('mainsCount');
 const totalNotes    = document.getElementById('totalNotes');
@@ -260,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
    STATS
    ═══════════════════════════════════════════════ */
 function updateStats() {
-  const gapCount = [...NOTES_DATA, ...GEOGRAPHY_DATA, ...POLITY_DATA, ...PRELIMS_DATA, ...MAINS_DATA]
+  const gapCount = [...NOTES_DATA, ...GEOGRAPHY_DATA, ...POLITY_DATA, ...CULTURE_DATA, ...PRELIMS_DATA, ...MAINS_DATA]
     .filter(d => d.gapStatus === 'partial').length;
 
   animateCount(totalNotes,   NOTES_DATA.length);
@@ -292,6 +312,7 @@ function renderAll() {
   renderSection(NOTES_DATA,     notesGrid,     notesCount,     'notesEmpty',     '📄');
   renderSection(GEOGRAPHY_DATA, geographyGrid, geographyCount, 'geographyEmpty', '🌍');
   renderSection(POLITY_DATA,    polityGrid,    polityCount,    'polityEmpty',    '⚖️');
+  renderSection(CULTURE_DATA,   cultureGrid,   cultureCount,   'cultureEmpty',   '🎨');
   renderSection(PRELIMS_DATA,   prelimsGrid,   prelimsCount,   'prelimsEmpty',   '🎯');
   renderSection(MAINS_DATA,     mainsGrid,     mainsCount,     'mainsEmpty',     '✍️');
 }
