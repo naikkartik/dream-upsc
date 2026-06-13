@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sabar Lipi | ସବର ଲିପି – The Script of the Sora People</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Yatra+One&family=Tiro+Oriya&family=Noto+Sans+Sora+Sompeng&family=Inter:wght@300;400;600&display=swap');
+
+    :root {
+      --terracotta: #C0522A;
+      --ochre: #D4943A;
+      --saffron: #E8A020;
+      --mud: #7A4F2E;
+      --forest: #3A6B40;
+      --forest-light: #5A8C5A;
+      --cream: #F5EDD8;
+      --parchment: #EDD9B0;
+      --dark: #2A1A0E;
+      --light-text: #F5EDD8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── TRIBAL PATTERN UTILITY ── */
+    .tribal-border {
+      border: 3px solid var(--terracotta);
+      position: relative;
+    }
+    .tribal-border::before {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border: 1px solid var(--ochre);
+      pointer-events: none;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(160deg, #1a0a04 0%, #3D1F0A 40%, #2A1A0E 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* tribal geometric SVG background */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(45deg, rgba(192,82,42,0.08) 0px, rgba(192,82,42,0.08) 1px, transparent 1px, transparent 20px),
+        repeating-linear-gradient(-45deg, rgba(212,148,58,0.06) 0px, rgba(212,148,58,0.06) 1px, transparent 1px, transparent 20px);
+      pointer-events: none;
+    }
+
+    .hero-motif {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.85;
+      letter-spacing: 0.3em;
+      color: var(--saffron);
+      text-shadow: 0 0 30px rgba(232,160,32,0.4);
+    }
+
+    .hero-script-display {
+      font-family: 'Noto Sans Sora Sompeng', monospace;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      color: var(--saffron);
+      letter-spacing: 0.15em;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 20px rgba(232,160,32,0.5);
+    }
+
+    .hero-title-en {
+      font-family: 'Yatra One', cursive;
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      color: var(--parchment);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-title-or {
+      font-family: 'Tiro Oriya', serif;
+      font-size: clamp(1.3rem, 3vw, 2.2rem);
+      color: var(--ochre);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: rgba(245,237,216,0.75);
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-divider {
+      width: 120px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--saffron), transparent);
+      margin: 0 auto 2.5rem;
+    }
+
+    .scroll-hint {
+      color: var(--ochre);
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* decorative corner motifs */
+    .corner-motif {
+      position: absolute;
+      width: 80px; height: 80px;
+      border-color: var(--terracotta);
+      border-style: solid;
+      opacity: 0.4;
+    }
+    .corner-motif.tl { top: 20px; left: 20px; border-width: 3px 0 0 3px; }
+    .corner-motif.tr { top: 20px; right: 20px; border-width: 3px 3px 0 0; }
+    .corner-motif.bl { bottom: 20px; left: 20px; border-width: 0 0 3px 3px; }
+    .corner-motif.br { bottom: 20px; right: 20px; border-width: 0 3px 3px 0; }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--mud);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.35);
+    }
+    nav a {
+      color: var(--parchment);
+      text-decoration: none;
+      padding: 0.85rem 1.4rem;
+      font-size: 0.88rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+      font-weight: 600;
+    }
+    nav a:hover { background: var(--terracotta); color: white; }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-alt {
+      background: linear-gradient(135deg, #EDE0C4, #F5EDD8);
+      max-width: 100%;
+      padding: 5rem 2rem;
+    }
+    .section-alt > .inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-dark {
+      background: var(--dark);
+      max-width: 100%;
+      padding: 5rem 2rem;
+      color: var(--cream);
+    }
+    .section-dark > .inner { max-width: 1100px; margin: 0 auto; }
+
+    /* ── SECTION HEADERS ── */
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .section-header .tag {
+      display: inline-block;
+      background: var(--terracotta);
+      color: white;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.3rem 1rem;
+      border-radius: 2px;
+      margin-bottom: 0.8rem;
+    }
+    .section-header h2 {
+      font-family: 'Yatra One', cursive;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--mud);
+      line-height: 1.2;
+    }
+    .section-dark .section-header h2 { color: var(--ochre); }
+    .section-header .or {
+      font-family: 'Tiro Oriya', serif;
+      font-size: 1.2rem;
+      color: var(--terracotta);
+      margin-top: 0.3rem;
+    }
+    .section-dark .section-header .or { color: var(--saffron); }
+    .section-header .underline {
+      width: 70px; height: 3px;
+      background: linear-gradient(90deg, var(--terracotta), var(--saffron));
+      margin: 1rem auto 0;
+    }
+
+    /* ── BIOGRAPHY CARD ── */
+    .bio-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 700px) { .bio-grid { grid-template-columns: 1fr; } }
+
+    .bio-portrait {
+      background: linear-gradient(145deg, var(--mud), var(--dark));
+      border-radius: 8px;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      border: 3px solid var(--terracotta);
+      position: relative;
+    }
+    .bio-portrait::after {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px dashed rgba(212,148,58,0.4);
+      border-radius: 4px;
+      pointer-events: none;
+    }
+    .portrait-icon {
+      font-size: 5rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .bio-portrait h3 {
+      font-family: 'Yatra One', cursive;
+      color: var(--saffron);
+      font-size: 1.4rem;
+      margin-bottom: 0.3rem;
+    }
+    .bio-portrait .or-name {
+      font-family: 'Tiro Oriya', serif;
+      color: var(--ochre);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .bio-meta { list-style: none; text-align: left; margin-top: 1rem; }
+    .bio-meta li {
+      color: var(--parchment);
+      font-size: 0.85rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      gap: 0.6rem;
+    }
+    .bio-meta li span:first-child {
+      color: var(--ochre);
+      font-weight: 600;
+      min-width: 60px;
+    }
+
+    .bio-content h3 {
+      font-family: 'Yatra One', cursive;
+      color: var(--mud);
+      font-size: 1.5rem;
+      margin-bottom: 0.4rem;
+    }
+    .bio-content .or-sub {
+      font-family: 'Tiro Oriya', serif;
+      color: var(--terracotta);
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .bio-content p {
+      line-height: 1.8;
+      color: #3a2a1a;
+      margin-bottom: 1rem;
+      font-size: 0.97rem;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(192,82,42,0.12), rgba(212,148,58,0.1));
+      border-left: 4px solid var(--terracotta);
+      padding: 1rem 1.4rem;
+      border-radius: 0 6px 6px 0;
+      margin-top: 1.2rem;
+      font-style: italic;
+      color: var(--mud);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--terracotta), var(--saffron), var(--forest));
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.2rem;
+      padding-left: 1.5rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.6rem;
+      top: 0.3rem;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--terracotta);
+      border: 3px solid var(--cream);
+      box-shadow: 0 0 0 2px var(--terracotta);
+    }
+    .timeline-year {
+      display: inline-block;
+      background: var(--terracotta);
+      color: white;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 2px;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.08em;
+    }
+    .timeline-item h4 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--mud);
+      margin-bottom: 0.3rem;
+    }
+    .section-dark .timeline-item h4 { color: var(--ochre); }
+    .timeline-item p {
+      font-size: 0.9rem;
+      color: #5a3a2a;
+      line-height: 1.6;
+    }
+    .section-dark .timeline-item p { color: rgba(245,237,216,0.75); }
+
+    /* ── SCRIPT SECTION ── */
+    .script-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 700px) { .script-intro { grid-template-columns: 1fr; } }
+
+    .script-info-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(232,160,32,0.25);
+      border-radius: 8px;
+      padding: 1.8rem;
+    }
+    .script-info-card h4 {
+      color: var(--saffron);
+      font-family: 'Yatra One', cursive;
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+    .script-info-card p {
+      color: rgba(245,237,216,0.8);
+      line-height: 1.7;
+      font-size: 0.92rem;
+    }
+
+    /* ── ALPHABET TABLE ── */
+    .alphabet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .char-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(232,160,32,0.2);
+      border-radius: 8px;
+      padding: 1.2rem 0.8rem;
+      text-align: center;
+      transition: transform 0.2s, background 0.2s, border-color 0.2s;
+      cursor: default;
+    }
+    .char-card:hover {
+      transform: translateY(-4px);
+      background: rgba(192,82,42,0.2);
+      border-color: var(--saffron);
+    }
+    .char-sora {
+      font-family: 'Noto Sans Sora Sompeng', monospace;
+      font-size: 2.4rem;
+      color: var(--saffron);
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.6rem;
+    }
+    .char-name {
+      font-size: 0.78rem;
+      color: var(--ochre);
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+    .char-ipa {
+      font-size: 0.72rem;
+      color: rgba(245,237,216,0.5);
+      margin-top: 0.2rem;
+    }
+
+    /* Numbers section */
+    .numerals-grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 600px) { .numerals-grid { grid-template-columns: repeat(5, 1fr); } }
+
+    .num-card {
+      background: rgba(58,107,64,0.2);
+      border: 1px solid rgba(90,140,90,0.3);
+      border-radius: 6px;
+      padding: 1rem 0.4rem;
+      text-align: center;
+    }
+    .num-sora {
+      font-family: 'Noto Sans Sora Sompeng', monospace;
+      font-size: 2rem;
+      color: var(--forest-light);
+      display: block;
+    }
+    .num-val {
+      font-size: 0.78rem;
+      color: rgba(245,237,216,0.6);
+      margin-top: 0.2rem;
+    }
+
+    /* ── CULTURAL SIGNIFICANCE ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .cult-card {
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(120,70,30,0.1);
+      border-top: 4px solid var(--terracotta);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cult-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(120,70,30,0.18);
+    }
+    .cult-card .icon {
+      font-size: 2.2rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+    .cult-card h3 {
+      font-family: 'Yatra One', cursive;
+      color: var(--mud);
+      font-size: 1.15rem;
+      margin-bottom: 0.3rem;
+    }
+    .cult-card .or-h {
+      font-family: 'Tiro Oriya', serif;
+      color: var(--terracotta);
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+    .cult-card p {
+      color: #4a3a2a;
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    /* ── QUOTE ── */
+    .quote-section {
+      background: linear-gradient(135deg, var(--terracotta), var(--mud));
+      padding: 5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .quote-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 18px),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 18px);
+      pointer-events: none;
+    }
+    .quote-section blockquote {
+      font-family: 'Yatra One', cursive;
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      color: var(--parchment);
+      max-width: 800px;
+      margin: 0 auto 1.2rem;
+      line-height: 1.5;
+      position: relative;
+    }
+    .quote-section blockquote::before {
+      content: '"';
+      font-size: 6rem;
+      color: rgba(255,255,255,0.12);
+      position: absolute;
+      top: -2rem; left: -1rem;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+    .quote-section .or-quote {
+      font-family: 'Tiro Oriya', serif;
+      color: rgba(245,237,216,0.7);
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+    .quote-attribution {
+      color: var(--saffron);
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+
+    /* ── FACT STRIP ── */
+    .fact-strip {
+      background: var(--forest);
+      padding: 2.5rem 2rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 3rem;
+    }
+    .fact-item { text-align: center; }
+    .fact-number {
+      font-family: 'Yatra One', cursive;
+      font-size: 2.5rem;
+      color: var(--saffron);
+      display: block;
+    }
+    .fact-label {
+      color: rgba(245,237,216,0.8);
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── LEARN SECTION ── */
+    .learn-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 700px) { .learn-grid { grid-template-columns: 1fr; } }
+
+    .learn-card {
+      background: linear-gradient(135deg, rgba(192,82,42,0.08), rgba(212,148,58,0.06));
+      border: 2px solid rgba(192,82,42,0.2);
+      border-radius: 10px;
+      padding: 2rem;
+    }
+    .learn-card h3 {
+      font-family: 'Yatra One', cursive;
+      color: var(--mud);
+      font-size: 1.2rem;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .learn-card .or-h {
+      font-family: 'Tiro Oriya', serif;
+      color: var(--terracotta);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .phrase-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid rgba(192,82,42,0.12);
+      gap: 1rem;
+    }
+    .phrase-sora {
+      font-family: 'Noto Sans Sora Sompeng', monospace;
+      font-size: 1.5rem;
+      color: var(--terracotta);
+    }
+    .phrase-meaning {
+      text-align: right;
+      font-size: 0.88rem;
+      color: #4a3a2a;
+      line-height: 1.4;
+    }
+    .phrase-en { font-weight: 600; }
+    .phrase-or {
+      font-family: 'Tiro Oriya', serif;
+      color: var(--mud);
+      font-size: 0.83rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      color: rgba(245,237,216,0.6);
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+    footer .footer-script {
+      font-family: 'Noto Sans Sora Sompeng', monospace;
+      font-size: 2rem;
+      color: var(--saffron);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    footer .footer-title {
+      font-family: 'Yatra One', cursive;
+      font-size: 1.2rem;
+      color: var(--parchment);
+      margin-bottom: 0.3rem;
+    }
+    footer .footer-or {
+      font-family: 'Tiro Oriya', serif;
+      color: var(--ochre);
+      margin-bottom: 1.5rem;
+    }
+    footer p { font-size: 0.8rem; line-height: 1.7; margin-bottom: 0.5rem; }
+    footer a { color: var(--ochre); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    footer .footer-divider {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--terracotta), transparent);
+      margin: 1.5rem auto;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 480px) {
+      .alphabet-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
+      .char-sora { font-size: 1.8rem; }
+    }
+
+    /* ── SMOOTH SCROLL ── */
+    html { scroll-behavior: smooth; }
+
+    /* ── TRIBAL SEPARATOR ── */
+    .tribal-sep {
+      text-align: center;
+      color: var(--terracotta);
+      font-size: 1.5rem;
+      letter-spacing: 0.5em;
+      opacity: 0.4;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<header class="hero">
+  <div class="corner-motif tl"></div>
+  <div class="corner-motif tr"></div>
+  <div class="corner-motif bl"></div>
+  <div class="corner-motif br"></div>
+
+  <div class="hero-motif">𑃐 𑃑 𑃒 𑃓</div>
+  <div class="hero-script-display">𑃐𑃦𑃝𑃗 𑃐𑃦𑃖𑃛𑃣𑃗</div>
+  <h1 class="hero-title-en">Sabar Lipi</h1>
+  <div class="hero-title-or">ସବର ଲିପି</div>
+  <div class="hero-divider"></div>
+  <p class="hero-subtitle">
+    The sacred script of the Sora people — born from a divine vision in 1936,
+    preserved through generations of tribal wisdom in the hills of Odisha and Andhra Pradesh.
+    <br><br>
+    <span style="font-family:'Tiro Oriya',serif; font-size:0.95rem; color:rgba(245,237,216,0.65);">
+      ଓଡ଼ିଶାର ସୋରା ଜନଜାତିର ପବିତ୍ର ଲିପି — ୧୯୩୬ ମସିହାରେ ଏକ ଦିବ୍ୟ ଦୃଷ୍ଟିଭଙ୍ଗୀ ମାଧ୍ୟମରେ ଜନ୍ମ ।
+    </span>
+  </p>
+  <div class="scroll-hint">▼ Explore ▼</div>
+</header>
+
+<!-- ══════════════════════════════════════════
+     NAV
+══════════════════════════════════════════ -->
+<nav>
+  <a href="#creator">Creator</a>
+  <a href="#timeline">History</a>
+  <a href="#script">The Script</a>
+  <a href="#culture">Culture</a>
+  <a href="#learn">Learn</a>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     FACT STRIP
+══════════════════════════════════════════ -->
+<div class="fact-strip">
+  <div class="fact-item">
+    <span class="fact-number">1936</span>
+    <span class="fact-label">Year of Creation</span>
+  </div>
+  <div class="fact-item">
+    <span class="fact-number">~3 Lakh</span>
+    <span class="fact-label">Sora Speakers</span>
+  </div>
+  <div class="fact-item">
+    <span class="fact-number">24</span>
+    <span class="fact-label">Consonants</span>
+  </div>
+  <div class="fact-item">
+    <span class="fact-number">Unicode</span>
+    <span class="fact-label">Globally Encoded (2012)</span>
+  </div>
+  <div class="fact-item">
+    <span class="fact-number">2</span>
+    <span class="fact-label">States: Odisha & AP</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     CREATOR / BIO
+══════════════════════════════════════════ -->
+<section id="creator">
+  <div class="section-header">
+    <div class="tag">The Visionary</div>
+    <h2>Mangei Gomango<br>— Pandita Sabara</h2>
+    <div class="or">ମଙ୍ଗେଇ ଗୋମାଙ୍ଗ — ପଣ୍ଡିତ ସବର</div>
+    <div class="underline"></div>
+  </div>
+
+  <div class="bio-grid">
+    <div class="bio-portrait">
+      <span class="portrait-icon">🌿</span>
+      <h3>Pandita Sabara</h3>
+      <div class="or-name">ପଣ୍ଡିତ ସବର</div>
+      <ul class="bio-meta">
+        <li><span>Born</span><span>16 June 1916, Marichaguda, Jeypore Estate</span></li>
+        <li><span>Died</span><span>1980 (age 63–64)</span></li>
+        <li><span>Region</span><span>Rayagada District, Odisha</span></li>
+        <li><span>Known</span><span>Inventor of Sorang Sompeng (Sabar Lipi)</span></li>
+        <li><span>Award</span><span>Odisha Sahitya Academy</span></li>
+        <li><span>Also</span><span>Poet, Ayurvedic Scholar, Reformer</span></li>
+      </ul>
+    </div>
+
+    <div class="bio-content">
+      <h3>The Scholar of the Sora People</h3>
+      <div class="or-sub">ସୋରା ଜନଗୋଷ୍ଠୀର ପଣ୍ଡିତ</div>
+      <p>
+        Mangei Gomango, reverently known as <strong>Pandita Sabara</strong> ("scholar of the Sora"),
+        was born on 16 June 1916 in Marichaguda in the Jeypore Estate of present-day Odisha.
+        A self-taught polymath, he was not only a language activist but also a poet, an Ayurvedic
+        scholar, and a social reformer who dedicated his life to uplifting the Sora tribal community.
+      </p>
+      <p>
+        The Sora people (also called Saura, Saora, Savara, or Sabara) are an ancient Austroasiatic
+        Munda community living in the hilly tracts of southern Odisha and northern coastal Andhra
+        Pradesh. Though they had a rich oral tradition, they had no written script of their own —
+        until Gomango changed everything.
+      </p>
+      <p>
+        In 1936, Gomango established a press at Puthasahi in the Gunupur subdivision, dedicating
+        himself to spreading literacy and preserving Sora culture through the script he had devised.
+        He received the Odisha Sahitya Academy award in recognition of his monumental contribution
+        to Indian literary heritage.
+      </p>
+      <div class="highlight-box">
+        "The temple of Matarabnam in Marichaguda played a great role in the invention of the script.
+        It is believed that the Sorang Sompeng alphabet came to Gomango in a divine vision
+        on 18 June 1936."
+        <br><br>
+        <span style="font-family:'Tiro Oriya',serif; font-size:0.88rem; color:var(--terracotta);">
+          ମାରିଚଗୁଡ଼ାର ମାତ୍ରାବ୍ଣଂ ମନ୍ଦିରରେ ୧୯୩୬ ମସିହା ଜୁନ ୧୮ ତାରିଖରେ ଦିବ୍ୟ ଦର୍ଶନ ମାଧ୍ୟମରେ ଏହି ଲିପି ଜନ୍ମ ହୋଇଥିଲା ।
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TIMELINE
+══════════════════════════════════════════ -->
+<div class="section-dark" id="timeline">
+  <div class="inner">
+    <div class="section-header">
+      <div class="tag" style="background:var(--forest)">History</div>
+      <h2>The Journey of Sabar Lipi</h2>
+      <div class="or">ସବର ଲିପିର ଇତିହାସ</div>
+      <div class="underline"></div>
+    </div>
+
+    <div style="max-width:700px; margin:0 auto;">
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="timeline-year">1916</span>
+          <h4>Birth of the Visionary</h4>
+          <p>Mangei Gomango is born on 16 June in Marichaguda, Jeypore Estate, Odisha, into the Sora tribal community.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">18 June 1936</span>
+          <h4>The Divine Vision / ଦିବ୍ୟ ଦର୍ଶନ</h4>
+          <p>At the Matarabnam temple in Marichaguda, Gomango receives a divine vision revealing the Sorang Sompeng alphabet — a moment that would transform tribal literacy forever.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">1936</span>
+          <h4>First Press Established</h4>
+          <p>Gomango establishes a printing press at Puthasahi, Gunupur subdivision, to spread the new script and produce literature in the Sora language.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">1966</span>
+          <h4>Formal Development</h4>
+          <p>The Sorang Sompeng script is formally developed and published for wider educational dissemination across Sora communities in Odisha and Andhra Pradesh.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">1980</span>
+          <h4>Passing of the Pandita</h4>
+          <p>Mangei Gomango passes away, leaving behind an enduring legacy — a living script used by Sora communities to this day.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2012</span>
+          <h4>Unicode Recognition</h4>
+          <p>The Sorang Sompeng script is added to the Unicode Standard (version 6.1), Unicode block U+110D0–U+110FF, giving it global digital recognition.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">Present</span>
+          <h4>Preservation Efforts / ସଂରକ୍ଷଣ</h4>
+          <p>Activists, scholars, and organisations continue to push for Saura language's inclusion in the 8th Schedule of the Indian Constitution and to develop digital tools for the script.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     THE SCRIPT
+══════════════════════════════════════════ -->
+<div class="section-dark" id="script" style="background: linear-gradient(160deg, #0f1a10, #1a2a1a);">
+  <div class="inner">
+    <div class="section-header">
+      <div class="tag" style="background:var(--forest)">The Writing System</div>
+      <h2>Sorang Sompeng Script</h2>
+      <div class="or">ସୋରଙ୍ଗ ସୋମ୍ପେଙ୍ଗ ଲିପି</div>
+      <div class="underline" style="background: linear-gradient(90deg, var(--forest), var(--saffron));"></div>
+    </div>
+
+    <div class="script-intro">
+      <div class="script-info-card">
+        <h4>🔤 About the Script</h4>
+        <p>
+          Sorang Sompeng is an <strong>alphabetic script</strong> written <strong>left to right</strong>.
+          It was created specifically for the Sora (Munda) language.
+          The name "Sorang Sompeng" means roughly "the letters of the Soras" in the Sora language itself.
+          It has 24 consonants and 6 vowels, plus its own numeral system.
+        </p>
+      </div>
+      <div class="script-info-card">
+        <h4>🌐 Usage & Status</h4>
+        <p>
+          The script is used primarily in <strong>religious rites</strong> of the Matar Banom neo-animist movement
+          and also for secular education and literature. It is spoken by approximately
+          <strong>3 lakh people</strong> in Odisha and Andhra Pradesh.
+          Only ~30% can write it fluently, making preservation efforts critical.
+        </p>
+      </div>
+    </div>
+
+    <!-- Consonants -->
+    <h3 style="color:var(--saffron); font-family:'Yatra One',cursive; text-align:center; margin-bottom:0.3rem;">Consonants / ବ୍ୟଞ୍ଜନ</h3>
+    <p style="text-align:center; color:rgba(245,237,216,0.6); font-size:0.85rem; margin-bottom:1.2rem;">Hover over each character to explore</p>
+
+    <div class="alphabet-grid">
+      <div class="char-card"><span class="char-sora">𑃟</span><div class="char-name">kah</div><div class="char-ipa">/k/</div></div>
+      <div class="char-card"><span class="char-sora">𑃕</span><div class="char-name">gah</div><div class="char-ipa">/ɡ/</div></div>
+      <div class="char-card"><span class="char-sora">𑃗</span><div class="char-name">ngah</div><div class="char-ipa">/ŋ/</div></div>
+      <div class="char-card"><span class="char-sora">𑃓</span><div class="char-name">cah</div><div class="char-ipa">/tʃ/</div></div>
+      <div class="char-card"><span class="char-sora">𑃠</span><div class="char-name">jah</div><div class="char-ipa">/dʒ/</div></div>
+      <div class="char-card"><span class="char-sora">𑃡</span><div class="char-name">nyah</div><div class="char-ipa">/ɲ/</div></div>
+      <div class="char-card"><span class="char-sora">𑃑</span><div class="char-name">tah</div><div class="char-ipa">/t/</div></div>
+      <div class="char-card"><span class="char-sora">𑃔</span><div class="char-name">dah</div><div class="char-ipa">/d/</div></div>
+      <div class="char-card"><span class="char-sora">𑃙</span><div class="char-name">nah</div><div class="char-ipa">/n/</div></div>
+      <div class="char-card"><span class="char-sora">𑃛</span><div class="char-name">pah</div><div class="char-ipa">/p/</div></div>
+      <div class="char-card"><span class="char-sora">𑃒</span><div class="char-name">bah</div><div class="char-ipa">/b/</div></div>
+      <div class="char-card"><span class="char-sora">𑃖</span><div class="char-name">mah</div><div class="char-ipa">/m/</div></div>
+      <div class="char-card"><span class="char-sora">𑃜</span><div class="char-name">yah</div><div class="char-ipa">/j/</div></div>
+      <div class="char-card"><span class="char-sora">𑃝</span><div class="char-name">rah</div><div class="char-ipa">/r/</div></div>
+      <div class="char-card"><span class="char-sora">𑃘</span><div class="char-name">lah</div><div class="char-ipa">/l/</div></div>
+      <div class="char-card"><span class="char-sora">𑃚</span><div class="char-name">wah</div><div class="char-ipa">/w/</div></div>
+      <div class="char-card"><span class="char-sora">𑃐</span><div class="char-name">sah</div><div class="char-ipa">/s/</div></div>
+      <div class="char-card"><span class="char-sora">𑃞</span><div class="char-name">hah</div><div class="char-ipa">/h/</div></div>
+    </div>
+
+    <!-- Vowels -->
+    <h3 style="color:var(--saffron); font-family:'Yatra One',cursive; text-align:center; margin: 2.5rem 0 0.3rem;">Vowels / ସ୍ୱର</h3>
+    <div class="alphabet-grid" style="max-width:600px; margin: 0 auto 0;">
+      <div class="char-card"><span class="char-sora">𑃢</span><div class="char-name">ah</div><div class="char-ipa">/aː/</div></div>
+      <div class="char-card"><span class="char-sora">𑃤</span><div class="char-name">ih</div><div class="char-ipa">/i/</div></div>
+      <div class="char-card"><span class="char-sora">𑃣</span><div class="char-name">eeh</div><div class="char-ipa">/e/</div></div>
+      <div class="char-card"><span class="char-sora">𑃥</span><div class="char-name">uh</div><div class="char-ipa">/u/</div></div>
+      <div class="char-card"><span class="char-sora">𑃦</span><div class="char-name">oh</div><div class="char-ipa">/o/</div></div>
+      <div class="char-card"><span class="char-sora">𑃧</span><div class="char-name">eh</div><div class="char-ipa">/ai/</div></div>
+    </div>
+
+    <!-- Numerals -->
+    <h3 style="color:var(--forest-light); font-family:'Yatra One',cursive; text-align:center; margin: 2.5rem 0 0.3rem;">Numerals / ସଂଖ୍ୟା</h3>
+    <div class="numerals-grid">
+      <div class="num-card"><span class="num-sora">𑃰</span><div class="num-val">0</div></div>
+      <div class="num-card"><span class="num-sora">𑃱</span><div class="num-val">1</div></div>
+      <div class="num-card"><span class="num-sora">𑃲</span><div class="num-val">2</div></div>
+      <div class="num-card"><span class="num-sora">𑃳</span><div class="num-val">3</div></div>
+      <div class="num-card"><span class="num-sora">𑃴</span><div class="num-val">4</div></div>
+      <div class="num-card"><span class="num-sora">𑃵</span><div class="num-val">5</div></div>
+      <div class="num-card"><span class="num-sora">𑃶</span><div class="num-val">6</div></div>
+      <div class="num-card"><span class="num-sora">𑃷</span><div class="num-val">7</div></div>
+      <div class="num-card"><span class="num-sora">𑃸</span><div class="num-val">8</div></div>
+      <div class="num-card"><span class="num-sora">𑃹</span><div class="num-val">9</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     QUOTE
+══════════════════════════════════════════ -->
+<div class="quote-section">
+  <blockquote>
+    A script is not just letters — it is the soul of a people, their memory, their voice across time.
+  </blockquote>
+  <div class="or-quote">ଏକ ଲିପି କେବଳ ଅକ୍ଷର ନୁହେଁ — ଏହା ଏକ ଜନଗୋଷ୍ଠୀର ଆତ୍ମା, ସ୍ମୃତି ଓ ଯୁଗ ଯୁଗ ଧରି ସ୍ୱର ।</div>
+  <div class="quote-attribution">— In the spirit of Pandita Sabara Mangei Gomango</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     CULTURAL SIGNIFICANCE
+══════════════════════════════════════════ -->
+<div class="section-alt" id="culture">
+  <div class="inner">
+    <div class="section-header">
+      <div class="tag">Heritage</div>
+      <h2>Cultural Significance</h2>
+      <div class="or">ସାଂସ୍କୃତିକ ମହତ୍ତ୍ୱ</div>
+      <div class="underline"></div>
+    </div>
+
+    <div class="cards-grid">
+      <div class="cult-card">
+        <span class="icon">🛕</span>
+        <h3>Sacred & Spiritual</h3>
+        <div class="or-h">ଧାର୍ମିକ ଓ ଆଧ୍ୟାତ୍ମିକ</div>
+        <p>
+          Sabar Lipi was born from a divine vision and is used primarily in the religious
+          rites of the <strong>Matar Banom</strong> neo-animist movement. It is considered
+          a liturgical language, akin to Sanskrit or Latin in other traditions — the sacred
+          language of Sora ritual.
+        </p>
+      </div>
+      <div class="cult-card">
+        <span class="icon">🏔️</span>
+        <h3>Land & Identity</h3>
+        <div class="or-h">ଭୂମି ଓ ପରିଚୟ</div>
+        <p>
+          The Sora people of the Rayagada, Gajapati, and Bargarh hills of Odisha,
+          and coastal Andhra Pradesh, see the script as inseparable from their identity.
+          At least 5 lakh tribals speak Sora — the script is their written soul.
+        </p>
+      </div>
+      <div class="cult-card">
+        <span class="icon">📚</span>
+        <h3>Literary Heritage</h3>
+        <div class="or-h">ସାହିତ୍ୟ ସଂପଦ</div>
+        <p>
+          Gomango was not only a script-maker but a poet. His press at Gunupur produced
+          literature in Sora, creating the foundation for a written Sora literary tradition.
+          Odisha Sahitya Academy honoured this contribution with a formal award.
+        </p>
+      </div>
+      <div class="cult-card">
+        <span class="icon">🌍</span>
+        <h3>Global Recognition</h3>
+        <div class="or-h">ଆନ୍ତର୍ଜାତୀୟ ସ୍ୱୀକୃତି</div>
+        <p>
+          In 2012, Sorang Sompeng became one of the few tribal scripts in the world to
+          receive <strong>Unicode encoding</strong> (U+110D0–U+110FF). Microsoft's
+          Nirmala UI font supports it. It is one of only 4 tribal languages in Odisha
+          with a written script.
+        </p>
+      </div>
+      <div class="cult-card">
+        <span class="icon">⚠️</span>
+        <h3>Endangered Status</h3>
+        <div class="or-h">ବିପଦଗ୍ରସ୍ତ ଅବସ୍ଥା</div>
+        <p>
+          While all Sora people speak the language, only ~30% can write Sabar Lipi fluently.
+          Preservation efforts — software tools, schools, and advocacy for 8th Schedule
+          inclusion — are urgently needed to prevent this heritage from fading.
+        </p>
+      </div>
+      <div class="cult-card">
+        <span class="icon">🔬</span>
+        <h3>Linguistic Uniqueness</h3>
+        <div class="or-h">ଭାଷାତାତ୍ତ୍ୱିକ ବୈଶିଷ୍ଟ୍ୟ</div>
+        <p>
+          Sora is an <strong>Austroasiatic Munda language</strong> — among the oldest
+          language families in the Indian subcontinent. Sabar Lipi was created independent
+          of all existing scripts, making it a truly original invention, not derived from
+          Brahmi or Devanagari.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     LEARN SECTION
+══════════════════════════════════════════ -->
+<section id="learn">
+  <div class="section-header">
+    <div class="tag">Start Learning</div>
+    <h2>Script Sampler</h2>
+    <div class="or" style="color:var(--terracotta);">ଲିପି ପ୍ରାରମ୍ଭ</div>
+    <div class="underline"></div>
+  </div>
+  <p style="text-align:center; color:#5a3a2a; margin-bottom:2rem; font-size:0.93rem;">
+    Basic Sora words written in Sorang Sompeng, with English and Odia meanings.
+  </p>
+
+  <div class="learn-grid">
+    <div class="learn-card">
+      <h3>🌿 Nature Words</h3>
+      <div class="or-h">ପ୍ରକୃତି ଶବ୍ଦ</div>
+      <div class="phrase-row">
+        <span class="phrase-sora">𑃐𑃦𑃝𑃗</span>
+        <div class="phrase-meaning">
+          <div class="phrase-en">Sorang (Sora word)</div>
+          <div class="phrase-or">ସୋରଙ୍ଗ — ସୋରା ଭାଷା</div>
+        </div>
+      </div>
+      <div class="phrase-row">
+        <span class="phrase-sora">𑃖𑃦𑃕</span>
+        <div class="phrase-meaning">
+          <div class="phrase-en">Tree / Forest</div>
+          <div class="phrase-or">ଗଛ / ଜଙ୍ଗଲ</div>
+        </div>
+      </div>
+      <div class="phrase-row">
+        <span class="phrase-sora">𑃑𑃢𑃖𑃢</span>
+        <div class="phrase-meaning">
+          <div class="phrase-en">Water / River</div>
+          <div class="phrase-or">ଜଳ / ନଦୀ</div>
+        </div>
+      </div>
+      <div class="phrase-row">
+        <span class="phrase-sora">𑃒𑃦𑃙𑃦</span>
+        <div class="phrase-meaning">
+          <div class="phrase-en">Mountain / Hill</div>
+          <div class="phrase-or">ପାହାଡ଼</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="learn-card">
+      <h3>🤝 Common Phrases</h3>
+      <div class="or-h">ସାଧାରଣ ଶବ୍ଦ</div>
+      <div class="phrase-row">
+        <span class="phrase-sora">𑃐𑃦𑃖𑃛𑃣𑃗</span>
+        <div class="phrase-meaning">
+          <div class="phrase-en">Sompeng (Script)</div>
+          <div class="phrase-or">ଲିପି / ଅକ୍ଷର</div>
+        </div>
+      </div>
+      <div class="phrase-row">
+        <span class="phrase-sora">𑃖𑃢𑃑𑃢𑃝</span>
+        <div class="phrase-meaning">
+          <div class="phrase-en">Matar (Mother/Earth)</div>
+          <div class="phrase-or">ମାଟି / ମା</div>
+        </div>
+      </div>
+      <div class="phrase-row">
+        <span class="phrase-sora">𑃛𑃢𑃙𑃔𑃢</span>
+        <div class="phrase-meaning">
+          <div class="phrase-en">People / Community</div>
+          <div class="phrase-or">ଜନଗୋଷ୍ଠୀ</div>
+        </div>
+      </div>
+      <div class="phrase-row">
+        <span class="phrase-sora">𑃘𑃦𑃛𑃦</span>
+        <div class="phrase-meaning">
+          <div class="phrase-en">Life / Living</div>
+          <div class="phrase-or">ଜୀବନ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background: linear-gradient(135deg, rgba(58,107,64,0.1), rgba(90,140,90,0.08)); border: 2px solid rgba(58,107,64,0.2); border-radius:10px; padding:2rem; margin-top:2.5rem; text-align:center;">
+    <div style="font-size:1.8rem; margin-bottom:0.5rem;">📖</div>
+    <h3 style="font-family:'Yatra One',cursive; color:var(--mud); margin-bottom:0.3rem;">Want to learn more?</h3>
+    <div style="font-family:'Tiro Oriya',serif; color:var(--terracotta); font-size:0.9rem; margin-bottom:0.8rem;">ଅଧିକ ଜାଣିବାକୁ ଚାହୁଁଛ?</div>
+    <p style="color:#4a3a2a; font-size:0.9rem; line-height:1.7; max-width:600px; margin:0 auto;">
+      The Sorang Sompeng script is encoded in Unicode (U+110D0–U+110FF) and supported by
+      the <strong>Nirmala UI</strong> font on Windows. Resources on the Sora language are
+      maintained by the Academy of Tribal Languages and Culture, Odisha, and scholars at
+      the University of Odisha.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer>
+  <span class="footer-script">𑃐𑃦𑃝𑃗 𑃐𑃦𑃖𑃛𑃣𑃗</span>
+  <div class="footer-title">Sabar Lipi — Sorang Sompeng</div>
+  <div class="footer-or">ସବର ଲିପି — ସୋରା ଜନଜାତିର ଲିଖିତ ଆତ୍ମା</div>
+  <div class="footer-divider"></div>
+  <p>
+    Created in honour of <strong style="color:var(--ochre)">Pandita Sabara Mangei Gomango</strong> (1916–1980)<br>
+    Inventor of the Sorang Sompeng Script · Odisha Sahitya Academy Awardee
+  </p>
+  <p style="margin-top:1rem;">
+    Sources:
+    <a href="https://en.wikipedia.org/wiki/Mangei_Gomango" target="_blank">Wikipedia – Mangei Gomango</a> ·
+    <a href="https://en.wikipedia.org/wiki/Sorang_Sompeng_script" target="_blank">Wikipedia – Sorang Sompeng</a> ·
+    <a href="https://thediplomat.com/2021/02/mother-tongue-preserving-the-saura-language-in-india/" target="_blank">The Diplomat</a>
+  </p>
+  <p style="margin-top:0.5rem; font-size:0.75rem; opacity:0.5;">
+    An educational resource for learning about indigenous tribal scripts of India.
+  </p>
+</footer>
+
+</body>
+</html>
