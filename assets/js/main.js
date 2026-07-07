@@ -219,6 +219,20 @@ const CULTURE_DATA = [
     summary:   'Origin, structure, and cultural significance of Sabar Lipi (ସବର ଲିପି), the indigenous script of the Sora tribal community of Odisha. Covers script inventor Mangei Gomango, UNESCO recognition, and UPSC relevance.'
   },
 
+  {
+    id:        'gs1_culture_saura_eighth_schedule_001',
+    type:      'note',
+    gs:        'gs1',
+    title:     'Saura & the Eighth Schedule',
+    subtopic:  'GS1 → Indian Culture → Scripts & Tribal Languages → Saura/Sora Language → Constitutional Recognition (Art. 344, 351, 368)',
+    pyqYears:  [],
+    gapStatus: 'complete',
+    source:    'saura-deep-research.html',
+    createdAt: '2026-07-07',
+    file:      'notes/saura-eighth-schedule.html',
+    summary:   'Deep research report on how languages enter the Eighth Schedule (Art. 368), the criteria vacuum (Pahwa & Sitakant Mahapatra committees), case studies of Sindhi/Nepali/Konkani/Santhali/Bodo, and a full evidence-and-advocacy roadmap for including Saura, given Odisha\'s 2023 Cabinet resolution.'
+  },
+
 ];
 
 const PRELIMS_DATA = [
