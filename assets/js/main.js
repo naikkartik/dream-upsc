@@ -47,7 +47,7 @@ const POLITY_DATA = [
     source:    'Laxmikanth_Ch21_Central_Council_of_Ministers.pdf',
     createdAt: '2026-08-30',
     file:      'notes/polity/council-of-ministers.html',
-    summary:   'Arts. 74/75/77/78/88, 91st Amendment 2003 (15% cap + defection bar), nature of advice with U.N.R. Rao 1971 and Shamsher Singh 1974, appointment/oath/salary incl. Devi Lal 1990 and the 2001 sumptuary table, collective + individual + no-legal responsibility with the Ambedkar/Deshmukh/Arif Mohammed resignations, composition (three ranks, deputy PM, parliamentary secretaries), Table 21.1 CoM vs Cabinet, nine roles of the Cabinet, role descriptions (Ramsay Muir, Lowell, Marriott, Gladstone, Barker, Bagehot, Jennings, Amery) and the Kitchen Cabinet. 12 visual pages.'
+    summary:   'Arts. 74/75/77/78/88, 91st Amendment 2003 (15% cap + defection bar), nature of advice with U.N.R. Rao 1971 and Shamsher Singh 1974, appointment/oath/salary incl. Devi Lal 1990 and the 2001 sumptuary table, collective + individual + no-legal responsibility with the Ambedkar/Deshmukh/Arif Mohammed resignations, composition (three ranks, deputy PM, parliamentary secretaries), Table 21.1 CoM vs Cabinet, nine roles of the Cabinet, role descriptions (Ramsay Muir, Lowell, Marriott, Gladstone, Barker, Bagehot, Jennings, Amery) and the Kitchen Cabinet. 8 visual pages, condensed note style.'
   },
 
   {
