@@ -37,6 +37,20 @@ const NOTES_DATA = [
 const POLITY_DATA = [
 
   {
+    id:        'gs2_polity_council_of_ministers_001',
+    type:      'note',
+    gs:        'gs2',
+    title:     'Central Council of Ministers',
+    subtopic:  'GS2 → Indian Polity → Union Executive → Central Council of Ministers (Art. 74, 75, 77, 78, 88)',
+    pyqYears:  [2013, 2015, 2017, 2020, 2022, 2021, 2024],
+    gapStatus: 'complete',
+    source:    'Laxmikanth_Ch21_Central_Council_of_Ministers.pdf',
+    createdAt: '2026-08-30',
+    file:      'notes/polity/council-of-ministers.html',
+    summary:   'Arts. 74/75/77/78/88, 91st Amendment 2003 (15% cap + defection bar), nature of advice with U.N.R. Rao 1971 and Shamsher Singh 1974, appointment/oath/salary incl. Devi Lal 1990 and the 2001 sumptuary table, collective + individual + no-legal responsibility with the Ambedkar/Deshmukh/Arif Mohammed resignations, composition (three ranks, deputy PM, parliamentary secretaries), Table 21.1 CoM vs Cabinet, nine roles of the Cabinet, role descriptions (Ramsay Muir, Lowell, Marriott, Gladstone, Barker, Bagehot, Jennings, Amery) and the Kitchen Cabinet. 12 visual pages.'
+  },
+
+  {
     id:        'gs2_polity_prime_minister_001',
     type:      'note',
     gs:        'gs2',
