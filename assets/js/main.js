@@ -37,6 +37,20 @@ const NOTES_DATA = [
 const POLITY_DATA = [
 
   {
+    id:        'gs2_polity_prime_minister_001',
+    type:      'note',
+    gs:        'gs2',
+    title:     'Prime Minister',
+    subtopic:  'GS2 → Indian Polity → Union Executive → Prime Minister (Art. 74, 75, 78)',
+    pyqYears:  [2011, 2012, 2013, 2015, 2021, 2024],
+    gapStatus: 'complete',
+    source:    'Laxmikanth_Ch20_Prime_Minister.pdf',
+    createdAt: '2026-08-30',
+    file:      'notes/polity/prime-minister.html',
+    summary:   'Appointment & President discretion (1979 Charan Singh, 1984 Rajiv Gandhi), Delhi HC 1980 & SC 1996 six-month rule, Rajya Sabha PMs, Oath/Term/Salary, Powers (Council of Ministers, President Art.78, Parliament, Other), vacuum rule, role descriptions (Morely, Jennings, Laski, Munro, Ramsay Muir, Ambedkar), Arts. 74/75/78, six CMs who became PMs, Caretaker government (Tarkunde 1974-75, Reddy communique 1979, Calcutta HC 1979). 10 visual pages.'
+  },
+
+  {
     id:        'gs2_polity_governor_001',
     type:      'note',
     gs:        'gs2',
